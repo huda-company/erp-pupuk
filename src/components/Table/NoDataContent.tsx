@@ -1,10 +1,9 @@
 import React, { FC } from "react";
 
-import { NoDataContentProps } from "@/pages/my-business/orders/types";
-
 import Icon from "../Icon";
 import Typography from "../Typography";
 import { TailwindTextSizes } from "../Typography/types";
+import { NoDataContentProps } from "./types";
 
 const NoDataContent: FC<NoDataContentProps> = ({
   message = `Add styles to your CLIENT'S order`,

@@ -1,6 +1,6 @@
 import startDb from "@/lib/db";
 import UserModel from "@/models/UserModel";
-import { NextAuthOptions } from "next-auth";
+import { AuthOptions, NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -57,6 +57,6 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-const authHandler = NextAuth(authOptions);
+const authHandler = NextAuth(authOptions as NextAuthOptions);
 
 export { authHandler as GET, authHandler as POST };

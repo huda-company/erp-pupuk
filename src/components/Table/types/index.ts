@@ -1,6 +1,7 @@
 import { ReactNode, Ref } from "react";
 
 import { Variations } from "../config";
+import { TailwindTextSizes } from "@/components/Typography/types";
 
 export type TableHeader = Item[];
 
@@ -38,3 +39,10 @@ export type TableProps = {
   variation?: VariationOptions;
   ref?: Ref<HTMLDivElement>;
 } & VariationTable;
+
+export type NoDataContentProps = {
+  message?: string;
+  messageTxtSize?: TailwindTextSizes;
+  iconWidth?: number;
+  iconHeight?: number;
+};
