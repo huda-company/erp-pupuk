@@ -24,7 +24,7 @@ const VariationOne: FC<VariationRadioGroup> = ({
   return (
     <div className={`flex justify-${align ?? "center"}`}>
       <div className={clsxm("gap-4", orientations, className)}>
-        {options?.map(option => (
+        {options?.map((option) => (
           <Fragment key={option.id}>
             <Radio
               id={option.id}

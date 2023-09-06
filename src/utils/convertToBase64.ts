@@ -1,5 +1,5 @@
 const convertToBase64: (file: File) => Promise<string> = async (file: File) => {
-  return new Promise<string>(resolve => {
+  return new Promise<string>((resolve) => {
     // Make new FileReader
     const reader = new FileReader();
     // Convert the file to base64 text

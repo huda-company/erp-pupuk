@@ -10,7 +10,7 @@ export const GeneratePageTitle = (pathname: string) => {
     .substring(pathname.lastIndexOf("/"), pathname.length)
     .replaceAll("/", "")
     .split("-")
-    .map(str => {
+    .map((str) => {
       return capitalizeFirstLetter(str);
     })
     .join(" ");

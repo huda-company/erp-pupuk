@@ -45,7 +45,7 @@ const VariationTwo: FC<VariationDropdown> = ({
     if (readOnly) return;
 
     event.stopPropagation();
-    setIsOpen(open => !open);
+    setIsOpen((open) => !open);
     if (onFocus) onFocus();
   };
 
@@ -62,7 +62,7 @@ const VariationTwo: FC<VariationDropdown> = ({
   const renderOptions = useMemo(() => {
     const handleClick = (option: Option) => () => onChange(option);
 
-    return options.map(option => {
+    return options.map((option) => {
       return (
         <Fragment key={option.id}>
           <div className="mb-3 hover:cursor-pointer">

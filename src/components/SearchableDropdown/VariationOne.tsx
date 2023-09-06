@@ -46,7 +46,7 @@ const Dropdown: FC<VariationDropdown> = ({
     if (readOnly) return;
     if (query === emptyLabel) setQuery(""); // clear text default value
     event.stopPropagation();
-    setIsOpen(open => !open);
+    setIsOpen((open) => !open);
 
     if (onFocus) onFocus();
   };
@@ -78,7 +78,7 @@ const Dropdown: FC<VariationDropdown> = ({
           value={selectedOption?.label !== "" ? selectedOption?.label : query}
           // name="state"
           className={`w-[100%] border-0 px-0 ${disabled ? "bg-disable" : ""}`}
-          onChange={e => {
+          onChange={(e) => {
             setQuery(e.target.value);
             onChange({ label: "", id: "" });
             if (!open) setIsOpen(true);
