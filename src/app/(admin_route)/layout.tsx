@@ -19,7 +19,7 @@ export default async function PrivateLayout({
     <>
       <Navbar />
 
-      <Sidebar />
+      <Sidebar variation="Secondary" />
 
       {children}
     </>

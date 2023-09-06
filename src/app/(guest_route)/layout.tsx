@@ -19,9 +19,5 @@ export default async function GuestLayout({
   if (session?.user.role == "user") redirect("/user");
   if (session?.user.role == "admin") redirect("/admin");
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
