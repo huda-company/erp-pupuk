@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           role: user.role,
           id: String(user._id),
-        } ;
+        };
 
         return aa;
       },
