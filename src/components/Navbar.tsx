@@ -3,6 +3,8 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import useOnClickOutsideElement from "@/hooks/useOnClickOutsideElement";
+import { persistor } from "@/redux/store";
+import { base_url } from "@/constants/env";
 
 export default function Navbar() {
   const { data: sessionData } = useSession();
@@ -15,6 +17,11 @@ export default function Navbar() {
   }, []);
 
   useOnClickOutsideElement(ref, handleClickOutside);
+
+  const handleLogout = () => {
+    signOut({ callbackUrl: `${base_url}/auth/login` });
+    persistor.purge();
+  };
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -100,7 +107,7 @@ export default function Navbar() {
                   <ul className="py-1" role="none">
                     <li>
                       <a
-                        onClick={() => signOut()}
+                        onClick={() => handleLogout()}
                         href="#"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                         role="menuitem"

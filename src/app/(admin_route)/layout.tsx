@@ -1,6 +1,6 @@
 import React from "react";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import authOptions from "../api/auth/[...nextauth]/authOpts";
 import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
@@ -19,7 +19,7 @@ export default async function PrivateLayout({
     <>
       <Navbar />
 
-      <Sidebar />
+      <Sidebar variation="Secondary" />
 
       {children}
     </>

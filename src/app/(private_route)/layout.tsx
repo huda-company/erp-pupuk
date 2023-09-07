@@ -1,8 +1,6 @@
-import React, { useCallback, useRef, useState } from "react";
-import { useOnClickOutsideElement } from "@/hooks";
-import { signOut } from "next-auth/react";
+import React from "react";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import authOptions from "../api/auth/[...nextauth]/authOpts";
 import useMount from "@/hooks/useMount";
 import Image from "next/image";
 import { redirect } from "next/navigation";
