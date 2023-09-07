@@ -4,6 +4,7 @@ import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import useOnClickOutsideElement from "@/hooks/useOnClickOutsideElement";
 import { persistor } from "@/redux/store";
+import { base_url } from "@/constants/env";
 
 export default function Navbar() {
   const { data: sessionData } = useSession();
@@ -18,7 +19,7 @@ export default function Navbar() {
   useOnClickOutsideElement(ref, handleClickOutside);
 
   const handleLogout = () => {
-    signOut();
+    signOut({ callbackUrl: `${base_url}/auth/login` });
     persistor.purge();
   };
 
