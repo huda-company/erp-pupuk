@@ -1,14 +1,7 @@
-// "use client";
-import React, { useCallback, useRef, useState } from "react";
-import { useOnClickOutsideElement } from "@/hooks";
-import { signOut } from "next-auth/react";
+import React from "react";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import useMount from "@/hooks/useMount";
-import Image from "next/image";
+import authOptions from "../api/auth/[...nextauth]/authOpts";
 import { redirect } from "next/navigation";
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
 
 export default async function GuestLayout({
   children,
