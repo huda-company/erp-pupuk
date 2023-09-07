@@ -1,14 +1,25 @@
 import startDb from "@/lib/db";
 import SupplierModel from "@/models/Supplier/SupplierModel";
 import { NextResponse } from "next/server";
-import { StandardResp, initStandardResp } from "../types";
-import { NextApiRequest, NextApiResponse } from "next";
-import { useSearchParams } from "next/navigation";
-import parseQueryParameters from "@/utils/parseQueryParameters";
+import { initStandardResp } from "../types";
+import { NextApiResponse } from "next";
+import { firstLetterWord, formatNumberToNDigits } from "@/utils/helpers";
+import { SupplierFormType } from "@/app/(admin_route)/admin/supplier/types";
+import { SupplierDocument } from "@/models/Supplier/types";
 
 export const POST = async (req: Request, res: NextApiResponse) => {
   try {
     const bodyParam = await req.json();
+
+    let suppCode = (await firstLetterWord(bodyParam.company)).trim();
+
+    const checkCompCode = await SupplierModel.find({ supplierCode: suppCode });
+    if (checkCompCode.length > 0) {
+      suppCode = `${suppCode}${formatNumberToNDigits(checkCompCode.length, 2)}`;
+    }
+
+    const updatedReq: any = bodyParam;
+    updatedReq.supplierCode = suppCode;
 
     await startDb();
 

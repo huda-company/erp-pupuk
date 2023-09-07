@@ -6,6 +6,10 @@ const AddEditSupplierSchema = Yup.object().shape({
 
   managerName: Yup.string().required(SUPPLIERFORM_ERRORS.MANAGER_NAME_REQUIRED),
 
+  managerSurname: Yup.string().required(
+    SUPPLIERFORM_ERRORS.MANAGER_SURNAME_REQUIRED
+  ),
+
   tel: Yup.string().required(SUPPLIERFORM_ERRORS.PHONE_REQUIRED),
 
   email: Yup.string().required(SUPPLIERFORM_ERRORS.EMAIL_REQUIRED),

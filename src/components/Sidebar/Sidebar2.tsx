@@ -116,7 +116,7 @@ export default function Sidebar2() {
                 >
                   <li
                     key={index}
-                    className="flex rounded-md p-2 cursor-pointer text-base items-center gap-x-4 mt-2 hover:bg-lime-100"
+                    className="flex rounded-md p-2 cursor-pointer text-lg items-center gap-x-4 mt-2 hover:bg-lime-100"
                   >
                     {Menu.icon ? Menu.icon : <MdOutlineDashboard />}
                     <span className="flex-1">{Menu.title}</span>

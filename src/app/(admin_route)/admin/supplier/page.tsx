@@ -11,14 +11,27 @@ import useMount from "@/hooks/useMount";
 import { Tooltip, Typography } from "@material-tailwind/react";
 import clsxm from "@/utils/clsxm";
 import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
-import Icon from "@/components/Icon";
 import { useRouter } from "next/navigation";
 import { base_url } from "@/constants/env";
+import Link from "next/link";
+import Button from "@/components/Button";
 
 export default function Page() {
   const router = useRouter();
   const [supplierData, setSupplierData] = useState<APISuppliersResp[]>([]);
   const [tableBody, setTableBody] = useState<TableBody>([]);
+
+  const handleCallAPI = async () => {
+    const res1: StandardResp = await getSuppliers();
+    if (res1.success) {
+      const supp: APISuppliersResp[] = res1.result;
+      setSupplierData(supp);
+    }
+  };
+
+  useMount(() => {
+    handleCallAPI();
+  });
 
   const getActions = useCallback(
     (id: string) => {
@@ -60,14 +73,8 @@ export default function Page() {
     [router]
   );
 
-  const handleLoadUserData = useCallback(async () => {
-    const res1: StandardResp = await getSuppliers();
-    if (res1.success) {
-      const supp: APISuppliersResp[] = res1.result;
-      setSupplierData(supp);
-    }
-
-    if (res1.success && Array.isArray(supplierData)) {
+  const handleLoadSuppData = useCallback(async () => {
+    if (Array.isArray(supplierData)) {
       const formattedBody =
         supplierData?.map((values) => ({
           items: [
@@ -79,7 +86,7 @@ export default function Page() {
               ) : (
                 " -- "
               ),
-              className: "text-left w-[17.5rem] flex items-start break-words",
+              className: "text-left w-[12rem] flex items-start break-words",
             },
             {
               value: (
@@ -94,7 +101,7 @@ export default function Page() {
                   {`${values.company}`}
                 </Typography>
               ),
-              className: "text-left w-[20rem] break-words",
+              className: "text-left w-[14rem] break-words",
             },
             {
               value: (
@@ -112,6 +119,21 @@ export default function Page() {
               className: "text-left w-[8rem] flex items-center justify-start",
             },
             {
+              value: (
+                <Typography
+                  color="black"
+                  className={clsxm(
+                    "text-sm ",
+                    !values &&
+                      "rounded-[0.938rem] bg-red-300 py-[0.5rem] pl-[0.5rem]"
+                  )}
+                >
+                  {`${values.email}`}
+                </Typography>
+              ),
+              className: "text-left w-[14rem] flex items-center justify-start",
+            },
+            {
               value: values ? getActions(String(values._id)) : "NO ACTION",
               className: "text-left w-[10rem] flex items-start",
             },
@@ -122,8 +144,8 @@ export default function Page() {
   }, [getActions, supplierData]);
 
   useEffect(() => {
-    handleLoadUserData();
-  }, [handleLoadUserData]);
+    handleLoadSuppData();
+  }, [handleLoadSuppData]);
 
   const tableData: TableData = useMemo(
     () => ({
@@ -135,12 +157,25 @@ export default function Page() {
 
   return (
     <div className="p-4 sm:ml-64 h-screen bg-white">
-      <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
-        <Typography className="text-xl text-black font-bold underline">
-          Supplier
-        </Typography>
+      <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11 flex flex-row">
+        <div className="left-0 w-[50%]">
+          <Typography className="text-[2rem] text-black font-bold underline float-left">
+            Supplier
+          </Typography>
+        </div>
+
+        <div className="right-0 w-[50%]">
+          <Link href={`${base_url}/admin/supplier/add`}>
+            <Button
+              size="xs"
+              className="bg-blue-500 w-[10px] float-right p-0 min-w-[5rem]"
+            >
+              <Typography className="font-bold text-base">ADD</Typography>
+            </Button>
+          </Link>
+        </div>
       </div>
-      <div className="p-4 border-2   border-gray-200 rounded-lg dark:border-gray-700 mt-2">
+      <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
         <Table data={tableData} />
       </div>
     </div>
