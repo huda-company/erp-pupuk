@@ -9,8 +9,8 @@
   "plugins": ["@typescript-eslint", "react", "react-hooks", "jsx-a11y"],
 
   "rules": {
-    "no-unused-vars": "off",
-    "no-console": "warn",
+    "no-unused-vars": "error",
+    "no-console": "error",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
 
