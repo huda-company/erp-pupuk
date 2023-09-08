@@ -1,6 +1,6 @@
 import { TableHeader } from "@/components/Table/types";
 
-enum MODE {
+export enum MODE {
   "ADD",
   "EDIT",
   "READ",

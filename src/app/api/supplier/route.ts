@@ -1,11 +1,9 @@
 import startDb from "@/lib/db";
-import SupplierModel from "@/models/Supplier/SupplierModel";
+import SupplierModel from "@/models/Supplier/Supplier";
 import { NextResponse } from "next/server";
 import { initStandardResp } from "../types";
 import { NextApiResponse } from "next";
 import { firstLetterWord, formatNumberToNDigits } from "@/utils/helpers";
-import { SupplierFormType } from "@/app/(admin_route)/admin/supplier/types";
-import { SupplierDocument } from "@/models/Supplier/types";
 
 export const POST = async (req: Request, res: NextApiResponse) => {
   try {

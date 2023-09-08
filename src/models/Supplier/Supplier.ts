@@ -86,6 +86,6 @@ const supplierSchema = new Schema<SupplierDocument, {}, Methods>({
   },
 });
 
-const SupplierModel = models.Supplier || model("Supplier", supplierSchema);
+const Supplier = models.Supplier || model("Supplier", supplierSchema);
 
-export default SupplierModel as Model<SupplierDocument, {}, Methods>;
+export default Supplier as Model<SupplierDocument, {}, Methods>;
