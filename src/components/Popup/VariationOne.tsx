@@ -66,20 +66,20 @@ const VariationOne: FC<PopupProps> = ({
               {/* end of top content */}
 
               {/* bottom content */}
-              <div className="mt-[1.615rem] flex flex-row items-start gap-[1.25rem] text-center">
+              <div className="mt-[4.615rem] flex flex-row items-start gap-[1.25rem] text-center">
                 {type === "normal" ? (
                   <>
                     <Button
                       onClick={handleClosePopup}
                       size="xs"
                       variant="primary"
-                      className="justify-center rounded-[0.938rem] border-0 bg-disable text-shishaCoal hover:bg-disable hover:text-shishaCoal"
+                      className="justify-center rounded-[0.938rem] border-0 bg-red-300 text-shishaCoal hover:bg-disable hover:text-shishaCoal"
                     >
                       <Typography
                         size="text-base"
                         variant="span"
                         fontFamily="font-tertiary"
-                        className="items-center leading-[1.813rem]"
+                        className="items-center leading-[1.813rem] text-white"
                       >
                         No
                       </Typography>
@@ -89,12 +89,12 @@ const VariationOne: FC<PopupProps> = ({
                       size="xs"
                       type="submit"
                       isLoading={isLoading}
-                      className="justify-center rounded-[0.938rem] border-0"
+                      className="justify-center rounded-[0.938rem] border-0 bg-green-400"
                     >
                       <Typography
                         size="text-base"
                         variant="span"
-                        color="white"
+                        color="black"
                         fontFamily="font-tertiary"
                         className="items-center leading-[1.813rem]"
                       >
