@@ -3,33 +3,32 @@
 import { StandardResp } from "@/app/api/types";
 import Table from "@/components/Table";
 import { TableBody, TableData } from "@/components/Table/types";
-import { deleteSupplier, getSuppliers } from "@/services/supplier/supplier";
-import { APISuppliersResp } from "@/services/supplier/types";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { FE_SUPPLIER_URL, tableHeaders } from "./config";
+import { FE_ITEM_URL, tableHeaders } from "./config";
 import useMount from "@/hooks/useMount";
 import { Tooltip, Typography } from "@material-tailwind/react";
 import clsxm from "@/utils/clsxm";
 import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
 import { useRouter } from "next/navigation";
-import { base_url } from "@/constants/env";
 import Link from "next/link";
 import Button from "@/components/Button";
-import Popup from "@/components/Popup";
+import { deleteItem, getItem } from "@/services/item/item";
+import { APIItemResp } from "@/services/item/types";
+import Popup from "@/components/Popup/Popup";
 import AreUsure from "@/components/Popup/AreUsure";
 
 export default function Page() {
   const router = useRouter();
-  const [supplierData, setSupplierData] = useState<APISuppliersResp[]>([]);
+  const [itemData, setItemData] = useState<APIItemResp[]>([]);
   const [tableBody, setTableBody] = useState<TableBody>([]);
   const [showDelPop, setShowDelPop] = useState<boolean>(false);
   const [deleted, setDeletedId] = useState<string>("");
 
   const handleCallAPI = async () => {
-    const res1: StandardResp = await getSuppliers();
+    const res1: StandardResp = await getItem();
     if (res1.success) {
-      const supp: APISuppliersResp[] = res1.result;
-      setSupplierData(supp);
+      const supp: APIItemResp[] = res1.result;
+      setItemData(supp);
     }
   };
 
@@ -38,10 +37,10 @@ export default function Page() {
   });
 
   const handleDeleteSubmit = async () => {
-    const resDel: StandardResp = await deleteSupplier(deleted);
+    const resDel: StandardResp = await deleteItem(deleted);
     if (resDel.success) {
-      const newItems: StandardResp = await getSuppliers();
-      await setSupplierData(newItems.result);
+      const newItems: StandardResp = await getItem();
+      await setItemData(newItems.result);
       setDeletedId("");
       setShowDelPop(false);
     }
@@ -50,7 +49,7 @@ export default function Page() {
   const getActions = useCallback(
     (id: string) => {
       const handleEdit = () => {
-        router.push(`${FE_SUPPLIER_URL.EDIT}/${id}`);
+        router.push(`${FE_ITEM_URL.EDIT}/${id}`);
       };
 
       const handleDelete = async (id: string) => {
@@ -88,15 +87,15 @@ export default function Page() {
     [router]
   );
 
-  const handleLoadSuppData = useCallback(async () => {
-    if (Array.isArray(supplierData)) {
+  const handleLoadItemData = useCallback(async () => {
+    if (Array.isArray(itemData)) {
       const formattedBody =
-        supplierData?.map((values) => ({
+        itemData?.map((values) => ({
           items: [
             {
               value: values ? (
                 <Typography color="black" className="text-sm">
-                  {`${values.supplierCode}`}
+                  {`${values.itemCategory.name}`}
                 </Typography>
               ) : (
                 " -- "
@@ -113,7 +112,7 @@ export default function Page() {
                       "rounded-[0.938rem] bg-red-300 py-[0.5rem] pl-[0.5rem]"
                   )}
                 >
-                  {`${values.company}`}
+                  {`${values.name}`}
                 </Typography>
               ),
               className: "text-left w-[14rem] break-words",
@@ -128,7 +127,7 @@ export default function Page() {
                       "rounded-[0.938rem] bg-red-300 py-[0.5rem] pl-[0.5rem]"
                   )}
                 >
-                  {`${values.tel}`}
+                  {`${values.price}`}
                 </Typography>
               ),
               className: "text-left w-[8rem] flex items-center justify-start",
@@ -143,7 +142,7 @@ export default function Page() {
                       "rounded-[0.938rem] bg-red-300 py-[0.5rem] pl-[0.5rem]"
                   )}
                 >
-                  {`${values.email}`}
+                  {`${values.description}`}
                 </Typography>
               ),
               className: "text-left w-[14rem] flex items-center justify-start",
@@ -156,15 +155,15 @@ export default function Page() {
         })) || [];
       setTableBody(formattedBody);
     }
-  }, [getActions, supplierData]);
+  }, [getActions, itemData]);
 
   useEffect(() => {
-    handleLoadSuppData();
-  }, [handleLoadSuppData]);
+    handleLoadItemData();
+  }, [handleLoadItemData]);
 
   const tableData: TableData = useMemo(
     () => ({
-      header: tableHeaders.emailPasswords,
+      header: tableHeaders.itmListHeader,
       body: tableBody,
     }),
     [tableBody]
@@ -181,16 +180,17 @@ export default function Page() {
         onSubmit={() => handleDeleteSubmit()}
         onClose={() => setShowDelPop(false)}
       />
+
       <div className="p-4 sm:ml-64 h-screen bg-white">
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11 flex flex-row">
           <div className="left-0 w-[50%]">
             <Typography className="text-[2rem] text-black font-bold underline float-left">
-              Supplier
+              Item
             </Typography>
           </div>
 
           <div className="right-0 w-[50%]">
-            <Link href={`${base_url}/admin/supplier/add`}>
+            <Link href={`${FE_ITEM_URL.CREATE}`}>
               <Button
                 size="xs"
                 className="bg-blue-500 w-[10px] float-right p-0 min-w-[5rem]"

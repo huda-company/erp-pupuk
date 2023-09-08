@@ -3,16 +3,16 @@ import { StandardResp } from "@/app/api/types";
 import { base_url } from "@/constants/env";
 import axios from "axios";
 
-export const SUPPLIER_API = `${base_url}/api/supplier`;
+const ITEMCAT_API = `${base_url}/api/itemcategory`;
 
-export const getSuppliers = async (): Promise<StandardResp> => {
-  const { data } = await axios.get(`${SUPPLIER_API}/list`);
+export const getItemCategory = async (): Promise<StandardResp> => {
+  const { data } = await axios.get(`${ITEMCAT_API}/list`);
 
   return data;
 };
 
 export const getSupplierById = async (id: string): Promise<StandardResp> => {
-  const { data } = await axios.get(`${SUPPLIER_API}/read/${id}`);
+  const { data } = await axios.get(`${ITEMCAT_API}/read/${id}`);
 
   return data;
 };
@@ -20,7 +20,7 @@ export const getSupplierById = async (id: string): Promise<StandardResp> => {
 export const addSupplier = async (
   params: SupplierFormType
 ): Promise<StandardResp> => {
-  const { data } = await axios.post(`${SUPPLIER_API}`, params);
+  const { data } = await axios.post(`${ITEMCAT_API}`, params);
 
   return data;
 };
@@ -29,15 +29,9 @@ export const editSupplier = async (
   params: SupplierFormType
 ): Promise<StandardResp> => {
   const { data } = await axios.patch(
-    `${SUPPLIER_API}/update/${params.id}`,
+    `${ITEMCAT_API}/update/${params.id}`,
     params
   );
-
-  return data;
-};
-
-export const deleteSupplier = async (id: string): Promise<StandardResp> => {
-  const { data } = await axios.delete(`${SUPPLIER_API}/delete/${id}`);
 
   return data;
 };

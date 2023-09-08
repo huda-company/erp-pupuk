@@ -1,1 +1,1 @@
-export { default } from "./SupplierModel";
+export { default } from "./Supplier";

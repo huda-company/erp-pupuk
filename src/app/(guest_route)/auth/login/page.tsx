@@ -44,6 +44,7 @@ const Login: NextPage = () => {
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
           >
             <Image
+              priority
               style={{ height: "5rem", width: "5rem" }}
               width={60}
               height={60}

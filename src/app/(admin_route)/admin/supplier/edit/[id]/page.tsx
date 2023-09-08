@@ -14,7 +14,6 @@ import { Typography } from "@material-tailwind/react";
 import useMount from "@/hooks/useMount";
 import { useAppDispatch } from "@/hooks";
 import { useRouter } from "next/navigation";
-import { base_url } from "@/constants/env";
 import { FE_SUPPLIER_URL } from "../../config";
 
 export default function Page() {

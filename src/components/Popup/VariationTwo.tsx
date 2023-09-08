@@ -32,7 +32,7 @@ const VariationTwo: FC<PopupProps> = ({
         <div className="fixed top-0 left-0 z-50 flex h-full w-full items-center justify-center bg-black/50">
           <div className={classNamePopupBody}>
             {/* title content */}
-            <div className="w-full border-b-[0.063rem] border-b-silverback px-[2rem] pb-[1rem]">
+            <div className="w-full px-[2rem] pb-[1rem]">
               <Typography
                 color="text-blackOut"
                 size="text-base"
@@ -46,7 +46,7 @@ const VariationTwo: FC<PopupProps> = ({
             </div>
             {/* end of title content */}
             {/* body content */}
-            <div className="w-full border-b-[0.063rem] border-b-silverback px-[2rem]">
+            <div className="w-full px-[2rem]">
               <Typography
                 size="text-base"
                 variant="span"
@@ -64,13 +64,13 @@ const VariationTwo: FC<PopupProps> = ({
                 onClick={handleClosePopup}
                 size="xs"
                 variant="primary"
-                className="justify-center rounded-[0.938rem] border-0 bg-disable text-shishaCoal hover:bg-disable hover:text-shishaCoal"
+                className="justify-center rounded-[0.938rem] border-0 bg-red-300 text-shishaCoal hover:bg-disable hover:text-shishaCoal"
               >
                 <Typography
                   size="text-base"
                   variant="span"
                   fontFamily="font-tertiary"
-                  className="items-center leading-[1.813rem]"
+                  className="items-center leading-[1.813rem] text-white"
                 >
                   No
                 </Typography>
@@ -81,7 +81,7 @@ const VariationTwo: FC<PopupProps> = ({
                 type="submit"
                 disabled={disabled}
                 isLoading={isLoading}
-                className="justify-center rounded-[0.938rem] border-0"
+                className="justify-center rounded-[0.938rem] border-0 bg-green-400"
               >
                 <Typography
                   size="text-base"
@@ -90,7 +90,7 @@ const VariationTwo: FC<PopupProps> = ({
                   fontFamily="font-tertiary"
                   className="items-center leading-[1.813rem]"
                 >
-                  Submit
+                  Yes
                 </Typography>
               </Button>
             </div>

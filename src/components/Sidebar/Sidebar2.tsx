@@ -53,7 +53,11 @@ export default function Sidebar2() {
       ],
       isOpen: false,
     },
-    { title: "Files", src: "Folder", icon: <BsFiles /> },
+    {
+      title: "Item / Barang",
+      src: `${base_url}/admin/item`,
+      icon: <BsFiles />,
+    },
     { title: "Setting", src: "Setting", icon: <MdOutlineSettings /> },
   ];
 
@@ -81,9 +85,9 @@ export default function Sidebar2() {
       className="fixed top-0 left-0 z-40 w-64 h-screen pt-0 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
       aria-label="Sidebar"
     >
-      <div className=" h-screen flex items-end justify-end mt-[2.5rem]">
+      <div className=" h-screen flex justify-end mt-[2.5rem] bg-red-100">
         <button
-          className="fixed lg:hidden z-90 bottom-10 right-8 bg-white w-10 h-10 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-teal-800   duration-300"
+          className="fixed lg:hidden z-90 bottom-10 right-8 bg-white w-10 h-10 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-teal-800 duration-300"
           onClick={toggleSidebar}
         >
           <span className="text-white">
@@ -104,13 +108,14 @@ export default function Sidebar2() {
         <div
           className={clsxm(
             "z-41 lg:w-72 bg-white h-screen relative duration-500",
-            open ? "w-48 px-2 " : "w-0 "
+            open ? "w-[100%]  " : "w-0 "
           )}
         >
           <ul className="pt-6">
             {sideBarMenu.map((Menu, index) => (
               <>
                 <Link
+                  onClick={() => setSubMenuOpen(index)}
                   key={`${Menu.title}-${index}`.trim()}
                   href={Menu.src ?? "#"}
                 >
