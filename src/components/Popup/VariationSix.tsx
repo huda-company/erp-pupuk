@@ -73,14 +73,14 @@ const VariationSix: FC<PopupProps> = ({
                   onClick={handleClosePopup}
                   size="xs"
                   type="submit"
-                  className="mt-[1.5rem] w-full justify-center rounded-[0.938rem] border-0"
+                  className="mt-[1.5rem] w-full justify-center rounded-[0.938rem] border-0 bg-gray-300"
                 >
                   <Typography
                     size="text-base"
                     variant="span"
-                    color="white"
+                    color="black"
                     fontFamily="font-tertiary"
-                    className="items-center leading-[1.813rem]"
+                    className="items-center leading-[1.813rem] text-black"
                   >
                     OK
                   </Typography>
