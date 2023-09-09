@@ -6,7 +6,6 @@ import { useCallback, useEffect, useState } from "react";
 import { FormikContext, useFormik } from "formik";
 import { actions as utilsActions } from "@/redux/utils";
 import AddEditSupplierSchema from "../../validation";
-import { Typography } from "@material-tailwind/react";
 import useMount from "@/hooks/useMount";
 import { useAppDispatch } from "@/hooks";
 import { useRouter } from "next/navigation";
@@ -18,6 +17,7 @@ import { editItem, getItemById } from "@/services/item/item";
 import { getItemCategory } from "@/services/itemCategory/itemCategory";
 import { APIItemResp } from "@/services/item/types";
 import convToOpts from "@/utils/convToOpts";
+import Typography from "@/components/Typography";
 
 export default function Page() {
   const urlParam = useParams();

@@ -1,19 +1,19 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
+import { initialState as initialPurchaseState } from "./purchase/data";
+import { purchaseReducers } from "./purchase/slices";
 import { toastReducers } from "./toast/slices";
-import { initialState as initialBillState } from "./bill/data";
 import { utilsReducers } from "./utils/slices";
-import { billReducers } from "./bill/slices";
 
 const appReducer = combineReducers({
   toast: toastReducers,
   utils: utilsReducers,
-  bill: billReducers,
+  purchase: purchaseReducers,
 });
 
 const rootReducer = (state: any, action: any) => {
   if (action.type === "utils/logout") {
-    state.bill = initialBillState;
+    state.purchase = initialPurchaseState;
     return appReducer(state, action);
   }
 

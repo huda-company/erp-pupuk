@@ -1,11 +1,10 @@
 import { initialState } from "./data";
 import { RootState } from "../store";
 
-const searchInput = (state: RootState) =>
-  state.bill.value || initialState.value;
+const purchaseRdx = (state: RootState) => state.purchase || initialState;
 
 const selectors = {
-  searchInput,
+  purchaseRdx,
 };
 
 export default selectors;

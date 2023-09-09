@@ -55,7 +55,7 @@ const Dropdown: FC<VariationDropdown> = ({
         type="button"
         className={clsxm(
           className,
-          "flex h-[3.625rem] items-center justify-between rounded-[0.938rem] border-[0.063rem] border-whiteSmoke bg-white px-[1.086rem] pt-[1.438rem] pb-6 focus-within:border-nero",
+          "flex h-[3.5rem] items-center justify-between rounded-[0.938rem] border-[0.063rem] border-whiteSmoke bg-white px-[1.086rem] pt-[1.438rem] pb-6 focus-within:border-nero",
           hasError && "border-poppySurprise",
           disabled && "bg-disable",
           width

@@ -1,21 +1,28 @@
 "use client";
 
-import { StandardResp } from "@/app/api/types";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
+
+import clsxm from "@/utils/clsxm";
+import useMount from "@/hooks/useMount";
+
+import Button from "@/components/Button";
+import HeaderModule from "@/components/Header/HeaderModule";
+import AreUsure from "@/components/Popup/AreUsure";
+import Popup from "@/components/Popup/Popup";
 import Table from "@/components/Table";
 import { TableBody, TableData } from "@/components/Table/types";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { FE_ITEM_URL, tableHeaders } from "./config";
-import useMount from "@/hooks/useMount";
-import { Tooltip, Typography } from "@material-tailwind/react";
-import clsxm from "@/utils/clsxm";
-import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import Button from "@/components/Button";
-import { deleteItem, getItem } from "@/services/item/item";
+import Tooltip from "@/components/Tooltip";
+import Typography from "@/components/Typography";
+
+import { deleteItem, getItems } from "@/services/item/item";
 import { APIItemResp } from "@/services/item/types";
-import Popup from "@/components/Popup/Popup";
-import AreUsure from "@/components/Popup/AreUsure";
+
+import { StandardResp } from "@/app/api/types";
+
+import { FE_ITEM_URL, tableHeaders } from "./config";
 
 export default function Page() {
   const router = useRouter();
@@ -25,7 +32,7 @@ export default function Page() {
   const [deleted, setDeletedId] = useState<string>("");
 
   const handleCallAPI = async () => {
-    const res1: StandardResp = await getItem();
+    const res1: StandardResp = await getItems();
     if (res1.success) {
       const supp: APIItemResp[] = res1.result;
       setItemData(supp);
@@ -39,7 +46,7 @@ export default function Page() {
   const handleDeleteSubmit = async () => {
     const resDel: StandardResp = await deleteItem(deleted);
     if (resDel.success) {
-      const newItems: StandardResp = await getItem();
+      const newItems: StandardResp = await getItems();
       await setItemData(newItems.result);
       setDeletedId("");
       setShowDelPop(false);
@@ -183,10 +190,8 @@ export default function Page() {
 
       <div className="p-4 sm:ml-64 h-screen bg-white">
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11 flex flex-row">
-          <div className="left-0 w-[50%]">
-            <Typography className="text-[2rem] text-black font-bold underline float-left">
-              Item
-            </Typography>
+          <div className="left-0 w-[50%] pt-[1rem]">
+            <HeaderModule title="Item" />
           </div>
 
           <div className="right-0 w-[50%]">
