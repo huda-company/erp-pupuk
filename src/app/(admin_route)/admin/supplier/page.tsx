@@ -1,22 +1,30 @@
 "use client";
 
-import { StandardResp } from "@/app/api/types";
-import Table from "@/components/Table";
-import { TableBody, TableData } from "@/components/Table/types";
-import { deleteSupplier, getSuppliers } from "@/services/supplier/supplier";
-import { APISuppliersResp } from "@/services/supplier/types";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { FE_SUPPLIER_URL, tableHeaders } from "./config";
-import useMount from "@/hooks/useMount";
-import { Tooltip, Typography } from "@material-tailwind/react";
-import clsxm from "@/utils/clsxm";
-import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
-import { useRouter } from "next/navigation";
-import { base_url } from "@/constants/env";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
+
+import clsxm from "@/utils/clsxm";
+import useMount from "@/hooks/useMount";
+
+import { base_url } from "@/constants/env";
+
 import Button from "@/components/Button";
+import HeaderModule from "@/components/Header/HeaderModule";
 import Popup from "@/components/Popup";
 import AreUsure from "@/components/Popup/AreUsure";
+import Table from "@/components/Table";
+import { TableBody, TableData } from "@/components/Table/types";
+import Tooltip from "@/components/Tooltip";
+import Typography from "@/components/Typography";
+
+import { deleteSupplier, getSuppliers } from "@/services/supplier/supplier";
+import { APISuppliersResp } from "@/services/supplier/types";
+
+import { StandardResp } from "@/app/api/types";
+
+import { FE_SUPPLIER_URL, tableHeaders } from "./config";
 
 export default function Page() {
   const router = useRouter();
@@ -184,9 +192,7 @@ export default function Page() {
       <div className="p-4 sm:ml-64 h-screen bg-white">
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11 flex flex-row">
           <div className="left-0 w-[50%]">
-            <Typography className="text-[2rem] text-black font-bold underline float-left">
-              Supplier
-            </Typography>
+            <HeaderModule title="Supplier" />
           </div>
 
           <div className="right-0 w-[50%]">

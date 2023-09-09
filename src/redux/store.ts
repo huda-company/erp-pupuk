@@ -1,8 +1,8 @@
 import { AnyAction, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 
-import { rootReducer } from "./rootReducer";
 import customStorage from "./customStorage";
+import { rootReducer } from "./rootReducer";
 
 const persistConfig = {
   key: "erp-pupuk-app",

@@ -1,13 +1,15 @@
 "use client";
+import Link from "next/link";
 import React, { useState } from "react";
+import { BsCart4, BsChevronDown, BsFiles, BsServer } from "react-icons/bs";
 import {
-  MdOutlineDashboard,
   MdAnalytics,
+  MdOutlineDashboard,
   MdOutlineSettings,
 } from "react-icons/md";
-import { BsChevronDown, BsFiles, BsServer, BsCart4 } from "react-icons/bs";
+
 import clsxm from "@/utils/clsxm";
-import Link from "next/link";
+
 import { base_url } from "@/constants/env";
 
 export default function Sidebar2() {
@@ -24,7 +26,7 @@ export default function Sidebar2() {
         },
         {
           title: "Purchase Order",
-          src: `${base_url}/admin/purchasing`,
+          src: `${base_url}/admin/purchase`,
           cName: "sub-nav",
         },
       ],

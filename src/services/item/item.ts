@@ -1,11 +1,13 @@
+import axios from "axios";
+
+import { base_url } from "@/constants/env";
+
 import { ItemFormAPIReqType } from "@/app/(admin_route)/admin/item/types";
 import { StandardResp } from "@/app/api/types";
-import { base_url } from "@/constants/env";
-import axios from "axios";
 
 const ITEM_API = `${base_url}/api/item`;
 
-export const getItem = async (): Promise<StandardResp> => {
+export const getItems = async (): Promise<StandardResp> => {
   const { data } = await axios.get(`${ITEM_API}/list`);
 
   return data;

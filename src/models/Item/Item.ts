@@ -1,10 +1,11 @@
-import { Model, models, model, mongo } from "mongoose";
+import { Model, model, models } from "mongoose";
 import { Schema } from "mongoose";
 import mongoose from "mongoose";
+
 import { ItemDocument } from "./types";
 import ItemCategory from "../ItemCategory/ItemCategory";
 
-const itemSchema = new Schema<ItemDocument, {}>({
+const itemSchema = new Schema<ItemDocument>({
   itemCategory: {
     type: mongoose.Schema.Types.ObjectId,
     ref: ItemCategory,
@@ -37,4 +38,4 @@ const itemSchema = new Schema<ItemDocument, {}>({
 
 const item = models.Item || model("Item", itemSchema);
 
-export default item as Model<ItemDocument, {}>;
+export default item as Model<ItemDocument>;
