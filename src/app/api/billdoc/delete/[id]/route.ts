@@ -1,40 +1,34 @@
 import { NextResponse } from "next/server";
 
-import BillDoc from "@/models/BillDoc/BillDoc";
 import Purchase from "@/models/Purchase/Purchase";
 
 import { MODULE_NAME } from "@/app/(admin_route)/admin/purchase/config";
 import startDb from "@/lib/db";
 
-export const GET = async (req: Request) => {
-  const idVal = req.url.split(`/${MODULE_NAME}/read/`)[1];
+export const DELETE = async (req: Request) => {
+  const idVal = req.url.split(`/${MODULE_NAME}/delete/`)[1];
 
   if (idVal) {
     try {
       await startDb();
 
-      // Find document by id and updates with the required fields
-      const result = await Purchase.findOne({
-        _id: idVal,
-        removed: false,
-      })
-        .populate("supplier")
-        .populate("items.item")
-        .lean();
+      const updates = {
+        removed: true,
+      };
 
-      const findBillDoc = await BillDoc.find({
-        purchase: idVal,
-        removed: false,
-      }).lean();
+      const result = await Purchase.findOneAndUpdate(
+        { _id: idVal, removed: false },
+        { $set: updates },
+        {
+          new: true, // return the new result instead of the old one
+        }
+      ).exec();
 
       return NextResponse.json(
         {
           success: true,
-          result: {
-            ...result,
-            billdocs: findBillDoc,
-          },
-          message: `Successfully retrieved ${MODULE_NAME}`,
+          result,
+          message: `Successfully deleted ${MODULE_NAME}`,
         },
         { status: 200 }
       );
@@ -43,7 +37,7 @@ export const GET = async (req: Request) => {
         {
           success: false,
           result: [],
-          message: `Error read ${MODULE_NAME} ${err}`,
+          message: `Error delete item ${MODULE_NAME}`,
           error: err,
         },
         { status: 500 }

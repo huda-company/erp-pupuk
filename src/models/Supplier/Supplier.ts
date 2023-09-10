@@ -1,13 +1,9 @@
-import { Model, models, model } from "mongoose";
+import { Model, model, models } from "mongoose";
 import { Schema } from "mongoose";
-import bcrypt from "bcrypt";
+
 import { SupplierDocument } from "./types";
 
-interface Methods {
-  comparePassword(password: string): Promise<boolean>;
-}
-
-const supplierSchema = new Schema<SupplierDocument, {}, Methods>({
+const supplierSchema = new Schema<SupplierDocument>({
   removed: {
     type: Boolean,
     default: false,
@@ -88,4 +84,4 @@ const supplierSchema = new Schema<SupplierDocument, {}, Methods>({
 
 const Supplier = models.Supplier || model("Supplier", supplierSchema);
 
-export default Supplier as Model<SupplierDocument, {}, Methods>;
+export default Supplier as Model<SupplierDocument>;

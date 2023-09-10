@@ -3,6 +3,8 @@ import { Schema } from "mongoose";
 import mongoose from "mongoose";
 
 import { PurchaseDocument } from "./types";
+import Item from "../Item/Item";
+import Supplier from "../Supplier/Supplier";
 
 const purchaseSchema = new Schema<PurchaseDocument>({
   poNo: {
@@ -46,7 +48,7 @@ const purchaseSchema = new Schema<PurchaseDocument>({
   },
   supplier: {
     type: mongoose.Schema.ObjectId,
-    ref: "Supplier",
+    ref: Supplier,
     required: true,
     autopopulate: true,
   },
@@ -54,7 +56,7 @@ const purchaseSchema = new Schema<PurchaseDocument>({
     {
       item: {
         type: mongoose.Schema.ObjectId,
-        ref: "Item",
+        ref: Item,
         required: true,
         autopopulate: true,
       },
