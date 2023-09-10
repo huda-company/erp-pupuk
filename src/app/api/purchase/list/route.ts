@@ -4,6 +4,7 @@ import parseQueryParameters from "@/utils/parseQueryParameters";
 
 import Purchase from "@/models/Purchase/Purchase";
 
+// eslint-disable-next-line no-unused-vars
 import startDb from "@/lib/db";
 
 export const GET = async (req: Request) => {
@@ -23,7 +24,9 @@ export const GET = async (req: Request) => {
       .skip(skip)
       .limit(limit)
       .sort({ created: "desc" })
-      .populate("supplier");
+      .populate("supplier")
+      .populate("items.item")
+      .exec();
 
     // Counting the total documents
     const countPromise = Purchase.count({ removed: false });
@@ -60,7 +63,7 @@ export const GET = async (req: Request) => {
       {
         success: false,
         result: [],
-        message: "Oops there is an Error",
+        message: `Oops there is an Error asas ${err}`,
         err,
         error: err,
       },

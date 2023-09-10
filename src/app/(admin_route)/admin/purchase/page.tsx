@@ -7,7 +7,6 @@ import { AiFillEye } from "react-icons/ai";
 import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
 
 import clsxm from "@/utils/clsxm";
-import { noop } from "@/utils/helpers";
 import useMount from "@/hooks/useMount";
 
 import Button from "@/components/Button";
@@ -62,6 +61,10 @@ export default function Page() {
         router.push(`${FE_PURCHASING_URL.EDIT}/${id}`);
       };
 
+      const handleRead = () => {
+        router.push(`${FE_PURCHASING_URL.READ}/${id}`);
+      };
+
       const handleDelete = async (id: string) => {
         setShowDelPop(true);
         setDeletedId(id);
@@ -97,7 +100,7 @@ export default function Page() {
             <div className="flex w-4 items-center">
               <div
                 className="mt-[0.5rem] flex-shrink hover:cursor-pointer"
-                onClick={() => noop}
+                onClick={handleRead}
               >
                 <AiFillEye key={`elm-${id}`} />
               </div>

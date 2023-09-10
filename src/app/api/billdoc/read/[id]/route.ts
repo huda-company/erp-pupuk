@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 
-import BillDoc from "@/models/BillDoc/BillDoc";
 import Purchase from "@/models/Purchase/Purchase";
 
 import { MODULE_NAME } from "@/app/(admin_route)/admin/purchase/config";
@@ -20,20 +19,12 @@ export const GET = async (req: Request) => {
       })
         .populate("supplier")
         .populate("items.item")
-        .lean();
-
-      const findBillDoc = await BillDoc.find({
-        purchase: idVal,
-        removed: false,
-      }).lean();
+        .exec();
 
       return NextResponse.json(
         {
           success: true,
-          result: {
-            ...result,
-            billdocs: findBillDoc,
-          },
+          result,
           message: `Successfully retrieved ${MODULE_NAME}`,
         },
         { status: 200 }

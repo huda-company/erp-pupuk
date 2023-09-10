@@ -1,8 +1,9 @@
-import { Model, models, model } from "mongoose";
+import { Model, model, models } from "mongoose";
 import { Schema } from "mongoose";
+
 import { ItemCategoryDocument } from "./types";
 
-const itemCategorySchema = new Schema<ItemCategoryDocument, {}>({
+const itemCategorySchema = new Schema<ItemCategoryDocument>({
   removed: {
     type: Boolean,
     default: false,
@@ -25,4 +26,4 @@ const itemCategorySchema = new Schema<ItemCategoryDocument, {}>({
 const ItemCategory =
   models.ItemCategory || model("ItemCategory", itemCategorySchema);
 
-export default ItemCategory as Model<ItemCategoryDocument, {}>;
+export default ItemCategory as Model<ItemCategoryDocument>;

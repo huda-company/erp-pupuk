@@ -99,7 +99,9 @@ export default function Page() {
       if (createPurch.success) {
         console.log("aaaa", createPurch);
 
-        await router.push(FE_PURCHASING_URL.LIST);
+        await router.push(
+          `${FE_PURCHASING_URL.READ}/${createPurch.result._id}`
+        );
       }
     } else {
       console.log("item not valid");

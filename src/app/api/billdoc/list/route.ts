@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import parseQueryParameters from "@/utils/parseQueryParameters";
 
-import Item from "@/models/Item/Item";
+import BillDoc from "@/models/BillDoc/BillDoc";
 
 import startDb from "@/lib/db";
 
@@ -19,15 +19,15 @@ export const GET = async (req: Request) => {
   try {
     await startDb();
     //  Query the database for a list of all results
-    const resultsPromise = await Item.find({ removed: false })
+    const resultsPromise = await BillDoc.find({ removed: false })
       .skip(skip)
       .limit(limit)
       .sort({ created: "desc" })
-      .populate("itemCategory");
-    // .populate('categoryId');
+      .populate("purchase")
+      .exec();
 
     // Counting the total documents
-    const countPromise = Item.count({ removed: false });
+    const countPromise = BillDoc.count({ removed: false });
     // Resolving both promises
     const [result, count] = await Promise.all([resultsPromise, countPromise]);
     // Calculating total pages
@@ -61,7 +61,7 @@ export const GET = async (req: Request) => {
       {
         success: false,
         result: [],
-        message: "Oops there is an Error",
+        message: `Oops there is an Error asas ${err}`,
         err,
         error: err,
       },

@@ -1,6 +1,21 @@
 import { PurchItem } from "@/models/Purchase/types";
 
+import { ItemFormAPIReqType } from "@/app/(admin_route)/admin/item/types";
 import { SupplierFormType } from "@/app/(admin_route)/admin/supplier/types";
+
+export type PurcItemsRes = {
+  item: ItemFormAPIReqType;
+  quantity: number;
+  price: number;
+  total: number;
+};
+
+export type PurcDocRes = {
+  _id: string;
+  fileName: string;
+  description: string;
+  title: string;
+};
 
 export type APIPurchaseReq = {
   recurring?: boolean;
@@ -24,12 +39,14 @@ export type APIPurchaseReq = {
 
 export type APIPurchaseResp = {
   _id: string;
+  billdocs: PurcDocRes[];
   supplier: SupplierFormType;
-  items: PurchItem[];
+  items: PurcItemsRes[];
   poNo: string;
   billingCode: string;
   status: string;
   paymentStatus: string;
+  purchPaymentMethod: string;
   note: string;
   pdfPath: string;
   year: number;
