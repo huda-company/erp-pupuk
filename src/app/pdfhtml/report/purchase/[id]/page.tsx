@@ -95,7 +95,7 @@ const PdfExport: React.FC = () => {
       pdf.addImage(imgData, "PNG", 5, 5, width, height); // Adjust the dimensions as needed
 
       // Save or display the PDF
-      pdf.save("exported-page.pdf");
+      pdf.save(`${itm?.poNo}.pdf`);
     }
   };
 
