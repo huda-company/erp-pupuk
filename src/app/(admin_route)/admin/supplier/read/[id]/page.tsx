@@ -1,20 +1,27 @@
 "use client";
 
-import { StandardResp } from "@/app/api/types";
+import { FormikContext, useFormik } from "formik";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+
+import { useAppDispatch } from "@/hooks";
+import useMount from "@/hooks/useMount";
+
+import { base_url } from "@/constants/env";
+
+import HeaderModule from "@/components/Header/HeaderModule";
+
+import { actions as utilsActions } from "@/redux/utils";
+
 import { editSupplier, getSupplierById } from "@/services/supplier/supplier";
 import { APISuppliersResp } from "@/services/supplier/types";
-import { useParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+
+import { StandardResp } from "@/app/api/types";
+
 import SupplierForm from "../../components/SupplierForm";
-import { FormikContext, useFormik } from "formik";
 import { SupplierFormType } from "../../types";
-import { actions as utilsActions } from "@/redux/utils";
 import AddEditSupplierSchema from "../../validation";
-import useMount from "@/hooks/useMount";
-import { useAppDispatch } from "@/hooks";
-import { useRouter } from "next/navigation";
-import { base_url } from "@/constants/env";
-import Typography from "@/components/Typography";
 
 export default function Page() {
   const urlParam = useParams();
@@ -89,11 +96,11 @@ export default function Page() {
   return (
     <>
       <div className="p-4 sm:ml-64 bg-white h-screen">
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
-          <Typography className="text-xl text-black font-bold underline">
-            Detail Supplier
-          </Typography>
+        {/* title */}
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
+          <HeaderModule title="Detail Supplier" />
         </div>
+        {/* body */}
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">
           <FormikContext.Provider value={formikBag}>
             <SupplierForm mode="READ" />

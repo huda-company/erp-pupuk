@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { useAppDispatch } from "@/hooks";
 
-import Typography from "@/components/Typography";
+import HeaderModule from "@/components/Header/HeaderModule";
 
 import { actions as utilsActions } from "@/redux/utils";
 
@@ -73,13 +73,11 @@ export default function Page() {
   return (
     <>
       <div className="p-4 sm:ml-64 bg-white h-screen">
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11 flex flex-row">
-          <div className="left-0 w-[50%]">
-            <Typography className="text-[2rem] text-black font-bold underline float-left">
-              Add Supplier
-            </Typography>
-          </div>
+        {/* title */}
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
+          <HeaderModule title="Add Supplier" />
         </div>
+        {/* body */}
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">
           <FormikContext.Provider value={formikBag}>
             <SupplierForm mode="ADD" />

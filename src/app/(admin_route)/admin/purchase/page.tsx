@@ -3,13 +3,13 @@ import { Button as BtnAntd, Dropdown, Table as TableAntd } from "antd";
 import { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { BsThreeDots } from "react-icons/bs";
 
 import useMount from "@/hooks/useMount";
 
+import HeaderModule from "@/components/Header/HeaderModule";
 import Popup from "@/components/Popup";
 import AreUsure from "@/components/Popup/AreUsure";
-import Typography from "@/components/Typography";
 
 import { deletePurchase, getPurchases } from "@/services/purchase/purchase";
 import { APIPurchaseResp } from "@/services/purchase/types";
@@ -151,7 +151,7 @@ export default function Page() {
           >
             <BtnAntd
               shape="circle"
-              icon={<BsThreeDotsVertical />}
+              icon={<BsThreeDots />}
               type="primary"
               size="small"
               style={{ backgroundColor: "#47AB1E" }}
@@ -197,11 +197,11 @@ export default function Page() {
       />
 
       <div className="p-4 sm:ml-64 h-screen bg-white">
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
-          <Typography className="text-xl text-black font-bold underline">
-            Purchase
-          </Typography>
+        {/* title */}
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
+          <HeaderModule title="Purchase" />
         </div>
+        {/* body */}
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
           <div className="pb-[0.5rem] flex justify-end pr-[2.5rem]">
             <Link href={`${FE_PURCHASING_URL.CREATE}`}>

@@ -130,11 +130,11 @@ export default function Page() {
         onClose={() => setShowAlert(false)}
       />
       <div className="p-4 sm:ml-64 bg-white h-screen">
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11 flex flex-row">
-          <div className="left-0 w-[50%] pt-[1rem]">
-            <HeaderModule title="Add Purchase Order" />
-          </div>
+        {/* title */}
+        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
+          <HeaderModule title="Add Purchase Order" />
         </div>
+        {/* body */}
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">
           <FormikContext.Provider value={formikBag}>
             <PurchaseForm

@@ -1,37 +1,57 @@
 "use client";
-
+import { Button as BtnAntd, Dropdown, Table as TableAntd } from "antd";
+import { ColumnsType } from "antd/es/table";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
+import { useCallback, useEffect, useState } from "react";
+import { BsThreeDots } from "react-icons/bs";
 
-import clsxm from "@/utils/clsxm";
 import useMount from "@/hooks/useMount";
 
-import { base_url } from "@/constants/env";
-
-import Button from "@/components/Button";
 import HeaderModule from "@/components/Header/HeaderModule";
 import Popup from "@/components/Popup";
 import AreUsure from "@/components/Popup/AreUsure";
-import Table from "@/components/Table";
-import { TableBody, TableData } from "@/components/Table/types";
-import Tooltip from "@/components/Tooltip";
-import Typography from "@/components/Typography";
 
 import { deleteSupplier, getSuppliers } from "@/services/supplier/supplier";
 import { APISuppliersResp } from "@/services/supplier/types";
 
 import { StandardResp } from "@/app/api/types";
 
-import { FE_SUPPLIER_URL, tableHeaders } from "./config";
+import { FE_SUPPLIER_URL } from "./config";
+import { SuppAntdDataType } from "./types";
 
 export default function Page() {
-  const router = useRouter();
+  const [tblItm, setTblItm] = useState<SuppAntdDataType[]>([]);
   const [supplierData, setSupplierData] = useState<APISuppliersResp[]>([]);
-  const [tableBody, setTableBody] = useState<TableBody>([]);
   const [showDelPop, setShowDelPop] = useState<boolean>(false);
   const [deleted, setDeletedId] = useState<string>("");
+
+  const suppAntdColumns: ColumnsType<SuppAntdDataType> = [
+    {
+      title: "Code",
+      width: 100,
+      dataIndex: "supplierCode",
+      key: "supplierCode",
+      fixed: "left",
+    },
+    {
+      title: "Name",
+      width: 200,
+      dataIndex: "company",
+      key: "company",
+      fixed: "left",
+      sorter: true,
+    },
+    { title: "Phone", dataIndex: "tel", key: "tel", width: 150 },
+    { title: "Email", dataIndex: "email", key: "email", width: 150 },
+    { title: "Address", dataIndex: "address", key: "address", width: 150 },
+    {
+      title: "Action",
+      dataIndex: "operation",
+      key: "operation",
+      fixed: "right",
+      width: 62,
+    },
+  ];
 
   const handleCallAPI = async () => {
     const res1: StandardResp = await getSuppliers();
@@ -55,128 +75,86 @@ export default function Page() {
     }
   };
 
-  const getActions = useCallback(
-    (id: string) => {
-      const handleEdit = () => {
-        router.push(`${FE_SUPPLIER_URL.EDIT}/${id}`);
-      };
-
-      const handleDelete = async (id: string) => {
-        setShowDelPop(true);
-        setDeletedId(id);
-      };
-
-      return (
-        <>
-          <div className="flex h-[1.5rem] w-[4.688rem] items-center space-x-5 border-0 border-blue-900">
-            <div className="flex w-4 items-center">
-              <Tooltip tooltipText="Edit">
-                <div
-                  className="mt-[0.45rem] flex-shrink hover:cursor-pointer"
-                  onClick={handleEdit}
-                >
-                  <BsPencilSquare />
-                </div>
-              </Tooltip>
-            </div>
-
-            <div className="mx-4 h-5 border-x-[0.031rem] border-blackOut" />
-            <div className="flex w-4 items-center">
-              <div
-                className="mt-[0.5rem] flex-shrink hover:cursor-pointer"
-                onClick={() => handleDelete(id)}
-              >
-                <BsFillTrashFill key={`elm-${id}`} />
-              </div>
-            </div>
-          </div>
-        </>
-      );
-    },
-    [router]
-  );
-
   const handleLoadSuppData = useCallback(async () => {
     if (Array.isArray(supplierData)) {
-      const formattedBody =
-        supplierData?.map((values) => ({
-          items: [
-            {
-              value: values ? (
-                <Typography color="black" className="text-sm">
-                  {`${values.supplierCode}`}
-                </Typography>
-              ) : (
-                " -- "
-              ),
-              className: "text-left w-[12rem] flex items-start break-words",
-            },
-            {
-              value: (
-                <Typography
-                  color="black"
-                  className={clsxm(
-                    "text-sm ",
-                    !values &&
-                      "rounded-[0.938rem] bg-red-300 py-[0.5rem] pl-[0.5rem]"
-                  )}
-                >
-                  {`${values.company}`}
-                </Typography>
-              ),
-              className: "text-left w-[14rem] break-words",
-            },
-            {
-              value: (
-                <Typography
-                  color="black"
-                  className={clsxm(
-                    "text-sm ",
-                    !values &&
-                      "rounded-[0.938rem] bg-red-300 py-[0.5rem] pl-[0.5rem]"
-                  )}
-                >
-                  {`${values.tel}`}
-                </Typography>
-              ),
-              className: "text-left w-[8rem] flex items-center justify-start",
-            },
-            {
-              value: (
-                <Typography
-                  color="black"
-                  className={clsxm(
-                    "text-sm ",
-                    !values &&
-                      "rounded-[0.938rem] bg-red-300 py-[0.5rem] pl-[0.5rem]"
-                  )}
-                >
-                  {`${values.email}`}
-                </Typography>
-              ),
-              className: "text-left w-[14rem] flex items-center justify-start",
-            },
-            {
-              value: values ? getActions(String(values._id)) : "NO ACTION",
-              className: "text-left w-[10rem] flex items-start",
-            },
-          ],
-        })) || [];
-      setTableBody(formattedBody);
+      const itmTbl: SuppAntdDataType[] = supplierData.map((x) => {
+        const handleDelete = async (id: string) => {
+          setShowDelPop(true);
+          setDeletedId(id);
+        };
+
+        const items = [
+          {
+            key: "1",
+            label: (
+              <a
+                rel="noopener noreferrer"
+                href={`${FE_SUPPLIER_URL.READ}/${x._id}`}
+              >
+                Details
+              </a>
+            ),
+          },
+          {
+            key: "2",
+            label: (
+              <a
+                rel="noopener noreferrer"
+                href={`${FE_SUPPLIER_URL.EDIT}/${x._id}`}
+              >
+                Edit
+              </a>
+            ),
+          },
+          {
+            key: "3",
+            label: (
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => handleDelete(x._id)}
+              >
+                Delete
+              </a>
+            ),
+          },
+        ];
+
+        const oprtns = (
+          <Dropdown
+            className="w-[100px] rounded-lg ml-[1rem]"
+            menu={{ items }}
+            placement="bottomRight"
+            arrow
+          >
+            <BtnAntd
+              shape="circle"
+              icon={<BsThreeDots />}
+              type="primary"
+              size="small"
+              style={{ backgroundColor: "#47AB1E" }}
+            ></BtnAntd>
+          </Dropdown>
+        );
+
+        return {
+          key: x._id,
+          supplierCode: x.supplierCode,
+          company: x.company,
+          tel: x.tel.toUpperCase(),
+          email: x.email.toUpperCase(),
+          address: x.address.toUpperCase(),
+          operation: oprtns,
+        };
+      });
+
+      setTblItm(itmTbl);
     }
-  }, [getActions, supplierData]);
+  }, [supplierData]);
 
   useEffect(() => {
     handleLoadSuppData();
   }, [handleLoadSuppData]);
-
-  const tableData: TableData = useMemo(
-    () => ({
-      header: tableHeaders.emailPasswords,
-      body: tableBody,
-    }),
-    [tableBody]
-  );
 
   return (
     <>
@@ -190,24 +168,25 @@ export default function Page() {
         onClose={() => setShowDelPop(false)}
       />
       <div className="p-4 sm:ml-64 h-screen bg-white">
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11 flex flex-row">
-          <div className="left-0 w-[50%]">
-            <HeaderModule title="Supplier" />
-          </div>
-
-          <div className="right-0 w-[50%]">
-            <Link href={`${base_url}/admin/supplier/add`}>
-              <Button
-                size="xs"
-                className="bg-blue-500 w-[10px] float-right p-0 min-w-[5rem]"
-              >
-                <Typography className="font-bold text-base">ADD</Typography>
-              </Button>
+        {/* title */}
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
+          <HeaderModule title="Supplier" />
+        </div>
+        {/* body */}
+        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
+          <div className="pb-[0.5rem] flex justify-end pr-[2.5rem]">
+            <Link href={`${FE_SUPPLIER_URL.CREATE}`}>
+              <BtnAntd style={{ backgroundColor: "#338DFF" }} type="primary">
+                +
+              </BtnAntd>
             </Link>
           </div>
-        </div>
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
-          <Table data={tableData} />
+          <TableAntd
+            columns={suppAntdColumns}
+            dataSource={tblItm}
+            pagination={{ pageSize: 50 }}
+            scroll={{ x: 1300 }}
+          />
         </div>
       </div>
     </>
