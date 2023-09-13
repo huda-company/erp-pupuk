@@ -161,22 +161,22 @@ export default function Page() {
             Detail Purchase
           </Typography>
         </div>
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6 ">
+        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-4 ">
           <div className="flex flex-row gap-4">
             {/* left side */}
-            <div className="left-0 w-[65%] flex flex-col gap-y-4">
-              <div className="flex justify-between w-full">
+            <div className="left-0 w-[65%] flex flex-col">
+              <div className="flex justify-start items-center w-full">
                 <div className="">
                   <Typography
                     color="red"
-                    className="left-0 underline underline-offset-8 text-3xl"
+                    className="left-0 underline underline-offset-8 text-2xl"
                   >
                     PO : {itm?.poNo}
                   </Typography>
                 </div>
                 <div>
                   <Dropdown
-                    className="w-[100px] rounded-lg"
+                    className="w-[100px] rounded-lg ml-[1rem]"
                     menu={{
                       items,
                     }}
@@ -184,7 +184,7 @@ export default function Page() {
                     arrow
                   >
                     <BtnAntd
-                      shape="round"
+                      shape="circle"
                       icon={<BsThreeDotsVertical />}
                       type="primary"
                       size="large"
@@ -193,7 +193,7 @@ export default function Page() {
                   </Dropdown>
                 </div>
               </div>
-              <div className="mt-[1rem] flex flex-col gap-4">
+              <div className=" flex flex-col gap-2 mt-[0.5rem]">
                 <div className="flex flex-row gap-1.5 w-full">
                   <div className="w-[40%]">Status</div>
                   <div>: {itm?.status.toUpperCase()}</div>
@@ -219,6 +219,7 @@ export default function Page() {
                   <div>: {itm?.expDate?.toString().substring(0, 10)}</div>
                 </div>
               </div>
+              {/* table */}
               <div className="w-full mt-[1rem] px-4 py-5 border-2 border-gray-300 rounded-lg dark:border-gray-700 ">
                 <div className="flex flex-row gap-4 bg-lime-200 rounder rounded-lg h-[3rem] py-[1rem]">
                   <div className="flex flex-col gap-1.5 w-[50%] ml-[1rem]">
@@ -264,7 +265,7 @@ export default function Page() {
                       <div className="flex flex row">
                         <div className="left-0 w-[50%]">Tax</div>
                         <div className="right-0 w-[50%]">
-                          {itm?.taxtotal ?? 0}
+                          {itm?.taxTotal ?? 0}
                         </div>
                       </div>
 
@@ -281,7 +282,7 @@ export default function Page() {
             <div className="right-0 w-[35%] flex flex-col gap-y-4">
               <Typography
                 color="red"
-                className=" underline underline-offset-8 text-3xl"
+                className=" underline underline-offset-8 text-2xl"
               >
                 Dokumen Pendukung
               </Typography>

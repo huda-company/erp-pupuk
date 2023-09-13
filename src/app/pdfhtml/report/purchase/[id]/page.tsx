@@ -201,7 +201,7 @@ const PdfExport: React.FC = () => {
             </div>
             <div className="flex flex-col px-[6rem]">
               <p className="text-sm ">: Rp {itm?.subTotal}</p>
-              <p className="text-sm ">: Rp {itm?.taxtotal}</p>
+              <p className="text-sm ">: Rp {itm?.taxTotal}</p>
               <p className="text-sm ">: Rp {itm?.grandTotal}</p>
             </div>
           </div>
