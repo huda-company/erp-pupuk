@@ -7,6 +7,7 @@ export type PurcItemsRes = {
   item: ItemFormAPIReqType;
   quantity: number;
   price: number;
+  discount: number;
   total: number;
 };
 
@@ -19,6 +20,7 @@ export type PurcDocRes = {
 
 export type APIPurchaseReq = {
   recurring?: boolean;
+  billingCode: string;
   year: number;
   expDate: string;
   supplier?: string;

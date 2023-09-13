@@ -4,11 +4,13 @@ export type PurchItemType = {
   itemOpt: Option;
   qty: number;
   price: number;
+  discount: number;
   itemTotal: number;
 };
 
 export type PurchaseState = {
   recurring?: boolean;
+  billingCode: string;
   year: number;
   expDate: string;
   supplier?: string;

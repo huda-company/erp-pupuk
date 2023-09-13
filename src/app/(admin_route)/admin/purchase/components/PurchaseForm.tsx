@@ -89,24 +89,41 @@ const PurchaseForm: FC<PurchaseFormProps> = ({
           </div>
 
           {/* supplier field */}
-          <div>
-            <Label
-              containerStyle="bg-transparent"
-              text="Supplier"
-              textColor="text-imporable"
-              textStyle="text-sm font-bold text-improbable"
-              isRequired
-            />
-            <FormDropdown
-              emptyLabel="Select Supplier"
-              name="supplierOpt"
-              variation={Variations.Primary}
-              width="w-full"
-              className="mt-[0.3rem]"
-              options={supplierOpts}
-              readOnly={mode == "READ"}
-            />
-            <ValidationMessage name="supplierOpt" />
+          <div className="flex flex-row gap-4 w-full">
+            <div className="w-[50%]">
+              <Label
+                containerStyle="bg-transparent"
+                text="Supplier"
+                textColor="text-imporable"
+                textStyle="text-sm font-bold text-improbable"
+                isRequired
+              />
+              <FormDropdown
+                emptyLabel="Select Supplier"
+                name="supplierOpt"
+                variation={Variations.Primary}
+                width="w-full"
+                className="mt-[0.3rem]"
+                options={supplierOpts}
+                readOnly={mode == "READ"}
+              />
+              <ValidationMessage name="supplierOpt" />
+            </div>
+            <div className="w-[50%] pt-[0.7rem]">
+              <Label
+                containerStyle="bg-transparent"
+                text="Billing Code"
+                textColor="text-imporable"
+                textStyle="text-sm font-bold text-improbable"
+              />
+              <FormInput
+                name="billingCode"
+                type="text"
+                placeholder="Billing Code"
+                readOnly={mode == "READ"}
+              />
+              <ValidationMessage name="supplierOpt" />
+            </div>
           </div>
 
           {/* note field */}
@@ -207,6 +224,7 @@ const PurchaseForm: FC<PurchaseFormProps> = ({
                         />
                         <FormInput
                           name={`items.${index}.qty`}
+                          onFocus={(e) => e.target.select()}
                           value={values.items[index].qty}
                           type="number"
                         />
@@ -220,9 +238,25 @@ const PurchaseForm: FC<PurchaseFormProps> = ({
                         />
                         <FormInput
                           name={`items.${index}.price`}
+                          onFocus={(e) => e.target.select()}
                           type="number"
                           readOnly={mode == "READ"}
                           value={values.items[index].price}
+                        />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <Label
+                          containerStyle="bg-transparent"
+                          text="Discount"
+                          textColor="text-imporable"
+                          textStyle="text-sm font-bold text-improbable"
+                        />
+                        <FormInput
+                          name={`items.${index}.discount`}
+                          onFocus={(e) => e.target.select()}
+                          type="number"
+                          readOnly={mode == "READ"}
+                          value={values.items[index].discount}
                         />
                       </div>
                       <div className="flex flex-col gap-1.5">
@@ -236,13 +270,15 @@ const PurchaseForm: FC<PurchaseFormProps> = ({
                           className="h-[3.6rem] rounded-xl pl-4"
                           placeholder={(
                             Number(values.items[index].qty) *
-                            Number(values.items[index].price)
+                              Number(values.items[index].price) -
+                            Number(values.items[index].discount)
                           ).toString()}
                           name={`items.${index}.itemTotal`}
-                          value={
+                          value={(
                             Number(values.items[index].qty) *
-                            Number(values.items[index].price)
-                          }
+                              Number(values.items[index].price) -
+                            Number(values.items[index].discount)
+                          ).toString()}
                           readOnly
                         />
                       </div>

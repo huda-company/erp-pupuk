@@ -81,6 +81,7 @@ export default function Page() {
       const params: APIPurchaseReq = {
         items: convItms.items,
         year: formikVal.year,
+        billingCode: formikVal.billingCode,
         expDate: formikVal.expDate,
         supplier: formikVal.supplierOpt.id,
         ppnIncluded: false,
@@ -97,8 +98,6 @@ export default function Page() {
       };
       const createPurch = await addPurchase(params);
       if (createPurch.success) {
-        console.log("aaaa", createPurch);
-
         await router.push(
           `${FE_PURCHASING_URL.READ}/${createPurch.result._id}`
         );
