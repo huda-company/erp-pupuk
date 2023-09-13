@@ -52,7 +52,7 @@ export type APIPurchaseResp = {
   year: number;
   number: number;
   taxRate: number;
-  taxtotal: number;
+  taxTotal: number;
   discount: number;
   ppnIncluded: boolean;
   credit: number;

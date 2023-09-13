@@ -1,5 +1,15 @@
 import { TableHeader } from "@/components/Table/types";
 
+export interface SuppAntdDataType {
+  key: React.Key;
+  supplierCode: string;
+  company: string;
+  tel: string;
+  email: string;
+  address: string;
+  operation: React.ReactNode;
+}
+
 export enum MODE {
   "ADD",
   "EDIT",
