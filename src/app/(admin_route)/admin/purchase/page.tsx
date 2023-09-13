@@ -1,6 +1,7 @@
 "use client";
 import { Button as BtnAntd, Dropdown, Table as TableAntd } from "antd";
 import { ColumnsType } from "antd/es/table";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
@@ -196,18 +197,18 @@ export default function Page() {
       />
 
       <div className="p-4 sm:ml-64 h-screen bg-white">
-        <div className="flex justify-start items-start align-middle p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
-          <div className="align-middle">
-            <Typography className="text-xl text-black font-bold underline align-middle pt-[0.5rem]">
-              Purchase
-            </Typography>
-          </div>
+        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
+          <Typography className="text-xl text-black font-bold underline">
+            Purchase
+          </Typography>
         </div>
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
-          <div className="align-middle pb-[1rem]">
-            <BtnAntd style={{ backgroundColor: "#338DFF" }} type="primary">
-              +
-            </BtnAntd>
+          <div className="pb-[0.5rem] flex justify-end pr-[2.5rem]">
+            <Link href={`${FE_PURCHASING_URL.CREATE}`}>
+              <BtnAntd style={{ backgroundColor: "#338DFF" }} type="primary">
+                +
+              </BtnAntd>
+            </Link>
           </div>
           <TableAntd
             columns={purchaseAntdColumns}
