@@ -31,6 +31,7 @@ export const FE_PURCHASING_URL = {
   CREATE: `${base_url}/admin/${MODULE_NAME}/add`,
   EDIT: `${base_url}/admin/${MODULE_NAME}/edit`,
   READ: `${base_url}/admin/${MODULE_NAME}/read`,
+  READ_GENERATE_PDF: `${base_url}/pdfhtml/report/${MODULE_NAME}`,
 };
 
 export const PURCH_PAYM_METH_OPTS: Option[] = [

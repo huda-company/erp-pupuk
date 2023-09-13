@@ -1,7 +1,8 @@
 "use client";
 import { NextPage } from "next";
-import React, { ChangeEventHandler, useState } from "react";
 import Image from "next/image";
+import React, { ChangeEventHandler, useState } from "react";
+
 import Typography from "@/components/Typography";
 
 const Signup: NextPage = () => {
@@ -19,7 +20,7 @@ const Signup: NextPage = () => {
   };
 
   const handleSignupSubmit = async () => {
-    const res = await fetch("/api/auth/users", {
+    await fetch("/api/auth/users", {
       method: "POST",
       body: JSON.stringify(userInfo),
     });

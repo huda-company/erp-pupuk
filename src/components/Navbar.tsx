@@ -1,10 +1,13 @@
 "use client";
-import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
+import React, { useCallback, useRef, useState } from "react";
+
 import useOnClickOutsideElement from "@/hooks/useOnClickOutsideElement";
-import { persistor } from "@/redux/store";
+
 import { base_url } from "@/constants/env";
+
+import { persistor } from "@/redux/store";
 
 export default function Navbar() {
   const { data: sessionData } = useSession();
@@ -58,7 +61,7 @@ export default function Navbar() {
                 className="h-8 mr-3"
                 alt="FlowBite Logo"
               />
-              <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
+              <span className="self-center text-lg   font-semibold sm:text-xl whitespace-nowrap dark:text-white">
                 ERP
               </span>
             </a>
@@ -66,6 +69,7 @@ export default function Navbar() {
 
           <div className="flex items-center">
             <div className="flex items-center ml-3">
+              <span className="text-green-500">PT ANUGERAH TANI MAKMUR</span>
               <div onClick={() => setShowProfileOptions((prev) => !prev)}>
                 <button
                   type="button"

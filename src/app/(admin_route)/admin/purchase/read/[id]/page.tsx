@@ -1,8 +1,10 @@
 "use client";
 
+import { Button as BtnAntd, Dropdown } from "antd";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { ImFolderUpload } from "react-icons/im";
 
 import useMount from "@/hooks/useMount";
@@ -20,6 +22,8 @@ import {
 
 import { StandardResp } from "@/app/api/types";
 
+import { FE_PURCHASING_URL } from "../../config";
+
 export default function Page() {
   const urlParam = useParams();
 
@@ -30,6 +34,21 @@ export default function Page() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   // eslint-disable-next-line no-unused-vars
   const [filename, setFilename] = useState<string>("");
+
+  const items = [
+    {
+      key: "1",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`${FE_PURCHASING_URL.READ_GENERATE_PDF}/${urlParam?.id}`}
+        >
+          generate pdf
+        </a>
+      ),
+    },
+  ];
 
   const setInitFormVal = useCallback(() => {
     if (itm) {
@@ -142,16 +161,38 @@ export default function Page() {
             Detail Purchase
           </Typography>
         </div>
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">
+        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6 ">
           <div className="flex flex-row gap-4">
             {/* left side */}
             <div className="left-0 w-[65%] flex flex-col gap-y-4">
-              <Typography
-                color="red"
-                className=" underline underline-offset-8 text-3xl"
-              >
-                PO : {itm?.poNo}
-              </Typography>
+              <div className="flex justify-between w-full">
+                <div className="">
+                  <Typography
+                    color="red"
+                    className="left-0 underline underline-offset-8 text-3xl"
+                  >
+                    PO : {itm?.poNo}
+                  </Typography>
+                </div>
+                <div>
+                  <Dropdown
+                    className="w-[100px] rounded-lg"
+                    menu={{
+                      items,
+                    }}
+                    placement="bottomRight"
+                    arrow
+                  >
+                    <BtnAntd
+                      shape="round"
+                      icon={<BsThreeDotsVertical />}
+                      type="primary"
+                      size="large"
+                      style={{ backgroundColor: "#47AB1E" }}
+                    ></BtnAntd>
+                  </Dropdown>
+                </div>
+              </div>
               <div className="mt-[1rem] flex flex-col gap-4">
                 <div className="flex flex-row gap-1.5 w-full">
                   <div className="w-[40%]">Status</div>
@@ -166,6 +207,10 @@ export default function Page() {
                   <div>: {itm?.purchPaymentMethod}</div>
                 </div>
                 <div className="flex flex-row gap-1.5 w-full">
+                  <div className="w-[40%]">Billing Code</div>
+                  <div>: {itm?.billingCode}</div>
+                </div>
+                <div className="flex flex-row gap-1.5 w-full">
                   <div className="w-[40%]">Date</div>
                   <div>: {itm?.date?.toString().substring(0, 10)}</div>
                 </div>
@@ -175,7 +220,7 @@ export default function Page() {
                 </div>
               </div>
               <div className="w-full mt-[1rem] px-4 py-5 border-2 border-gray-300 rounded-lg dark:border-gray-700 ">
-                <div className="flex flex-row gap-4 bg-red-100 rounder rounded-lg h-[3rem] py-[1rem]">
+                <div className="flex flex-row gap-4 bg-lime-200 rounder rounded-lg h-[3rem] py-[1rem]">
                   <div className="flex flex-col gap-1.5 w-[50%] ml-[1rem]">
                     Item
                   </div>
@@ -274,7 +319,7 @@ export default function Page() {
               </div>
               <div className="flex flex-col mt-[0.2rem]">
                 <div>
-                  <div className="flex flex-row gap-4 bg-red-100 rounder rounded-lg h-[3rem] py-[1rem]">
+                  <div className="flex flex-row gap-4 bg-lime-200 rounder rounded-lg h-[3rem] py-[1rem]">
                     <div className="flex flex-col gap-1.5 w-[30%] ml-[1rem]">
                       Title
                     </div>

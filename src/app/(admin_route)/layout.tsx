@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import React from "react";
+import React, { Suspense } from "react";
 
+import Loading from "@/components/Loading";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 
@@ -22,8 +23,7 @@ export default async function PrivateLayout({
       <Navbar />
 
       <Sidebar variation="Secondary" />
-
-      {children}
+      <Suspense fallback={<Loading />}>{children}</Suspense>
     </>
   );
 }

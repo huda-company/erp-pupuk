@@ -1,6 +1,7 @@
 import { FC } from "react";
-import Typography from "../Typography";
+
 import { HeaderModuleProps } from "./types";
+import Typography from "../Typography";
 
 const HeaderModule: FC<HeaderModuleProps> = ({ title }) => {
   return (
