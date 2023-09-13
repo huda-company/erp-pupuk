@@ -33,10 +33,10 @@ const Login: NextPage = () => {
       password,
       redirect: false,
     });
-    setShowLoading(false);
     if (res?.error) return setError(res.error);
 
     router.replace("/user");
+    setShowLoading(false);
   };
 
   return (
