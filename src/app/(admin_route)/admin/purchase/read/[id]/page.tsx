@@ -4,13 +4,14 @@ import { Button as BtnAntd, Dropdown } from "antd";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { BsThreeDots } from "react-icons/bs";
 import { ImFolderUpload } from "react-icons/im";
 
 import useMount from "@/hooks/useMount";
 
 import { base_url } from "@/constants/env";
 
+import HeaderModule from "@/components/Header/HeaderModule";
 import Typography from "@/components/Typography";
 
 import { getPurchaseById } from "@/services/purchase/purchase";
@@ -156,11 +157,11 @@ export default function Page() {
   return (
     <>
       <div className="p-4 sm:ml-64 bg-white h-screen">
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
-          <Typography className="text-xl text-black font-bold underline">
-            Detail Purchase
-          </Typography>
+        {/* title */}
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
+          <HeaderModule title="Detail Purchase Order" />
         </div>
+        {/* body */}
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-4 ">
           <div className="flex flex-row gap-4">
             {/* left side */}
@@ -185,9 +186,9 @@ export default function Page() {
                   >
                     <BtnAntd
                       shape="circle"
-                      icon={<BsThreeDotsVertical />}
+                      icon={<BsThreeDots />}
                       type="primary"
-                      size="large"
+                      size="middle"
                       style={{ backgroundColor: "#47AB1E" }}
                     ></BtnAntd>
                   </Dropdown>

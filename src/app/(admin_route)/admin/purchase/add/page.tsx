@@ -131,7 +131,7 @@ export default function Page() {
       />
       <div className="p-4 sm:ml-64 bg-white h-screen">
         {/* title */}
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
           <HeaderModule title="Add Purchase Order" />
         </div>
         {/* body */}
