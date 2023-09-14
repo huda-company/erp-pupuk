@@ -8,8 +8,6 @@ import { BsThreeDots } from "react-icons/bs";
 import useMount from "@/hooks/useMount";
 
 import HeaderModule from "@/components/Header/HeaderModule";
-import Popup from "@/components/Popup";
-import AreUsure from "@/components/Popup/AreUsure";
 
 import { deleteSupplier, getSuppliers } from "@/services/supplier/supplier";
 import { APISuppliersResp } from "@/services/supplier/types";
@@ -24,8 +22,6 @@ export default function Page() {
 
   const [tblItm, setTblItm] = useState<SuppAntdDataType[]>([]);
   const [supplierData, setSupplierData] = useState<APISuppliersResp[]>([]);
-  const [showDelPop, setShowDelPop] = useState<boolean>(false);
-  const [deleted, setDeletedId] = useState<string>("");
 
   const suppAntdColumns: ColumnsType<SuppAntdDataType> = [
     {
@@ -67,36 +63,31 @@ export default function Page() {
     handleCallAPI();
   });
 
-  const handleDeleteSubmit = async () => {
-    const resDel: StandardResp = await deleteSupplier(deleted);
-    if (resDel.success) {
-      const newItems: StandardResp = await getSuppliers();
-      await setSupplierData(newItems.result);
-      setDeletedId("");
-      setShowDelPop(false);
-    }
-  };
+  const showDeleteConfirm = useCallback(
+    (id: string) => {
+      confirm({
+        title: "Are you sure delete this data?",
+        // content: "Some descriptions",
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        centered: true,
+        async onOk() {
+          const resDel: StandardResp = await deleteSupplier(id);
+          if (resDel.success) {
+            const newItems: StandardResp = await getSuppliers();
+            await setSupplierData(newItems.result);
+          }
+        },
+        onCancel() {},
+      });
+    },
+    [confirm]
+  );
 
   const handleLoadSuppData = useCallback(async () => {
     if (Array.isArray(supplierData)) {
       const itmTbl: SuppAntdDataType[] = supplierData.map((x) => {
-        const showDeleteConfirm = (id: string) => {
-          setDeletedId(id);
-          confirm({
-            title: "Are you sure delete this data?",
-            // content: "Some descriptions",
-            okText: "Yes",
-            okType: "danger",
-            cancelText: "No",
-            centered: true,
-            onOk: () => handleDeleteSubmit(),
-            onCancel() {
-              setShowDelPop(false);
-              setDeletedId(id);
-            },
-          });
-        };
-
         const items = [
           {
             key: "1",
@@ -163,7 +154,7 @@ export default function Page() {
 
       setTblItm(itmTbl);
     }
-  }, [supplierData]);
+  }, [showDeleteConfirm, supplierData]);
 
   useEffect(() => {
     handleLoadSuppData();
@@ -171,16 +162,6 @@ export default function Page() {
 
   return (
     <>
-      <Popup
-        show={showDelPop}
-        variation="Secondary"
-        msg={AreUsure}
-        buttonCloseText="No"
-        buttonSubmitText="Yes"
-        onSubmit={() => handleDeleteSubmit()}
-        onClose={() => setShowDelPop(false)}
-      />
-
       <div className="p-4 sm:ml-64 h-screen bg-white">
         {/* title */}
         <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">

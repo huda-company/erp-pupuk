@@ -28,3 +28,12 @@ export type ItemFormProps = {
   mode: keyof typeof MODE;
   itemCatOpts: Option[];
 };
+
+export interface ItemAntdDataType {
+  key: React.Key;
+  name: string;
+  category: string;
+  description: string;
+  price: number;
+  operation: React.ReactNode;
+}

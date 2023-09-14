@@ -8,8 +8,6 @@ import { BsThreeDots } from "react-icons/bs";
 import useMount from "@/hooks/useMount";
 
 import HeaderModule from "@/components/Header/HeaderModule";
-import Popup from "@/components/Popup";
-import AreUsure from "@/components/Popup/AreUsure";
 
 import { deletePurchase, getPurchases } from "@/services/purchase/purchase";
 import { APIPurchaseResp } from "@/services/purchase/types";
@@ -23,8 +21,6 @@ export default function Page() {
   const { confirm } = Modal;
   const [tblItm, setTblItm] = useState<AntdDataType[]>([]);
   const [itemData, setItemData] = useState<APIPurchaseResp[]>([]);
-  const [showDelPop, setShowDelPop] = useState<boolean>(false);
-  const [deleted, setDeletedId] = useState<string>("");
 
   const purchaseAntdColumns: ColumnsType<AntdDataType> = [
     {
@@ -87,36 +83,30 @@ export default function Page() {
     handleCallAPI();
   });
 
-  const handleDeleteSubmit = async () => {
-    const resDel: StandardResp = await deletePurchase(deleted);
-    if (resDel.success) {
-      const newItems: StandardResp = await getPurchases();
-      await setItemData(newItems.result);
-      setDeletedId("");
-      setShowDelPop(false);
-    }
-  };
+  const showDeleteConfirm = useCallback(
+    (id: string) => {
+      confirm({
+        title: "Are you sure delete this data?",
+        // content: "Some descriptions",
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        centered: true,
+        async onOk() {
+          const resDel: StandardResp = await deletePurchase(id);
+          if (resDel.success) {
+            const newItems: StandardResp = await getPurchases();
+            await setItemData(newItems.result);
+          }
+        },
+      });
+    },
+    [confirm]
+  );
 
   const handleLoadItemData = useCallback(async () => {
     if (Array.isArray(itemData)) {
       const itmTbl: AntdDataType[] = itemData.map((x) => {
-        const showDeleteConfirm = (id: string) => {
-          setDeletedId(id);
-          confirm({
-            title: "Are you sure delete this data?",
-            // content: "Some descriptions",
-            okText: "Yes",
-            okType: "danger",
-            cancelText: "No",
-            centered: true,
-            onOk: () => handleDeleteSubmit(),
-            onCancel() {
-              setShowDelPop(false);
-              setDeletedId(id);
-            },
-          });
-        };
-
         const items = [
           {
             key: "1",
@@ -190,7 +180,7 @@ export default function Page() {
 
       setTblItm(itmTbl);
     }
-  }, [itemData]);
+  }, [itemData, showDeleteConfirm]);
 
   useEffect(() => {
     handleLoadItemData();
@@ -198,16 +188,6 @@ export default function Page() {
 
   return (
     <>
-      <Popup
-        show={showDelPop}
-        variation="Secondary"
-        msg={AreUsure}
-        buttonCloseText="No"
-        buttonSubmitText="Yes"
-        onSubmit={() => handleDeleteSubmit()}
-        onClose={() => setShowDelPop(false)}
-      />
-
       <div className="p-4 sm:ml-64 h-screen bg-white">
         {/* title */}
         <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
