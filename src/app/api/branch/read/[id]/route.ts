@@ -1,16 +1,18 @@
-import startDb from "@/lib/db";
-import Item from "@/models/Item";
 import { NextResponse } from "next/server";
 
+import branchModel from "@/models/Branch";
+
+import startDb from "@/lib/db";
+
 export const GET = async (req: Request) => {
-  const idVal = req.url.split("/item/read/")[1];
+  const idVal = req.url.split("/branch/read/")[1];
 
   if (idVal) {
     try {
       await startDb();
 
       // Find document by id and updates with the required fields
-      const result = await Item.findOne({
+      const result = await branchModel.findOne({
         _id: idVal,
         removed: false,
       });
@@ -19,7 +21,7 @@ export const GET = async (req: Request) => {
         {
           success: true,
           result,
-          message: "Successfully retrieved item",
+          message: "Successfully retrieved",
         },
         { status: 200 }
       );
@@ -28,7 +30,7 @@ export const GET = async (req: Request) => {
         {
           success: false,
           result: [],
-          message: "Error read item",
+          message: "Error read branch",
           error: err,
         },
         { status: 500 }

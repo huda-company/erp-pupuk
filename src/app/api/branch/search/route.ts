@@ -1,10 +1,10 @@
-import startDb from "@/lib/db";
-import SupplierModel from "@/models/Supplier";
-import parseQueryParameters from "@/utils/parseQueryParameters";
-import { NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
-export const GET = async (req: Request, res: NextApiResponse) => {
+import parseQueryParameters from "@/utils/parseQueryParameters";
+
+import SupplierModel from "@/models/Supplier";
+
+export const GET = async (req: Request, ) => {
   const {
     q: qVal,
     fields: fieldsVal, // show n items

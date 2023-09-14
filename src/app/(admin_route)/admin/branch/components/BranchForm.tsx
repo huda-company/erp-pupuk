@@ -1,50 +1,22 @@
 "use client";
 import { useFormikContext } from "formik";
 import { useRouter } from "next/navigation";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 import Button from "@/components/Button";
-import { Variations } from "@/components/Dropdown/config";
-import type { Option } from "@/components/Dropdown/types";
-import FormDropdown from "@/components/Formik/FormDropdown";
 import FormInput from "@/components/Formik/FormInput";
 import ValidationMessage from "@/components/Formik/ValidationMessage";
 import Label from "@/components/Label";
 import Typography from "@/components/Typography";
 
-import { ItemFormProps, ItemFormType } from "../types";
+import { BranchFormProps, BranchFormReqType, } from "../types";
 
-const ItemForm: FC<ItemFormProps> = ({ mode, itemCatOpts }) => {
+const BranchForm: FC<BranchFormProps> = ({ mode }) => {
   const router = useRouter();
-  const { isSubmitting, submitForm } = useFormikContext<ItemFormType>();
-  const [itmCat, setItmCat] = useState<Option[]>(itemCatOpts);
-
-  useEffect(() => {
-    setItmCat(itemCatOpts);
-  }, [itemCatOpts]);
+  const { isSubmitting, submitForm } = useFormikContext<BranchFormReqType>();
 
   return (
     <>
-      <div className="w-[50%]">
-        <Label
-          containerStyle="bg-transparent"
-          text="Category"
-          textColor="text-imporable"
-          textStyle="text-sm font-bold text-improbable"
-          isRequired
-        />
-        <FormDropdown
-          emptyLabel="Select Item Category"
-          name="itemCategoryOpt"
-          variation={Variations.Primary}
-          width="w-full"
-          className="mt-[0.3rem]"
-          options={itmCat}
-          readOnly={mode == "READ"}
-        />
-        <ValidationMessage name="itemCategoryOpt" />
-      </div>
-
       <div className="w-[50%]">
         <Label
           containerStyle="bg-transparent"
@@ -65,20 +37,36 @@ const ItemForm: FC<ItemFormProps> = ({ mode, itemCatOpts }) => {
       <div className="w-[50%]">
         <Label
           containerStyle="bg-transparent"
-          text="Price"
+          text="Address"
           textColor="text-imporable"
           textStyle="text-sm font-bold text-improbable"
           isRequired
         />
         <FormInput
-          name="price"
-          type="number"
-          placeholder="Price"
+          name="address"
+          type="text"
+          placeholder="Address"
           readOnly={mode == "READ"}
         />
-        <ValidationMessage name="price" />
+        <ValidationMessage name="address" />
       </div>
 
+      <div className="w-[50%]">
+        <Label
+          containerStyle="bg-transparent"
+          text="City"
+          textColor="text-imporable"
+          textStyle="text-sm font-bold text-improbable"
+          isRequired
+        />
+        <FormInput
+          name="city"
+          type="text"
+          placeholder="City"
+          readOnly={mode == "READ"}
+        />
+        <ValidationMessage name="city" />
+      </div>
       <div className="w-[50%]">
         <Label
           containerStyle="bg-transparent"
@@ -127,4 +115,4 @@ const ItemForm: FC<ItemFormProps> = ({ mode, itemCatOpts }) => {
   );
 };
 
-export default ItemForm;
+export default BranchForm;

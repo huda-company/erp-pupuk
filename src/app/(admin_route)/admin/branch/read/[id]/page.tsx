@@ -1,64 +1,60 @@
 "use client";
 
-import { StandardResp } from "@/app/api/types";
-import { useParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
 import { FormikContext, useFormik } from "formik";
-import { actions as utilsActions } from "@/redux/utils";
-import AddEditSupplierSchema from "../../validation";
-import useMount from "@/hooks/useMount";
-import { useAppDispatch } from "@/hooks";
+import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+
+import { useAppDispatch } from "@/hooks";
+import useMount from "@/hooks/useMount";
+
 import { base_url } from "@/constants/env";
-import ItemForm from "../../components/ItemForm";
-import { ItemFormAPIReqType, ItemFormType } from "../../types";
-import { Option } from "@/components/Dropdown/types";
-import { editItem, getItemById } from "@/services/item/item";
-import { getItemCategory } from "@/services/itemCategory/itemCategory";
-import { APIItemResp } from "@/services/item/types";
-import convToOpts from "@/utils/convToOpts";
+
 import Typography from "@/components/Typography";
+
+import { actions as utilsActions } from "@/redux/utils";
+
+import { editBranch, getBranchById } from "@/services/branch/branch";
+import { APIBranchResp } from "@/services/branch/types";
+
+import { StandardResp } from "@/app/api/types";
+
+import BranchForm from "../../components/BranchForm";
+import { BranchFormReqType } from "../../types";
+import AddEditBranchSchema from "../../validation";
 
 export default function Page() {
   const urlParam = useParams();
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const [itm, setItm] = useState<APIItemResp | undefined>(undefined);
-  const [itmCatOpts, setItmCatOpts] = useState<Option[]>([]);
+  const [branch, setBranch] = useState<APIBranchResp | undefined>(undefined);
+  const [formVal, setFormVal] = useState<BranchFormReqType | undefined>(
+    undefined
+  );
 
-  const [formVal, setFormVal] = useState<ItemFormType | undefined>(undefined);
-
-  const setInitFormVal = useCallback(() => {
-    if (itm) {
-      const val: ItemFormType = {
-        id: itm._id,
-        itemCategoryOpt: itmCatOpts.find(
-          (x) => x.id == itm?.itemCategory
-        ) as Option,
-        name: itm.name,
-        price: String(itm.price),
-        description: itm.description,
+  const handleLoadData = useCallback(async () => {
+    if (branch) {
+      const val: BranchFormReqType = {
+        id: branch._id,
+        address: branch.address,
+        name: branch.name,
+        city: branch.city,
+        description: branch.description,
       };
       setFormVal(val);
     }
-  }, [itm, itmCatOpts]);
+  }, [branch]);
 
   useEffect(() => {
-    setInitFormVal();
-  }, [setInitFormVal]);
+    handleLoadData();
+  }, [handleLoadData]);
 
   const handleCallAPIs = async () => {
-    const { success: itmCatSuccess, result: itmCatRes }: StandardResp =
-      await getItemCategory();
-    if (itmCatSuccess) {
-      const itmCatOpts: Option[] = await convToOpts(itmCatRes, "_id", "name");
-      setItmCatOpts(itmCatOpts);
-    }
-
-    const res1: StandardResp = await getItemById(String(urlParam?.id));
+    const res1: StandardResp = await getBranchById(String(urlParam?.id));
     if (res1.success && res1.result) {
-      setItm(res1.result);
+      console.log('****',res1.result)
+      setBranch(res1.result);
     }
   };
 
@@ -66,16 +62,8 @@ export default function Page() {
     handleCallAPIs();
   });
 
-  const handleSubmit = async (formVal: ItemFormType) => {
-    const params: ItemFormAPIReqType = {
-      id: formVal?.id,
-      itemCategory: formVal?.itemCategoryOpt.id,
-      name: String(formVal?.name),
-      price: String(formVal?.price),
-      description: String(formVal?.description),
-    };
-
-    const newSupp = await editItem(params);
+  const handleSubmit = async (formikVal: BranchFormReqType) => {
+    const newSupp = await editBranch(formikVal);
     if (newSupp.success) {
       await dispatch(
         utilsActions.callShowToast({
@@ -92,12 +80,12 @@ export default function Page() {
     }
   };
 
-  const formikBag = useFormik<ItemFormType>({
-    initialValues: formVal as ItemFormType,
+  const formikBag = useFormik<BranchFormReqType>({
+    initialValues: formVal as BranchFormReqType,
     enableReinitialize: true,
     validateOnChange: false,
     validateOnBlur: false,
-    validationSchema: AddEditSupplierSchema,
+    validationSchema: AddEditBranchSchema,
     onSubmit: handleSubmit,
   });
 
@@ -106,12 +94,12 @@ export default function Page() {
       <div className="p-4 sm:ml-64 bg-white h-screen">
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
           <Typography className="text-xl text-black font-bold underline">
-            Detail Supplier
+            Detail Branch
           </Typography>
         </div>
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">
           <FormikContext.Provider value={formikBag}>
-            <ItemForm itemCatOpts={itmCatOpts} mode="READ" />
+            <BranchForm mode="READ" />
           </FormikContext.Provider>
         </div>
       </div>
