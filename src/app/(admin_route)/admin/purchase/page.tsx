@@ -123,7 +123,6 @@ export default function Page() {
             key: "2",
             label: (
               <a
-                target="_blank"
                 rel="noopener noreferrer"
                 href={`${FE_PURCHASING_URL.EDIT}/${x._id}`}
               >

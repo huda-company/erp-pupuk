@@ -19,6 +19,7 @@ export type PurcDocRes = {
 };
 
 export type APIPurchaseReq = {
+  _id?: string;
   recurring?: boolean;
   billingCode: string;
   year: number;

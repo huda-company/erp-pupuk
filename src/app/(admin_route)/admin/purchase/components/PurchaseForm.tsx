@@ -46,7 +46,7 @@ const PurchaseForm: FC<PurchaseFormProps> = ({
                 name="year"
                 type="text"
                 value={new Date().getFullYear()}
-                readOnly={mode == "READ"}
+                readOnly
               />
               <ValidationMessage name="year" />
             </div>
@@ -61,7 +61,7 @@ const PurchaseForm: FC<PurchaseFormProps> = ({
               />
               <FormInput
                 name="expDate"
-                type="Date"
+                type="date"
                 placeholder="Expired Date"
                 readOnly={mode == "READ"}
               />

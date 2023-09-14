@@ -1,10 +1,22 @@
 "use client";
 
-import { Badge, Button as BtnAntd, Dropdown, List } from "antd";
+import {
+  Badge,
+  Button as BtnAntd,
+  Card,
+  Divider,
+  Dropdown,
+  Input,
+  InputRef,
+  List,
+  Select,
+  Space,
+} from "antd";
 import axios from "axios";
 import { useParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import React from "react";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { ImFolderUpload } from "react-icons/im";
 
@@ -25,13 +37,41 @@ import { FE_PURCHASING_URL } from "../../config";
 export default function Page() {
   const urlParam = useParams();
 
+  const inputRef = useRef<InputRef>(null);
+
+  const [titleName, setTitleName] = useState("");
+  const [optItems, setOptItems] = useState([
+    "other",
+    "invoice",
+    "billing code",
+    "file evidence",
+  ]);
+
   const [itm, setItm] = useState<APIPurchaseResp | undefined>(undefined);
-  const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [base64State, setBase64State] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  // eslint-disable-next-line no-unused-vars
-  const [filename, setFilename] = useState<string>("");
+  const [, setFilename] = useState<string>("");
+
+  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitleName(event.target.value);
+  };
+
+  const onSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitleName(String(event));
+  };
+
+  let index = 0;
+  const addItem = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => {
+    e.preventDefault();
+    setOptItems([...optItems, titleName || `New item ${index++}`]);
+    setTitleName("");
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
 
   const data = itm?.billdocs.map((doc, i) => ({
     href: `${base_url}/uploads/purchasedoc/${doc.fileName}`,
@@ -124,7 +164,7 @@ export default function Page() {
         formData.append("file", base64State);
         formData.append("filename", fileName);
         formData.append("purchase", String(urlParam?.id));
-        formData.append("title", title);
+        formData.append("title", titleName);
         formData.append("description", description);
 
         // Send the FormData as part of a POST request
@@ -139,19 +179,12 @@ export default function Page() {
         );
 
         if (status == 200) {
-          setTitle("");
+          setTitleName("");
           setDescription("");
           setFilename("");
           handleCallAPIs();
         }
       }
-      // Convert the selected file to base64
-      // const reader = new FileReader();
-      // reader.onload = async () => {
-      //   const base64String = reader.result as string;
-      // };
-
-      // reader.readAsDataURL(selectedFile);
     } catch (error) {
       console.error("API Request Error:", error);
     }
@@ -306,39 +339,71 @@ export default function Page() {
               >
                 Dokumen Pendukung
               </Typography>
+              {/* billdoc attention */}
+              <div className="w-full">
+                <Card
+                  type="inner"
+                  title="!!! Attention !!!"
+                  headStyle={{ backgroundColor: "#DB4827" }}
+                >
+                  <p>These are purchase order statuses : </p>
+                  <p>1. DRAFT </p>
+                  <p>2. APPROVED </p>
+                  <p>3. RELEASED </p>
+
+                  <p className="mt-[1rem]">
+                    (-) Filename title will affect purchase order status
+                  </p>
+                  <p className="ml-[0.7rem]">{`(--) once invoice / billing code file uploaded, status will changed to be "APPROVED"`}</p>
+                  <p className="my-[0.7rem] ml-[0.7rem]">{`(--) once FILE EVIDENCE (payment proof, etc) uploaded, status will changed to be "RELEASED"`}</p>
+                </Card>
+              </div>
+              {/* billdoc uploader */}
               <div className="flex flex-row gap-5 mt-[1rem] bg-blue-100 items-center px-2 rounded-lg">
-                <ImFolderUpload
-                  color="blue"
-                  size={64}
-                  onClick={() => handleUpload()}
-                />
-                <div>
-                  <input
-                    placeholder="title"
-                    type="text"
-                    id="title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                </div>
-                {/* <div>
-                      <label htmlFor="description">Description:</label>
-                      <input
-                        type="text"
-                        id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                      />
-                    </div> */}
                 <input
-                  className=""
                   name="file"
                   type="file"
                   accept=".jpg, .png, .pdf" // Specify accepted file types
                   onChange={handleFileInputChange}
                 />
+                <div>
+                  <Select
+                    style={{ width: 200 }}
+                    placeholder="filename title"
+                    onChange={onSelectChange}
+                    dropdownRender={(menu) => (
+                      <>
+                        {menu}
+                        <Divider style={{ margin: "8px 0" }} />
+                        <Space style={{ padding: "0 8px 4px" }}>
+                          <Input
+                            placeholder="Please enter item"
+                            ref={inputRef}
+                            value={titleName}
+                            onChange={onNameChange}
+                          />
+                          <BtnAntd
+                            type="text"
+                            icon={<AiOutlinePlusCircle />}
+                            onClick={addItem}
+                          ></BtnAntd>
+                        </Space>
+                      </>
+                    )}
+                    options={optItems.map((item) => ({
+                      label: item,
+                      value: item,
+                    }))}
+                  />
+                </div>
+                <ImFolderUpload
+                  color="blue"
+                  size={60}
+                  onClick={() => handleUpload()}
+                />
               </div>
-              <div className="flex flex-col mt-[0.2rem]">
+              {/* billdoc list */}
+              <div className="flex flex-col mt-[0.2rem] h-[280px]">
                 <List
                   itemLayout="horizontal"
                   size="small"

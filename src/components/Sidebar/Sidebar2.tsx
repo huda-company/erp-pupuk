@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { BsCart4, BsChevronDown, BsFiles, BsServer } from "react-icons/bs";
+import { BsCart4, BsChevronDown, BsFiles } from "react-icons/bs";
 import {
   MdAnalytics,
   MdOutlineDashboard,
@@ -32,31 +32,31 @@ export default function Sidebar2() {
       ],
       isOpen: false,
     },
-    {
-      title: "Services",
-      icon: <BsServer />,
-      subMenus: [
-        {
-          title: "Service 1",
-          src: `${base_url}/services/services1`,
+    // {
+    //   title: "Services",
+    //   icon: <BsServer />,
+    //   subMenus: [
+    //     {
+    //       title: "Service 1",
+    //       src: `${base_url}/services/services1`,
 
-          cName: "sub-nav",
-        },
-        {
-          title: "Service 2",
-          src: `${base_url}/services/services2`,
+    //       cName: "sub-nav",
+    //     },
+    //     {
+    //       title: "Service 2",
+    //       src: `${base_url}/services/services2`,
 
-          cName: "sub-nav",
-        },
-        {
-          title: "Service 3",
-          src: `${base_url}/services/services3`,
-        },
-      ],
-      isOpen: false,
-    },
+    //       cName: "sub-nav",
+    //     },
+    //     {
+    //       title: "Service 3",
+    //       src: `${base_url}/services/services3`,
+    //     },
+    //   ],
+    //   isOpen: false,
+    // },
     {
-      title: "Item / Barang",
+      title: "Item",
       src: `${base_url}/admin/item`,
       icon: <BsFiles />,
     },

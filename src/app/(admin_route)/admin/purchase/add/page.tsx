@@ -85,7 +85,7 @@ export default function Page() {
         items: convItms.items,
         year: formikVal.year,
         billingCode: formikVal.billingCode,
-        expDate: formikVal.expDate,
+        expDate: String(formikVal.expDate),
         supplier: formikVal.supplierOpt.id,
         ppnIncluded: false,
         subTotal: 0,
@@ -95,7 +95,7 @@ export default function Page() {
         discount: 0,
         paymentStatus: "",
         purchPaymentMethod: formikVal?.purchPaymentMethodOpt?.id,
-        note: String(formikVal.status),
+        note: formikVal.note,
         grandTotal: 0,
         status: "",
       };
@@ -103,7 +103,6 @@ export default function Page() {
       if (createPurch.success) {
         await dispatch(
           utilsActions.callShowToast({
-            variation: "Secondary",
             title: "Sucessfully created",
             msg: "new po successfully created",
             timeout: 3000,
@@ -114,7 +113,14 @@ export default function Page() {
         );
       }
     } else {
-      console.log("item not valid");
+      await dispatch(
+        utilsActions.callShowToast({
+          type: "warning",
+          title: "Error",
+          msg: "failed to create new po",
+          timeout: 3000,
+        })
+      );
     }
   };
 
