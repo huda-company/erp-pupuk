@@ -87,7 +87,7 @@ export default function Sidebar2() {
       className="fixed top-0 left-0 z-40 w-64 h-screen pt-0 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
       aria-label="Sidebar"
     >
-      <div className=" h-screen flex justify-end mt-[2.5rem] bg-red-100">
+      <div className=" h-screen flex justify-end mt-[2.5rem]">
         <button
           className="fixed lg:hidden z-90 bottom-10 right-8 bg-white w-10 h-10 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-teal-800 duration-300"
           onClick={toggleSidebar}
@@ -122,13 +122,25 @@ export default function Sidebar2() {
                   href={Menu.src ?? "#"}
                 >
                   <li
-                    key={index}
+                    key={`menu-${index}`}
                     className="flex rounded-md p-2 cursor-pointer text-lg items-center gap-x-4 mt-2 hover:bg-lime-100"
                   >
-                    {Menu.icon ? Menu.icon : <MdOutlineDashboard />}
-                    <span className="flex-1">{Menu.title}</span>
+                    {Menu.icon ? (
+                      Menu.icon
+                    ) : (
+                      <MdOutlineDashboard
+                        key={`icon-${Menu.title}-${index}`.trim()}
+                      />
+                    )}
+                    <span
+                      key={`span-${Menu.title}-${index}`.trim()}
+                      className="flex-1"
+                    >
+                      {Menu.title}
+                    </span>
                     {Menu.subMenus && (
                       <BsChevronDown
+                        key={`chevron-${Menu.title}-${index}`.trim()}
                         onClick={() => setSubMenuOpen(index)}
                         className={`${Menu.isOpen && "rotate-180"}`}
                       />
@@ -136,7 +148,7 @@ export default function Sidebar2() {
                   </li>
                 </Link>
                 {Menu.subMenus && Menu.isOpen && open && (
-                  <ul>
+                  <ul key={`ul-${Menu.title}-${index}`.trim()}>
                     {Menu.subMenus.map((subMenuItem, idx) => (
                       <Link
                         key={`${Menu.title}-${subMenuItem.title}-${idx}`.trim()}

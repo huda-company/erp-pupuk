@@ -26,7 +26,7 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
   );
 
   return (
-    <div className="bg-red-100">
+    <div>
       <Modal
         footer={null}
         title={null}
