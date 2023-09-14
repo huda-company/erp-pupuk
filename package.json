@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "prettier --write --list-different ."
+    "lint:fix": "prettier --write --list-different .",
+    "tsc": "tsc --noEmit --incremental false"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
