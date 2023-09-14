@@ -1,5 +1,5 @@
 "use client";
-import { Button as BtnAntd, Dropdown, Table as TableAntd } from "antd";
+import { Button as BtnAntd, Dropdown, Modal, Table as TableAntd } from "antd";
 import { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -8,8 +8,6 @@ import { BsThreeDots } from "react-icons/bs";
 import useMount from "@/hooks/useMount";
 
 import HeaderModule from "@/components/Header/HeaderModule";
-import Popup from "@/components/Popup";
-import AreUsure from "@/components/Popup/AreUsure";
 
 import { deleteSupplier, getSuppliers } from "@/services/supplier/supplier";
 import { APISuppliersResp } from "@/services/supplier/types";
@@ -20,10 +18,10 @@ import { FE_SUPPLIER_URL } from "./config";
 import { SuppAntdDataType } from "./types";
 
 export default function Page() {
+  const { confirm } = Modal;
+
   const [tblItm, setTblItm] = useState<SuppAntdDataType[]>([]);
   const [supplierData, setSupplierData] = useState<APISuppliersResp[]>([]);
-  const [showDelPop, setShowDelPop] = useState<boolean>(false);
-  const [deleted, setDeletedId] = useState<string>("");
 
   const suppAntdColumns: ColumnsType<SuppAntdDataType> = [
     {
@@ -65,24 +63,31 @@ export default function Page() {
     handleCallAPI();
   });
 
-  const handleDeleteSubmit = async () => {
-    const resDel: StandardResp = await deleteSupplier(deleted);
-    if (resDel.success) {
-      const newItems: StandardResp = await getSuppliers();
-      await setSupplierData(newItems.result);
-      setDeletedId("");
-      setShowDelPop(false);
-    }
-  };
+  const showDeleteConfirm = useCallback(
+    (id: string) => {
+      confirm({
+        title: "Are you sure delete this data?",
+        // content: "Some descriptions",
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        centered: true,
+        async onOk() {
+          const resDel: StandardResp = await deleteSupplier(id);
+          if (resDel.success) {
+            const newItems: StandardResp = await getSuppliers();
+            await setSupplierData(newItems.result);
+          }
+        },
+        onCancel() {},
+      });
+    },
+    [confirm]
+  );
 
   const handleLoadSuppData = useCallback(async () => {
     if (Array.isArray(supplierData)) {
       const itmTbl: SuppAntdDataType[] = supplierData.map((x) => {
-        const handleDelete = async (id: string) => {
-          setShowDelPop(true);
-          setDeletedId(id);
-        };
-
         const items = [
           {
             key: "1",
@@ -110,9 +115,8 @@ export default function Page() {
             key: "3",
             label: (
               <a
-                target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => handleDelete(x._id)}
+                onClick={() => showDeleteConfirm(x._id)}
               >
                 Delete
               </a>
@@ -150,7 +154,7 @@ export default function Page() {
 
       setTblItm(itmTbl);
     }
-  }, [supplierData]);
+  }, [showDeleteConfirm, supplierData]);
 
   useEffect(() => {
     handleLoadSuppData();
@@ -158,15 +162,6 @@ export default function Page() {
 
   return (
     <>
-      <Popup
-        show={showDelPop}
-        variation="Secondary"
-        msg={AreUsure}
-        buttonCloseText="No"
-        buttonSubmitText="Yes"
-        onSubmit={() => handleDeleteSubmit()}
-        onClose={() => setShowDelPop(false)}
-      />
       <div className="p-4 sm:ml-64 h-screen bg-white">
         {/* title */}
         <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">

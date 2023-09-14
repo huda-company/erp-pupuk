@@ -1,11 +1,8 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import React, { Suspense } from "react";
+import React from "react";
 
-import Loading from "@/components/Loading";
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
-
+import BasePage from "./BasePage";
 import authOptions from "../api/auth/[...nextauth]/authOpts";
 
 export default async function PrivateLayout({
@@ -20,10 +17,7 @@ export default async function PrivateLayout({
 
   return (
     <>
-      <Navbar />
-
-      <Sidebar variation="Secondary" />
-      <Suspense fallback={<Loading />}>{children}</Suspense>
+      <BasePage>{children}</BasePage>
     </>
   );
 }

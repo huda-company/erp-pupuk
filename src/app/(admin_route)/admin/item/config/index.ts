@@ -1,6 +1,13 @@
+import { ColumnsType } from "antd/es/table";
+
 import { base_url } from "@/constants/env";
 
-import { emptyOption, ItemFormType, TableHeaders } from "../types";
+import {
+  emptyOption,
+  ItemAntdDataType,
+  ItemFormType,
+  TableHeaders,
+} from "../types";
 
 export const initAddEditItemForm: ItemFormType = {
   itemCategoryOpt: emptyOption,
@@ -34,3 +41,26 @@ export const FE_ITEM_URL = {
   EDIT: `${base_url}/admin/item/edit`,
   READ: `${base_url}/admin/item/read`,
 };
+
+export const itemAntdColumns: ColumnsType<ItemAntdDataType> = [
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "Category",
+    dataIndex: "category",
+    key: "category",
+    sorter: true,
+  },
+  { title: "Price", dataIndex: "price", key: "price" },
+  { title: "Description", dataIndex: "description", key: "description" },
+  {
+    title: "Action",
+    dataIndex: "operation",
+    key: "operation",
+    fixed: "right",
+    width: 95,
+  },
+];

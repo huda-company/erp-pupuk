@@ -4,6 +4,8 @@ import { NextResponse } from "next/server";
 import { decode } from "node-base64-image";
 
 import BillDoc from "@/models/BillDoc/BillDoc";
+import PaymentMode from "@/models/PaymentMode";
+import PaymentPurchase from "@/models/PaymentPurchase/PaymentPurchase";
 import Purchase from "@/models/Purchase/Purchase";
 
 import startDb from "@/lib/db";
@@ -14,6 +16,7 @@ import { initStandardResp } from "../../types";
 export const POST = async (req: Request) => {
   try {
     const bodyParam = await req.json();
+
     // const file = formData.get("file") as Blob | null;
     // const title = formData.get("title") as string;
     // const filename = formData.get("filename") as string;
@@ -37,7 +40,7 @@ export const POST = async (req: Request) => {
     const checkPurchase = await Purchase.findOne({
       _id: bodyParam.purchase,
       removed: false,
-    });
+    }).lean();
 
     if (!checkPurchase) {
       return NextResponse.json(
@@ -54,8 +57,6 @@ export const POST = async (req: Request) => {
     const namefile = `${bodyParam.purchase}_${newFileName}`;
 
     const mimeType = await mime.lookup(bodyParam.filename).toString();
-    console.log("mimeType", mimeType);
-    // return
     const extFile = mimeType.split("/")[1];
 
     if (bodyParam.file) {
@@ -79,11 +80,53 @@ export const POST = async (req: Request) => {
         };
         const result = await BillDoc.create(bdParam);
 
+        if (result) {
+          let newStat = checkPurchase.status;
+
+          if (
+            ["invoice", "billing code"].includes(
+              String(bodyParam.title).trim().toLowerCase()
+            )
+          ) {
+            newStat = "approved";
+          } else if (
+            ["file evidence"].includes(
+              String(bodyParam.title).trim().toLowerCase()
+            )
+          ) {
+            newStat = "released";
+          }
+
+          const updates = {
+            status: newStat,
+          };
+
+          const purchEdit = await Purchase.findOneAndUpdate(
+            { _id: checkPurchase._id, removed: false },
+            { $set: updates },
+            {
+              new: true, // return the new result instead of the old one
+            }
+          ).lean();
+
+          if (purchEdit) {
+            const cash = await PaymentMode.findOne({ name: "cash" }).lean();
+            if (cash) {
+              const payPurch = {
+                purchase: checkPurchase._id,
+                amount: Number(checkPurchase.grandTotal),
+                paymentMode: cash._id,
+              };
+              PaymentPurchase.create(payPurch);
+            }
+          }
+        }
+
         return NextResponse.json(
           {
             success: true,
             result,
-            message: "Success",
+            message: "Successfully update po status",
           },
           { status: 200 }
         );

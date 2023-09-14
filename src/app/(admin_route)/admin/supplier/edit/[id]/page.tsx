@@ -37,7 +37,7 @@ export default function Page() {
   const handleLoadData = useCallback(async () => {
     if (supplier) {
       const val: SupplierFormType = {
-        id: supplier._id,
+        _id: supplier._id,
         address: supplier.address,
         company: supplier.company,
         bankAccount: supplier.bankAccount,
@@ -79,7 +79,7 @@ export default function Page() {
         })
       );
 
-      await router.push(`${FE_SUPPLIER_URL.READ}/${formikVal.id}`);
+      await router.push(`${FE_SUPPLIER_URL.READ}/${formikVal._id}`);
     }
   };
 
@@ -95,8 +95,8 @@ export default function Page() {
   return (
     <>
       <div className="p-4 sm:ml-64 bg-white h-screen">
-         {/* title */}
-         <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
+        {/* title */}
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
           <HeaderModule title="Edit Supplier" />
         </div>
         {/* body */}

@@ -30,7 +30,10 @@ export const addItem = async (
 export const editItem = async (
   params: ItemFormAPIReqType
 ): Promise<StandardResp> => {
-  const { data } = await axios.patch(`${ITEM_API}/update/${params.id}`, params);
+  const { data } = await axios.patch(
+    `${ITEM_API}/update/${params._id}`,
+    params
+  );
 
   return data;
 };

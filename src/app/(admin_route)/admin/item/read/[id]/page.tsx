@@ -12,7 +12,7 @@ import useMount from "@/hooks/useMount";
 import { base_url } from "@/constants/env";
 
 import { Option } from "@/components/Dropdown/types";
-import Typography from "@/components/Typography";
+import HeaderModule from "@/components/Header/HeaderModule";
 
 import { actions as utilsActions } from "@/redux/utils";
 
@@ -39,7 +39,7 @@ export default function Page() {
   const setInitFormVal = useCallback(() => {
     if (itm) {
       const val: ItemFormType = {
-        id: itm._id,
+        _id: itm._id,
         itemCategoryOpt: itmCatOpts.find(
           (x) => x.id == itm?.itemCategory
         ) as Option,
@@ -75,7 +75,7 @@ export default function Page() {
 
   const handleSubmit = async (formVal: ItemFormType) => {
     const params: ItemFormAPIReqType = {
-      id: formVal?.id,
+      _id: formVal?._id,
       itemCategory: formVal?.itemCategoryOpt.id,
       name: String(formVal?.name),
       price: String(formVal?.price),
@@ -111,11 +111,11 @@ export default function Page() {
   return (
     <>
       <div className="p-4 sm:ml-64 bg-white h-screen">
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
-          <Typography className="text-xl text-black font-bold underline">
-            Detail Supplier
-          </Typography>
+        {/* title */}
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
+          <HeaderModule title="Detail Item" />
         </div>
+        {/* body */}
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">
           <FormikContext.Provider value={formikBag}>
             <ItemForm itemCatOpts={itmCatOpts} mode="READ" />

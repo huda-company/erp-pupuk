@@ -6,6 +6,7 @@ export const initPurchItem: PurchItemType = {
   itemOpt: emptyOption,
   price: 0,
   qty: 0,
+  discount: 0,
   itemTotal: 0,
 };
 
@@ -13,6 +14,7 @@ export const initialState: PurchaseState = {
   supplierOpt: emptyOption,
   purchPaymentMethodOpt: emptyOption,
   discount: 0,
+  billingCode: "",
   expDate: Date.now().toString(),
   grandTotal: 0,
   note: "",

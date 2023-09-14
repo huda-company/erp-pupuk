@@ -8,7 +8,7 @@ type Icon = {
   width?: number;
 };
 
-type Variant = "normal" | "warning" | "success";
+type Variant = "normal" | "warning" | "success" | "error";
 
 export type VariationPopup = {
   onClose?: () => void;

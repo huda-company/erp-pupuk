@@ -7,6 +7,7 @@ export type PurcItemsRes = {
   item: ItemFormAPIReqType;
   quantity: number;
   price: number;
+  discount: number;
   total: number;
 };
 
@@ -18,7 +19,9 @@ export type PurcDocRes = {
 };
 
 export type APIPurchaseReq = {
+  _id?: string;
   recurring?: boolean;
+  billingCode: string;
   year: number;
   expDate: string;
   supplier?: string;
@@ -30,7 +33,7 @@ export type APIPurchaseReq = {
   discount: number;
   purchPaymentMethod: string;
   note: string;
-  status: string;
+  status?: string;
   pdfPath?: string;
   credit: number;
   paymentStatus: string;

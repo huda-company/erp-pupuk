@@ -101,7 +101,7 @@ const PdfExport: React.FC = () => {
 
   const handleAntdMsg = useCallback(() => {
     messageApi.open({
-      type: "success",
+      type: "loading",
       content: (
         <>
           <div>

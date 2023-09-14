@@ -1,5 +1,5 @@
 "use client";
-import { Button as BtnAntd, Dropdown, Table as TableAntd } from "antd";
+import { Button as BtnAntd, Dropdown, Modal, Table as TableAntd } from "antd";
 import { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -8,8 +8,6 @@ import { BsThreeDots } from "react-icons/bs";
 import useMount from "@/hooks/useMount";
 
 import HeaderModule from "@/components/Header/HeaderModule";
-import Popup from "@/components/Popup";
-import AreUsure from "@/components/Popup/AreUsure";
 
 import { deletePurchase, getPurchases } from "@/services/purchase/purchase";
 import { APIPurchaseResp } from "@/services/purchase/types";
@@ -20,10 +18,9 @@ import { FE_PURCHASING_URL } from "./config";
 import { AntdDataType } from "./types";
 
 export default function Page() {
+  const { confirm } = Modal;
   const [tblItm, setTblItm] = useState<AntdDataType[]>([]);
   const [itemData, setItemData] = useState<APIPurchaseResp[]>([]);
-  const [showDelPop, setShowDelPop] = useState<boolean>(false);
-  const [deleted, setDeletedId] = useState<string>("");
 
   const purchaseAntdColumns: ColumnsType<AntdDataType> = [
     {
@@ -86,27 +83,33 @@ export default function Page() {
     handleCallAPI();
   });
 
-  const handleDeleteSubmit = async () => {
-    const resDel: StandardResp = await deletePurchase(deleted);
-    if (resDel.success) {
-      const newItems: StandardResp = await getPurchases();
-      await setItemData(newItems.result);
-      setDeletedId("");
-      setShowDelPop(false);
-    }
-  };
+  const showDeleteConfirm = useCallback(
+    (id: string) => {
+      confirm({
+        title: "Are you sure delete this data?",
+        // content: "Some descriptions",
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        centered: true,
+        async onOk() {
+          const resDel: StandardResp = await deletePurchase(id);
+          if (resDel.success) {
+            const newItems: StandardResp = await getPurchases();
+            await setItemData(newItems.result);
+          }
+        },
+      });
+    },
+    [confirm]
+  );
 
   const handleLoadItemData = useCallback(async () => {
     if (Array.isArray(itemData)) {
       const itmTbl: AntdDataType[] = itemData.map((x) => {
-        const handleDelete = async (id: string) => {
-          setShowDelPop(true);
-          setDeletedId(id);
-        };
-
-        const items = [
+        let items = [
           {
-            key: "1",
+            key: "detail",
             label: (
               <a
                 rel="noopener noreferrer"
@@ -117,10 +120,9 @@ export default function Page() {
             ),
           },
           {
-            key: "2",
+            key: "edit",
             label: (
               <a
-                target="_blank"
                 rel="noopener noreferrer"
                 href={`${FE_PURCHASING_URL.EDIT}/${x._id}`}
               >
@@ -129,18 +131,28 @@ export default function Page() {
             ),
           },
           {
-            key: "3",
+            key: "delete",
             label: (
               <a
-                target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => handleDelete(x._id)}
+                onClick={() => showDeleteConfirm(x._id)}
               >
                 Delete
               </a>
             ),
           },
         ];
+
+        switch (x.status) {
+          case "approved":
+            items = items.filter((x) => x.key !== "delete");
+            break;
+          case "released":
+            items = items.filter((x) => x.key == "detail");
+            break;
+          default:
+            break;
+        }
 
         const oprtns = (
           <Dropdown
@@ -178,7 +190,7 @@ export default function Page() {
 
       setTblItm(itmTbl);
     }
-  }, [itemData]);
+  }, [itemData, showDeleteConfirm]);
 
   useEffect(() => {
     handleLoadItemData();
@@ -186,16 +198,6 @@ export default function Page() {
 
   return (
     <>
-      <Popup
-        show={showDelPop}
-        variation="Secondary"
-        msg={AreUsure}
-        buttonCloseText="No"
-        buttonSubmitText="Yes"
-        onSubmit={() => handleDeleteSubmit()}
-        onClose={() => setShowDelPop(false)}
-      />
-
       <div className="p-4 sm:ml-64 h-screen bg-white">
         {/* title */}
         <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">

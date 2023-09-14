@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 import convToOpts from "@/utils/convToOpts";
+import { useAppDispatch } from "@/hooks";
 
 import { Option } from "@/components/Dropdown/types";
 import HeaderModule from "@/components/Header/HeaderModule";
@@ -13,6 +14,7 @@ import Typography from "@/components/Typography";
 
 import { initialState } from "@/redux/purchase/data";
 import { PurchaseState } from "@/redux/purchase/models";
+import { actions as utilsActions } from "@/redux/utils";
 
 import { getItems } from "@/services/item/item";
 import { addPurchase } from "@/services/purchase/purchase";
@@ -26,6 +28,7 @@ import PurchaseForm from "../components/PurchaseForm";
 import { FE_PURCHASING_URL } from "../config";
 
 export default function Page() {
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const [suppliers, setSuppliers] = useState<Option[]>([]);
@@ -81,7 +84,8 @@ export default function Page() {
       const params: APIPurchaseReq = {
         items: convItms.items,
         year: formikVal.year,
-        expDate: formikVal.expDate,
+        billingCode: formikVal.billingCode,
+        expDate: String(formikVal.expDate),
         supplier: formikVal.supplierOpt.id,
         ppnIncluded: false,
         subTotal: 0,
@@ -91,20 +95,32 @@ export default function Page() {
         discount: 0,
         paymentStatus: "",
         purchPaymentMethod: formikVal?.purchPaymentMethodOpt?.id,
-        note: formikVal.status,
+        note: formikVal.note,
         grandTotal: 0,
         status: "",
       };
       const createPurch = await addPurchase(params);
       if (createPurch.success) {
-        console.log("aaaa", createPurch);
-
+        await dispatch(
+          utilsActions.callShowToast({
+            title: "Sucessfully created",
+            msg: "new po successfully created",
+            timeout: 3000,
+          })
+        );
         await router.push(
           `${FE_PURCHASING_URL.READ}/${createPurch.result._id}`
         );
       }
     } else {
-      console.log("item not valid");
+      await dispatch(
+        utilsActions.callShowToast({
+          type: "warning",
+          title: "Error",
+          msg: "failed to create new po",
+          timeout: 3000,
+        })
+      );
     }
   };
 
