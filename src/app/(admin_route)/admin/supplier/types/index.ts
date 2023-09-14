@@ -17,7 +17,7 @@ export enum MODE {
 }
 
 export type SupplierFormType = {
-  id?: string;
+  _id?: string;
   company: string;
   managerSurname: string;
   managerName: string;

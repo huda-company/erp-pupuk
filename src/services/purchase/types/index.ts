@@ -32,7 +32,7 @@ export type APIPurchaseReq = {
   discount: number;
   purchPaymentMethod: string;
   note: string;
-  status: string;
+  status?: string;
   pdfPath?: string;
   credit: number;
   paymentStatus: string;

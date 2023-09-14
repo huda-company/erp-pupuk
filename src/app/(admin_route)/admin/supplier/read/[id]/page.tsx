@@ -38,7 +38,7 @@ export default function Page() {
   const handleLoadData = useCallback(async () => {
     if (supplier) {
       const val: SupplierFormType = {
-        id: supplier._id,
+        _id: supplier._id,
         address: supplier.address,
         company: supplier.company,
         bankAccount: supplier.bankAccount,

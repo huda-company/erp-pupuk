@@ -9,22 +9,23 @@ export type PurchItemType = {
 };
 
 export type PurchaseState = {
+  _id?: string;
   recurring?: boolean;
   billingCode: string;
   year: number;
   expDate: string;
   supplier?: string;
   supplierOpt: Option;
-  ppnIncluded: boolean;
-  taxRate: number;
+  ppnIncluded?: boolean;
+  taxRate?: number;
   taxTotal: number;
   subTotal: number;
   grandTotal: number;
   discount: number;
   purchPaymentMethodOpt: Option;
-  purchPaymentMethod: string;
+  purchPaymentMethod?: string;
   note: string;
-  status: string;
+  status?: string;
   pdfPath?: string;
   items: PurchItemType[];
 };

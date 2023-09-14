@@ -1,11 +1,12 @@
-import { TableHeader } from "@/components/Table/types";
 import type { Option } from "@/components/Dropdown/types";
+import { TableHeader } from "@/components/Table/types";
+
 import { MODE } from "../../supplier/types";
 
 export const emptyOption: Option = { id: "", label: "" };
 
 export type BaseItemForm = {
-  id?: string;
+  _id?: string;
   name: string;
   price: string;
   description: string;

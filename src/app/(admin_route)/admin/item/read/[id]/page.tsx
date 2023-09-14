@@ -39,7 +39,7 @@ export default function Page() {
   const setInitFormVal = useCallback(() => {
     if (itm) {
       const val: ItemFormType = {
-        id: itm._id,
+        _id: itm._id,
         itemCategoryOpt: itmCatOpts.find(
           (x) => x.id == itm?.itemCategory
         ) as Option,
@@ -75,7 +75,7 @@ export default function Page() {
 
   const handleSubmit = async (formVal: ItemFormType) => {
     const params: ItemFormAPIReqType = {
-      id: formVal?.id,
+      _id: formVal?._id,
       itemCategory: formVal?.itemCategoryOpt.id,
       name: String(formVal?.name),
       price: String(formVal?.price),

@@ -1,23 +1,29 @@
 "use client";
 
-import { StandardResp } from "@/app/api/types";
-import { useParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
 import { FormikContext, useFormik } from "formik";
-import { ItemFormAPIReqType, ItemFormType } from "../../types";
-import { actions as utilsActions } from "@/redux/utils";
-import useMount from "@/hooks/useMount";
-import { useAppDispatch } from "@/hooks";
+import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { FE_ITEM_URL } from "../../config";
-import ItemForm from "../../components/ItemForm";
+import { useCallback, useEffect, useState } from "react";
+
+import convToOpts from "@/utils/convToOpts";
+import { useAppDispatch } from "@/hooks";
+import useMount from "@/hooks/useMount";
+
+import { Option } from "@/components/Dropdown/types";
+import Typography from "@/components/Typography";
+
+import { actions as utilsActions } from "@/redux/utils";
+
 import { editItem, getItemById } from "@/services/item/item";
 import { APIItemResp } from "@/services/item/types";
 import { getItemCategory } from "@/services/itemCategory/itemCategory";
-import { Option } from "@/components/Dropdown/types";
-import convToOpts from "@/utils/convToOpts";
+
+import { StandardResp } from "@/app/api/types";
+
+import ItemForm from "../../components/ItemForm";
+import { FE_ITEM_URL } from "../../config";
+import { ItemFormAPIReqType, ItemFormType } from "../../types";
 import AddEditItemSchema from "../../validation";
-import Typography from "@/components/Typography";
 
 export default function Page() {
   const urlParam = useParams();
@@ -31,7 +37,7 @@ export default function Page() {
   const setInitFormVal = useCallback(() => {
     if (itm) {
       const val: ItemFormType = {
-        id: itm._id,
+        _id: itm._id,
         itemCategoryOpt: itmCatOpts.find(
           (x) => x.id == itm?.itemCategory
         ) as Option,
@@ -67,7 +73,7 @@ export default function Page() {
 
   const handleSubmit = async (formikVal: ItemFormType) => {
     const params: ItemFormAPIReqType = {
-      id: formikVal?.id,
+      _id: formikVal?._id,
       itemCategory: formikVal?.itemCategoryOpt.id,
       name: String(formikVal?.name),
       price: String(formikVal?.price),
@@ -87,7 +93,7 @@ export default function Page() {
         })
       );
 
-      await router.push(`${FE_ITEM_URL.READ}/${formikVal.id}`);
+      await router.push(`${FE_ITEM_URL.READ}/${formikVal._id}`);
     }
   };
 

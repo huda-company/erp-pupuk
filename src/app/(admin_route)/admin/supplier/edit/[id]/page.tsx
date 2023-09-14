@@ -37,7 +37,7 @@ export default function Page() {
   const handleLoadData = useCallback(async () => {
     if (supplier) {
       const val: SupplierFormType = {
-        id: supplier._id,
+        _id: supplier._id,
         address: supplier.address,
         company: supplier.company,
         bankAccount: supplier.bankAccount,
@@ -79,7 +79,7 @@ export default function Page() {
         })
       );
 
-      await router.push(`${FE_SUPPLIER_URL.READ}/${formikVal.id}`);
+      await router.push(`${FE_SUPPLIER_URL.READ}/${formikVal._id}`);
     }
   };
 

@@ -30,7 +30,7 @@ export const editPurchase = async (
   params: ItemFormAPIReqType
 ): Promise<StandardResp> => {
   const { data } = await axios.patch(
-    `${PURCHASE_API_URL.UPDATE}/${params.id}`,
+    `${PURCHASE_API_URL.UPDATE}/${params._id}`,
     params
   );
 
