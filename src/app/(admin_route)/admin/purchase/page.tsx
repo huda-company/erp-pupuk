@@ -107,9 +107,9 @@ export default function Page() {
   const handleLoadItemData = useCallback(async () => {
     if (Array.isArray(itemData)) {
       const itmTbl: AntdDataType[] = itemData.map((x) => {
-        const items = [
+        let items = [
           {
-            key: "1",
+            key: "detail",
             label: (
               <a
                 rel="noopener noreferrer"
@@ -120,7 +120,7 @@ export default function Page() {
             ),
           },
           {
-            key: "2",
+            key: "edit",
             label: (
               <a
                 rel="noopener noreferrer"
@@ -131,7 +131,7 @@ export default function Page() {
             ),
           },
           {
-            key: "3",
+            key: "delete",
             label: (
               <a
                 rel="noopener noreferrer"
@@ -142,6 +142,17 @@ export default function Page() {
             ),
           },
         ];
+
+        switch (x.status) {
+          case "approved":
+            items = items.filter((x) => x.key !== "delete");
+            break;
+          case "released":
+            items = items.filter((x) => x.key == "detail");
+            break;
+          default:
+            break;
+        }
 
         const oprtns = (
           <Dropdown

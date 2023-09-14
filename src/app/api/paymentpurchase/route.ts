@@ -5,9 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { decode } from "node-base64-image";
 
 import BillDoc from "@/models/BillDoc/BillDoc";
-import PaymentMode from "@/models/PaymentMode/PaymentMode";
-import PaymentPurchase from "@/models/PaymentPurchase/PaymentPurchase";
-import Purchase from "@/models/Purchase/Purchase";
+import PaymentPurchase from "@/models/PaymentPurchase";
 
 import startDb from "@/lib/db";
 
@@ -37,7 +35,7 @@ export const POST = async (req: NextRequest) => {
 
     await startDb();
 
-    const checkPurchase = await Purchase.findOne({
+    const checkPurchase = await PaymentPurchase.findOne({
       _id: purchase,
       removed: false,
     });
@@ -46,7 +44,7 @@ export const POST = async (req: NextRequest) => {
       return NextResponse.json(
         {
           ...initStandardResp,
-          message: "po not found",
+          message: "payment purchase not found",
         },
         { status: 400 }
       );
@@ -67,6 +65,10 @@ export const POST = async (req: NextRequest) => {
             : file.toString().replace(/^data:image\/\w+;base64,/, "");
         // Read the file data as a Buffer
         const buffer1 = Buffer.from(base64WithoutPrefix, "base64");
+        // // Read the file data as a Buffer
+        // const buffer1 = Buffer.from(file.toString(), "base64").toString(
+        //   "base64"
+        // );
         await decode(buffer1, {
           fname: PURCHASE_FILE_DIR + namefile,
           ext: extFile,
@@ -79,47 +81,6 @@ export const POST = async (req: NextRequest) => {
           fileName: `${namefile}.${extFile}`,
         };
         const result = await BillDoc.create(bdParam);
-
-        if (result) {
-          let newStat = checkPurchase.status;
-
-          if (
-            ["invoice", "billing code"].includes(
-              String(title).trim().toLowerCase()
-            )
-          ) {
-            newStat = "approved";
-          } else if (
-            ["file evidence"].includes(String(title).trim().toLowerCase())
-          ) {
-            newStat = "released";
-          }
-
-          // doing update po status
-          const updates = {
-            status: newStat,
-          };
-          const purchEdit = await Purchase.findOneAndUpdate(
-            { _id: checkPurchase._id, removed: false },
-            { $set: updates },
-            {
-              new: true, // return the new result instead of the old one
-            }
-          ).lean();
-
-          // insert to paym purchase
-          if (purchEdit) {
-            const cash = await PaymentMode.findOne({ name: "cash" }).lean();
-            if (cash) {
-              const payPurch = {
-                purchase: checkPurchase._id,
-                amount: Number(checkPurchase.grandTotal),
-                paymentMode: cash._id,
-              };
-              PaymentPurchase.create(payPurch);
-            }
-          }
-        }
 
         return NextResponse.json(
           {

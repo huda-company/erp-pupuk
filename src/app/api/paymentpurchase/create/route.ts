@@ -16,7 +16,6 @@ import { initStandardResp } from "../../types";
 export const POST = async (req: Request) => {
   try {
     const bodyParam = await req.json();
-
     // const file = formData.get("file") as Blob | null;
     // const title = formData.get("title") as string;
     // const filename = formData.get("filename") as string;
@@ -85,14 +84,12 @@ export const POST = async (req: Request) => {
 
           if (
             ["invoice", "billing code"].includes(
-              String(bodyParam.title).trim().toLowerCase()
+              String(bodyParam.title).toLowerCase()
             )
           ) {
             newStat = "approved";
           } else if (
-            ["file evidence"].includes(
-              String(bodyParam.title).trim().toLowerCase()
-            )
+            ["file evidence"].includes(String(bodyParam.title).toLowerCase())
           ) {
             newStat = "released";
           }

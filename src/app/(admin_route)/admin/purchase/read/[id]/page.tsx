@@ -130,12 +130,10 @@ export default function Page() {
 
         reader.onload = (e) => {
           const result = e.target?.result as string; // Get the base64 string
-          console.log("file", result);
           setBase64State(result);
         };
 
-        const aa = reader.readAsDataURL(file); // Read the file as data URL (base64)
-        console.log("aaaaa", aa);
+        reader.readAsDataURL(file); // Read the file as data URL (base64)
       }
     }
   };
@@ -420,9 +418,12 @@ export default function Page() {
                     <List.Item key={item.title}>
                       <List.Item.Meta
                         title={`${item.title}`}
-                        description={<a href={item.href}>click to see</a>}
+                        description={
+                          <a target="_blank" href={item.href}>
+                            click to see
+                          </a>
+                        }
                       />
-                      {/* {item.content} */}
                     </List.Item>
                   )}
                 />
