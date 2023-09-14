@@ -53,7 +53,7 @@ export default function Page() {
     if (newSupp.success) {
       await dispatch(
         utilsActions.callShowToast({
-          variation: "Secondary",
+          type: "success",
           title: "Sucessfully created",
           msg: "new item successfully created",
           timeout: 3000,

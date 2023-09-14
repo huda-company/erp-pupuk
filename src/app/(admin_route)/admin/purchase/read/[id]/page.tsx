@@ -20,12 +20,15 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { ImFolderUpload } from "react-icons/im";
 
+import { useAppDispatch } from "@/hooks";
 import useMount from "@/hooks/useMount";
 
 import { base_url } from "@/constants/env";
 
 import HeaderModule from "@/components/Header/HeaderModule";
 import Typography from "@/components/Typography";
+
+import { actions as utilsActions } from "@/redux/utils";
 
 import { getPurchaseById } from "@/services/purchase/purchase";
 import { APIPurchaseResp, PurcItemsRes } from "@/services/purchase/types";
@@ -35,6 +38,7 @@ import { StandardResp } from "@/app/api/types";
 import { FE_PURCHASING_URL } from "../../config";
 
 export default function Page() {
+  const dispatch = useAppDispatch();
   const urlParam = useParams();
 
   const inputRef = useRef<InputRef>(null);
@@ -140,7 +144,14 @@ export default function Page() {
 
   const handleUpload = async () => {
     if (!selectedFile) {
-      console.error("No file selected.");
+      await dispatch(
+        utilsActions.callShowToast({
+          type: "error",
+          title: "Error",
+          msg: "please select file",
+          timeout: 2000,
+        })
+      );
       return;
     }
 
@@ -154,7 +165,15 @@ export default function Page() {
           const extension = mimeType.split("/")[1];
           fileName = `file.${extension}`;
         } else {
-          console.error("Invalid data URL format.");
+          await dispatch(
+            utilsActions.callShowToast({
+              type: "error",
+              title: "Error",
+              msg: "Invalid data URL format",
+              timeout: 2000,
+            })
+          );
+          return;
         }
 
         // Create a FormData object and append the base64 string
@@ -177,6 +196,7 @@ export default function Page() {
         );
 
         if (status == 200) {
+          setSelectedFile(null);
           setTitleName("");
           setDescription("");
           setFilename("");
@@ -184,7 +204,15 @@ export default function Page() {
         }
       }
     } catch (error) {
-      console.error("API Request Error:", error);
+      await dispatch(
+        utilsActions.callShowToast({
+          type: "error",
+          title: "Error",
+          msg: String(error),
+          timeout: 2000,
+        })
+      );
+      return;
     }
   };
 
