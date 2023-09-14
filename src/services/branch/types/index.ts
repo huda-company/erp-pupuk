@@ -1,11 +1,10 @@
-
-export type APIItemResp = {
-  city: any;
-  address: any;
+export type APIBranchResp = {
   _id: string;
   removed: boolean;
   enabled: boolean;
   name: string;
   description: string;
-  price: number;
+  address: string;
+  city:string;
+  created: Date;
 };

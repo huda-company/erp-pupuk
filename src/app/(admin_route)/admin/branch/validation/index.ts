@@ -1,15 +1,15 @@
 import * as Yup from "yup";
-import { ITEMFORM_ERRORS } from "../config";
 
-const AddEditItemSchema = Yup.object().shape({
-  itemCategoryOpt: Yup.object().required(ITEMFORM_ERRORS.ITEMCATEGORY_REQUIRED),
+import { BRANCHFORM_ERRORS } from "../config";
 
-  name: Yup.string().required(ITEMFORM_ERRORS.NAME_REQUIRED),
 
-  price: Yup.number()
-    .integer()
-    .positive()
-    .required(ITEMFORM_ERRORS.PRICE_NAME_REQUIRED),
+const AddEditBranchSchema = Yup.object().shape({
+  name: Yup.string().required(BRANCHFORM_ERRORS.BRANCHNAME_REQUIRED),
+
+  address: Yup.string().required(BRANCHFORM_ERRORS.BRANCHADDRESS_REQUIRED),
+
+  city: Yup.string().required(BRANCHFORM_ERRORS.BRANCHCITY_REQUIRED),
+
 });
 
-export default AddEditItemSchema;
+export default AddEditBranchSchema;

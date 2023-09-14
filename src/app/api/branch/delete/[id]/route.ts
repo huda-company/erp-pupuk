@@ -1,9 +1,11 @@
-import startDb from "@/lib/db";
-import Item from "@/models/Item";
 import { NextResponse } from "next/server";
 
+import Branch from "@/models/Branch";
+
+import startDb from "@/lib/db";
+
 export const DELETE = async (req: Request) => {
-  const idVal = req.url.split("/item/delete/")[1];
+  const idVal = req.url.split("/branch/delete/")[1];
 
   if (idVal) {
     try {
@@ -13,7 +15,7 @@ export const DELETE = async (req: Request) => {
         removed: true,
       };
 
-      const result = await Item.findOneAndUpdate(
+      const result = await Branch.findOneAndUpdate(
         { _id: idVal, removed: false },
         { $set: updates },
         {
@@ -25,7 +27,7 @@ export const DELETE = async (req: Request) => {
         {
           success: true,
           result,
-          message: "Successfully deleted item",
+          message: "Successfully Deleted Branch",
         },
         { status: 200 }
       );
@@ -34,7 +36,7 @@ export const DELETE = async (req: Request) => {
         {
           success: false,
           result: [],
-          message: "Error delete item",
+          message: "Error Delete Branch",
           error: err,
         },
         { status: 500 }

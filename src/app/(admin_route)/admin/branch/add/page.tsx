@@ -2,54 +2,38 @@
 
 import { FormikContext, useFormik } from "formik";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
-import convToOpts from "@/utils/convToOpts";
 import { useAppDispatch } from "@/hooks";
 import useMount from "@/hooks/useMount";
 
-import { Option } from "@/components/Dropdown/types";
 import Typography from "@/components/Typography";
 
 import { actions as utilsActions } from "@/redux/utils";
 
-import { addItem } from "@/services/item/item";
-import { getItemCategory } from "@/services/itemCategory/itemCategory";
+import { addBranch } from "@/services/branch/branch";
 
-import { StandardResp } from "@/app/api/types";
-
-import ItemForm from "../components/ItemForm";
-import { FE_ITEM_URL, initAddEditItemForm } from "../config";
-import { ItemFormAPIReqType, ItemFormType } from "../types";
-import AddEditSupplierSchema from "../validation";
+import BranchForm from "../components/BranchForm";
+import { FE_BRANCH_URL, initAddEditBranchForm } from "../config";
+import { BranchFormReqType } from "../types";
 
 export default function Page() {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const [itmCatOpts, setItmCatOpts] = useState<Option[]>([]);
-
-  const handleCallAPIs = async () => {
-    const { success: itmCatSuccess, result: itmCatRes }: StandardResp =
-      await getItemCategory();
-    if (itmCatSuccess) {
-      const itmCatOpts: Option[] = await convToOpts(itmCatRes, "_id", "name");
-      setItmCatOpts(itmCatOpts);
-    }
-  };
+  const handleCallAPIs = async () => {};
 
   useMount(() => {
     handleCallAPIs();
   });
 
-  const handleSubmit = async (formikVal: ItemFormType) => {
-    const params: ItemFormAPIReqType = {
-      itemCategory: formikVal.itemCategoryOpt.id,
+  const handleSubmit = async (formikVal: BranchFormReqType) => {
+    const params: BranchFormReqType = {
       name: formikVal.name,
-      price: formikVal.price,
+      address: formikVal.address,
+      city: formikVal.city,
       description: formikVal.description,
     };
-    const newSupp = await addItem(params);
+    const newSupp = await addBranch(params);
     if (newSupp.success) {
       await dispatch(
         utilsActions.callShowToast({
@@ -62,16 +46,16 @@ export default function Page() {
         })
       );
 
-      await router.push(FE_ITEM_URL.LIST);
+      await router.push(FE_BRANCH_URL.LIST);
     }
   };
 
-  const formikBag = useFormik<ItemFormType>({
-    initialValues: initAddEditItemForm,
+  const formikBag = useFormik<BranchFormReqType>({
+    initialValues: initAddEditBranchForm,
     enableReinitialize: true,
     validateOnChange: false,
     validateOnBlur: false,
-    validationSchema: AddEditSupplierSchema,
+    // validationSchema: AddEditSupplierSchema,
     onSubmit: handleSubmit,
   });
 
@@ -81,13 +65,13 @@ export default function Page() {
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11 flex flex-row">
           <div className="left-0 w-[50%]">
             <Typography className="text-[2rem] text-black font-bold underline float-left">
-              Add Item
+              Add Branch
             </Typography>
           </div>
         </div>
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">
           <FormikContext.Provider value={formikBag}>
-            <ItemForm itemCatOpts={itmCatOpts} mode="ADD" />
+            <BranchForm mode="ADD" />
           </FormikContext.Provider>
         </div>
       </div>

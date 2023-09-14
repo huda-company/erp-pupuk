@@ -17,12 +17,12 @@ import { TableBody, TableData } from "@/components/Table/types";
 import Tooltip from "@/components/Tooltip";
 import Typography from "@/components/Typography";
 
-import { deleteItem, getBranches } from "@/services/branches/branches";
+import { deleteItem, getBranches } from "@/services/branch/branch";
 import { APIItemResp } from "@/services/item/types";
 
 import { StandardResp } from "@/app/api/types";
 
-import { FE_ITEM_URL, tableHeaders } from "./config";
+import { FE_BRANCH_URL, tableHeaders } from "./config";
 
 export default function Page() {
   const router = useRouter();
@@ -56,7 +56,7 @@ export default function Page() {
   const getActions = useCallback(
     (id: string) => {
       const handleEdit = () => {
-        router.push(`${FE_ITEM_URL.EDIT}/${id}`);
+        router.push(`${FE_BRANCH_URL.EDIT}/${id}`);
       };
 
       const handleDelete = async (id: string) => {
@@ -197,11 +197,11 @@ export default function Page() {
       <div className="p-4 sm:ml-64 h-screen bg-white">
         <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11 flex flex-row">
           <div className="left-0 w-[50%] pt-[1rem]">
-            <HeaderModule title="Branches" />
+            <HeaderModule title="Branch" />
           </div>
 
           <div className="right-0 w-[50%]">
-            <Link href={`${FE_ITEM_URL.CREATE}`}>
+            <Link href={`${FE_BRANCH_URL.CREATE}`}>
               <Button
                 size="xs"
                 className="bg-blue-500 w-[10px] float-right p-0 min-w-[5rem]"

@@ -1,18 +1,9 @@
 import { Model, model, models } from "mongoose";
 import { Schema } from "mongoose";
-import mongoose from "mongoose";
 
-import ItemCategory from "../ItemCategory/ItemCategory";
 import { BranchDocument } from "./types/index";
 
-
 const branchSchema = new Schema<BranchDocument>({
-  branchID: {
-    type: mongoose.Schema.Types.ObjectId,
-    // ref: branch,
-    require: true,
-    autopopulate: true,
-  },
   removed: {
     type: Boolean,
     default: false,
@@ -40,7 +31,6 @@ const branchSchema = new Schema<BranchDocument>({
     trim: true,
     required: true,
   },
-  
 });
 
 const branch = models.Branch || model("Branch", branchSchema);
