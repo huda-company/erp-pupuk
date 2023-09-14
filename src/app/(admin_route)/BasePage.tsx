@@ -28,6 +28,7 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
   return (
     <div>
       <Modal
+        centered
         footer={null}
         title={null}
         open={toast.show}

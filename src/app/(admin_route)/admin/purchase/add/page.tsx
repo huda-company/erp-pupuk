@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 import convToOpts from "@/utils/convToOpts";
+import { useAppDispatch } from "@/hooks";
 
 import { Option } from "@/components/Dropdown/types";
 import HeaderModule from "@/components/Header/HeaderModule";
@@ -13,6 +14,7 @@ import Typography from "@/components/Typography";
 
 import { initialState } from "@/redux/purchase/data";
 import { PurchaseState } from "@/redux/purchase/models";
+import { actions as utilsActions } from "@/redux/utils";
 
 import { getItems } from "@/services/item/item";
 import { addPurchase } from "@/services/purchase/purchase";
@@ -26,6 +28,7 @@ import PurchaseForm from "../components/PurchaseForm";
 import { FE_PURCHASING_URL } from "../config";
 
 export default function Page() {
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const [suppliers, setSuppliers] = useState<Option[]>([]);
@@ -98,6 +101,14 @@ export default function Page() {
       };
       const createPurch = await addPurchase(params);
       if (createPurch.success) {
+        await dispatch(
+          utilsActions.callShowToast({
+            variation: "Secondary",
+            title: "Sucessfully created",
+            msg: "new po successfully created",
+            timeout: 3000,
+          })
+        );
         await router.push(
           `${FE_PURCHASING_URL.READ}/${createPurch.result._id}`
         );
