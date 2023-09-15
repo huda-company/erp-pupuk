@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { BsCart4, BsChevronDown, BsFiles } from "react-icons/bs";
+import { BsCart4, BsChevronDown, BsFiles, BsArchiveFill } from "react-icons/bs";
 import {
   MdAnalytics,
   MdOutlineDashboard,
@@ -59,6 +59,11 @@ export default function Sidebar2() {
       title: "Item",
       src: `${base_url}/admin/item`,
       icon: <BsFiles />,
+    },
+    {
+      title: "Branches",
+      src: `${base_url}/admin/branch`,
+      icon: <BsArchiveFill />,
     },
     { title: "Setting", src: "Setting", icon: <MdOutlineSettings /> },
   ];
