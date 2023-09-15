@@ -48,7 +48,14 @@ export const POST = async (req: Request) => {
       }
     });
 
-    const grandtotal = bodyParam.items.reduce(
+    const discTotal = bodyParam.items.reduce(
+      (accumulator: any, currentItem: PurchItem) => {
+        return accumulator + currentItem.discount;
+      },
+      0
+    );
+
+    const subTotal = bodyParam.items.reduce(
       (accumulator: any, currentItem: PurchItem) => {
         return accumulator + currentItem.total;
       },
@@ -58,7 +65,9 @@ export const POST = async (req: Request) => {
     const updatedReq: PurchaseDocument = bodyParam;
     updatedReq.poNo = await generatePoNumber(bodyParam.supplier);
     updatedReq.number = Number(updatedReq.poNo.split("/")[0]);
-    updatedReq.grandTotal = grandtotal;
+    updatedReq.subTotal = subTotal;
+    updatedReq.discount = discTotal;
+    updatedReq.grandTotal = subTotal + updatedReq.taxTotal;
     updatedReq.status = bodyParam.status == "" ? "draft" : bodyParam.status;
 
     await startDb();

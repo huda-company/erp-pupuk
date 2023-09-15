@@ -1,12 +1,21 @@
+import { useRouter } from "next/navigation";
 import { FC } from "react";
-import Typography from "../Typography";
+import { BsArrowLeftSquare } from "react-icons/bs";
+
 import { HeaderModuleProps } from "./types";
+import Typography from "../Typography";
 
 const HeaderModule: FC<HeaderModuleProps> = ({ title }) => {
+  const router = useRouter();
   return (
-    <Typography className="text-[2rem] text-black font-bold underline">
-      {title}
-    </Typography>
+    <div className="flex flex-row gap-x-3">
+      <div onClick={router.back} className="cursor-pointer">
+        <BsArrowLeftSquare size={20} />
+      </div>
+      <Typography className="text-xl text-black font-bold underline">
+        {title}
+      </Typography>
+    </div>
   );
 };
 

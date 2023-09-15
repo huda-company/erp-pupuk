@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "prettier --write --list-different ."
+    "lint:fix": "prettier --write --list-different .",
+    "tsc": "tsc --noEmit --incremental false"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
@@ -15,6 +16,7 @@
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "antd": "^5.9.0",
     "autoprefixer": "10.4.15",
     "axios": "^1.5.0",
     "bcrypt": "^5.1.1",
@@ -24,6 +26,9 @@
     "eslint-plugin-unused-imports": "^3.0.0",
     "form-data": "^4.0.0",
     "formik": "^2.4.3",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.6.0",
     "lint-staged": "^14.0.1",
     "mime-types": "^2.1.35",
     "moment-timezone": "^0.5.43",

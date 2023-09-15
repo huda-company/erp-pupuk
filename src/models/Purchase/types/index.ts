@@ -4,12 +4,14 @@ export type PurchItem = {
   item: Types.ObjectId;
   quantity: number;
   price: number;
+  discount: number;
   total: number;
 };
 
 export interface PurchaseDocument extends Document {
   items: PurchItem[];
   poNo: string;
+  billingCode: string;
   number: number;
   recurring: string;
   year: number;

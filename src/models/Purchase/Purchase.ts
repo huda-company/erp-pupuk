@@ -11,6 +11,10 @@ const purchaseSchema = new Schema<PurchaseDocument>({
     type: String,
     required: true,
   },
+  billingCode: {
+    type: String,
+    default: "",
+  },
   paymentStatus: {
     type: String,
     default: "unpaid",
@@ -65,6 +69,10 @@ const purchaseSchema = new Schema<PurchaseDocument>({
         required: true,
       },
       price: {
+        type: Number,
+        required: true,
+      },
+      discount: {
         type: Number,
         required: true,
       },

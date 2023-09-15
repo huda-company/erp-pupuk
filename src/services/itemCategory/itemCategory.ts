@@ -1,7 +1,9 @@
+import axios from "axios";
+
+import { base_url } from "@/constants/env";
+
 import { SupplierFormType } from "@/app/(admin_route)/admin/supplier/types";
 import { StandardResp } from "@/app/api/types";
-import { base_url } from "@/constants/env";
-import axios from "axios";
 
 const ITEMCAT_API = `${base_url}/api/itemcategory`;
 
@@ -29,7 +31,7 @@ export const editSupplier = async (
   params: SupplierFormType
 ): Promise<StandardResp> => {
   const { data } = await axios.patch(
-    `${ITEMCAT_API}/update/${params.id}`,
+    `${ITEMCAT_API}/update/${params._id}`,
     params
   );
 
