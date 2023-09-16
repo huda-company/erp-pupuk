@@ -122,8 +122,8 @@ const PdfExport: React.FC = () => {
     <div
       onClick={() => generatePDF()}
       ref={pdfRef}
-      className="p-4"
-      // className="p-4 border border-gray-400"
+      className="p-2"
+      // className="p-2 border border-gray-400"
     >
       {contextHolder}
       <div className="flex flex-row w-full py-0">
