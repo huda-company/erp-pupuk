@@ -189,13 +189,13 @@ export default function Page() {
 
   return (
     <>
-      <div className="p-4 sm:ml-64 bg-white h-screen">
+      <div className="p-2 bg-white h-screen">
         {/* title */}
-        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700">
           <HeaderModule title="Edit Purchase Order" />
         </div>
         {/* body */}
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">
+        <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">
           <FormikContext.Provider value={formikBag}>
             <PurchaseForm
               updatedFormikVal={initPurcForm}
