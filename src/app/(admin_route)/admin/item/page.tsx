@@ -15,11 +15,9 @@ import { StandardResp } from "@/app/api/types";
 
 import { FE_ITEM_URL, itemAntdColumns } from "./config";
 import { ItemAntdDataType } from "./types";
-import { useRouter } from "next/navigation";
 
 export default function Page() {
   const { confirm } = Modal;
-  const router = useRouter();
   const [tblItm, setTblItm] = useState<ItemAntdDataType[]>([]);
   const [itemData, setItemData] = useState<APIItemResp[]>([]);
 
@@ -62,24 +60,36 @@ export default function Page() {
         const items = [
           {
             key: "1",
-            onClick: () => {
-              router.push(`${FE_ITEM_URL.READ}/${x._id}`);
-            },
-            label: "Details",
+            label: (
+              <a
+                rel="noopener noreferrer"
+                href={`${FE_ITEM_URL.READ}/${x._id}`}
+              >
+                Details
+              </a>
+            ),
           },
           {
             key: "2",
-            onClick: () => {
-              router.push(`${FE_ITEM_URL.EDIT}/${x._id}`);
-            },
-            label: "Edit",
+            label: (
+              <a
+                rel="noopener noreferrer"
+                href={`${FE_ITEM_URL.EDIT}/${x._id}`}
+              >
+                Edit
+              </a>
+            ),
           },
           {
             key: "3",
-            onClick: () => {
-              showDeleteConfirm(x._id);
-            },
-            label: "Delete",
+            label: (
+              <a
+                rel="noopener noreferrer"
+                onClick={() => showDeleteConfirm(x._id)}
+              >
+                Delete
+              </a>
+            ),
           },
         ];
 
@@ -121,13 +131,13 @@ export default function Page() {
 
   return (
     <>
-      <div className="p-2 h-screen bg-white">
+      <div className="p-4 sm:ml-64 h-screen bg-white">
         {/* title */}
-        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700">
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
           <HeaderModule title="Item" />
         </div>
         {/* body */}
-        <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
+        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
           <div className="pb-[0.5rem] flex justify-end pr-[2.5rem]">
             <Link href={`${FE_ITEM_URL.CREATE}`}>
               <BtnAntd style={{ backgroundColor: "#338DFF" }} type="primary">
