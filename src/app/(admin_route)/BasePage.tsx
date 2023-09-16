@@ -11,7 +11,7 @@ import {
 } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import React, { ReactNode, Suspense, useState } from "react";
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
 import {
@@ -28,6 +28,7 @@ import { base_url } from "@/constants/env";
 
 import Loading from "@/components/Loading";
 
+import { persistor } from "@/redux/store";
 import { selectors as toastSelectors } from "@/redux/toast";
 interface BasePageProps {
   children: ReactNode;
@@ -93,22 +94,28 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
         router.push(`${base_url}/admin/item`);
       },
     },
+    {
+      key: "4",
+      icon: <BsFiles />,
+      label: "Branches",
+      onClick: () => {
+        router.push(`${base_url}/admin/branch`);
+      },
+    },
   ];
 
   const items: MenuProps["items"] = [
     {
       key: "1",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.luohanacademy.com"
-        >
-          Logout
-        </a>
-      ),
+      onClick: () => handleLogout(),
+      label: "Logout",
     },
   ];
+
+  const handleLogout = () => {
+    signOut({ callbackUrl: `${base_url}/auth/login` });
+    persistor.purge();
+  };
 
   return (
     <div>
