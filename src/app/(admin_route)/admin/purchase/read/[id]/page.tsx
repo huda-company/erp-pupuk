@@ -218,13 +218,13 @@ export default function Page() {
 
   return (
     <>
-      <div className="p-2 bg-white h-screen">
+      <div className="p-4 sm:ml-64 bg-white h-screen">
         {/* title */}
-        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700">
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
           <HeaderModule title="Detail Purchase Order" />
         </div>
         {/* body */}
-        <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-4 ">
+        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-4 ">
           <div className="flex flex-row gap-4">
             {/* left side */}
             <div className="left-0 w-[65%] flex flex-col">

@@ -2,7 +2,6 @@
 import { Button as BtnAntd, Dropdown, Modal, Table as TableAntd } from "antd";
 import { ColumnsType } from "antd/es/table";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 
@@ -20,7 +19,6 @@ import { SuppAntdDataType } from "./types";
 
 export default function Page() {
   const { confirm } = Modal;
-  const router = useRouter();
 
   const [tblItm, setTblItm] = useState<SuppAntdDataType[]>([]);
   const [supplierData, setSupplierData] = useState<APISuppliersResp[]>([]);
@@ -93,22 +91,36 @@ export default function Page() {
         const items = [
           {
             key: "1",
-            onClick: () => {
-              router.push(`${FE_SUPPLIER_URL.READ}/${x._id}`);
-            },
-            label: "Details",
+            label: (
+              <a
+                rel="noopener noreferrer"
+                href={`${FE_SUPPLIER_URL.READ}/${x._id}`}
+              >
+                Details
+              </a>
+            ),
           },
           {
             key: "2",
-            onClick: () => {
-              router.push(`${FE_SUPPLIER_URL.EDIT}/${x._id}`);
-            },
-            label: "Edit",
+            label: (
+              <a
+                rel="noopener noreferrer"
+                href={`${FE_SUPPLIER_URL.EDIT}/${x._id}`}
+              >
+                Edit
+              </a>
+            ),
           },
           {
             key: "3",
-            onClick: () => showDeleteConfirm(x._id),
-            label: "Delete",
+            label: (
+              <a
+                rel="noopener noreferrer"
+                onClick={() => showDeleteConfirm(x._id)}
+              >
+                Delete
+              </a>
+            ),
           },
         ];
 
@@ -142,7 +154,7 @@ export default function Page() {
 
       setTblItm(itmTbl);
     }
-  }, [router, showDeleteConfirm, supplierData]);
+  }, [showDeleteConfirm, supplierData]);
 
   useEffect(() => {
     handleLoadSuppData();
@@ -150,13 +162,13 @@ export default function Page() {
 
   return (
     <>
-      <div className="p-2 -64 h-screen bg-white">
+      <div className="p-4 sm:ml-64 h-screen bg-white">
         {/* title */}
-        <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 ">
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
           <HeaderModule title="Supplier" />
         </div>
         {/* body */}
-        <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
+        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
           <div className="pb-[0.5rem] flex justify-end pr-[2.5rem]">
             <Link href={`${FE_SUPPLIER_URL.CREATE}`}>
               <BtnAntd style={{ backgroundColor: "#338DFF" }} type="primary">
