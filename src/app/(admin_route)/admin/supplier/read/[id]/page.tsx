@@ -10,7 +10,6 @@ import useMount from "@/hooks/useMount";
 
 import { base_url } from "@/constants/env";
 
-import Typography from "@/components/Typography";
 import HeaderModule from "@/components/Header/HeaderModule";
 
 import { actions as utilsActions } from "@/redux/utils";
