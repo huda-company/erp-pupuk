@@ -1,7 +1,7 @@
+import ItemCategory from "@/models/ItemCategory/ItemCategory";
 
 export type APIItemResp = {
-  city: any;
-  address: any;
+  itemCategory: typeof ItemCategory
   _id: string;
   removed: boolean;
   enabled: boolean;
