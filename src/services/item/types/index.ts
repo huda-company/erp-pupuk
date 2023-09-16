@@ -1,10 +1,10 @@
-import ItemCategory from "@/models/ItemCategory";
+import ItemCategory from "@/models/ItemCategory/ItemCategory";
 
 export type APIItemResp = {
+  itemCategory: typeof ItemCategory
   _id: string;
   removed: boolean;
   enabled: boolean;
-  itemCategory: typeof ItemCategory;
   name: string;
   description: string;
   price: number;
