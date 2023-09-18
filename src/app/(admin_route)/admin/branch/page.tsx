@@ -99,7 +99,6 @@ export default function Page() {
       const formattedBody =
         itemData?.map((values) => ({
           items: [
-       
             {
               value: (
                 <Typography
@@ -125,7 +124,7 @@ export default function Page() {
                       "rounded-[0.938rem] bg-red-300 py-[0.5rem] pl-[0.5rem]"
                   )}
                 >
-                  {`${values.address}`}
+                  aa
                 </Typography>
               ),
               className: "text-left w-[14rem] break-words",
@@ -140,7 +139,7 @@ export default function Page() {
                       "rounded-[0.938rem] bg-red-300 py-[0.5rem] pl-[0.5rem]"
                   )}
                 >
-                  {`${values.city}`}
+                  aa
                 </Typography>
               ),
               className: "text-left w-[14rem] break-words",
