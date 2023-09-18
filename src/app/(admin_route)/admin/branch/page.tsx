@@ -18,7 +18,7 @@ import Tooltip from "@/components/Tooltip";
 import Typography from "@/components/Typography";
 
 import { deleteItem, getBranches } from "@/services/branch/branch";
-import { APIItemResp } from "@/services/item/types";
+import { APIBranchResp } from "@/services/branch/types";
 
 import { StandardResp } from "@/app/api/types";
 
@@ -26,7 +26,7 @@ import { FE_BRANCH_URL, tableHeaders } from "./config";
 
 export default function Page() {
   const router = useRouter();
-  const [itemData, setItemData] = useState<APIItemResp[]>([]);
+  const [itemData, setItemData] = useState<APIBranchResp[]>([]);
   const [tableBody, setTableBody] = useState<TableBody>([]);
   const [showDelPop, setShowDelPop] = useState<boolean>(false);
   const [deleted, setDeletedId] = useState<string>("");
@@ -34,7 +34,7 @@ export default function Page() {
   const handleCallAPI = async () => {
     const res1: StandardResp = await getBranches();
     if (res1.success) {
-      const supp: APIItemResp[] = res1.result;
+      const supp: APIBranchResp[] = res1.result;
       setItemData(supp);
     }
   };
