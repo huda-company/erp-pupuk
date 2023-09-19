@@ -188,13 +188,13 @@ export default function Page() {
 
   return (
     <>
-      <div className="p-2 h-screen bg-white">
+      <div className="p-2 min-h-screen bg-white">
         {/* title */}
         <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700">
           <HeaderModule title="Purchase" />
         </div>
         {/* body */}
-        <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
+        <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 h-screen">
           <div className="pb-[0.5rem] flex justify-end pr-[2.5rem]">
             <Link href={`${FE_PURCHASING_URL.CREATE}`}>
               <BtnAntd style={{ backgroundColor: "#338DFF" }} type="primary">

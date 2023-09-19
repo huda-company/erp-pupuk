@@ -150,9 +150,9 @@ export default function Page() {
 
   return (
     <>
-      <div className="p-2 -64 h-screen bg-white">
+      <div className="p-2 min-h-screen bg-white">
         {/* title */}
-        <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 ">
+        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 ">
           <HeaderModule title="Supplier" />
         </div>
         {/* body */}
