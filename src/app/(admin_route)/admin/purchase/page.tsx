@@ -180,7 +180,7 @@ export default function Page() {
 
       setTblItm(itmTbl);
     }
-  }, [itemData, showDeleteConfirm]);
+  }, [itemData, router, showDeleteConfirm]);
 
   useEffect(() => {
     handleLoadItemData();

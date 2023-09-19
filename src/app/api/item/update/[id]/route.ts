@@ -1,6 +1,8 @@
-import startDb from "@/lib/db";
-import Item from "@/models/Item";
 import { NextResponse } from "next/server";
+
+import Item from "@/models/Item";
+
+import startDb from "@/lib/db";
 
 export const PATCH = async (req: Request) => {
   const idVal = req.url.split("/item/update/")[1];

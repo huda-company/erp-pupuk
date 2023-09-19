@@ -1,9 +1,10 @@
-import startDb from "@/lib/db";
-import SupplierModel from "@/models/Supplier";
-import { NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
-export const PATCH = async (req: Request, res: NextApiResponse) => {
+import SupplierModel from "@/models/Supplier";
+
+import startDb from "@/lib/db";
+
+export const PATCH = async (req: Request) => {
   const idVal = req.url.split("/supplier/update/")[1];
 
   const bodyParam = await req.json();

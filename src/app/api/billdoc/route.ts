@@ -132,7 +132,6 @@ export const POST = async (req: NextRequest) => {
       }
     }
   } catch (err) {
-    console.log(err);
     return new Response(JSON.stringify({ error: "Server Side Error !" }), {
       status: 500,
     });

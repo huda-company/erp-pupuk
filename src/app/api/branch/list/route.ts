@@ -1,9 +1,10 @@
-import startDb from "@/lib/db";
-import branch from "@/models/Branch/Branch";
-import Item from "@/models/Item/Item";
+import { NextResponse } from "next/server";
 
 import parseQueryParameters from "@/utils/parseQueryParameters";
-import { NextResponse } from "next/server";
+
+import branch from "@/models/Branch/Branch";
+
+import startDb from "@/lib/db";
 
 export const GET = async (req: Request) => {
   const {
@@ -18,11 +19,12 @@ export const GET = async (req: Request) => {
   try {
     await startDb();
     //  Query the database for a list of all results
-    const resultsPromise = await branch.find({ removed: false })
-    .skip(skip)
-    .limit(limit)
-    .sort({ created: "desc" })
-    .lean();
+    const resultsPromise = await branch
+      .find({ removed: false })
+      .skip(skip)
+      .limit(limit)
+      .sort({ created: "desc" })
+      .lean();
     // .populate('categoryId');
 
     // Counting the total documents

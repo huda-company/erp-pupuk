@@ -1,7 +1,9 @@
-import startDb from "@/lib/db";
-import UserModel from "@/models/UserModel";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+
+import UserModel from "@/models/UserModel";
+
+import startDb from "@/lib/db";
 
 const authOptions: NextAuthOptions = {
   session: {
@@ -12,7 +14,7 @@ const authOptions: NextAuthOptions = {
     CredentialsProvider({
       type: "credentials",
       credentials: {},
-      async authorize(credentials, req) {
+      async authorize(credentials, _req) {
         const { email, password } = credentials as {
           email: string;
           password: string;

@@ -1,11 +1,12 @@
-import startDb from "@/lib/db";
-import SupplierModel from "@/models/Supplier";
-import parseQueryParameters from "@/utils/parseQueryParameters";
-import { NextApiRequest, NextApiResponse } from "next";
-import { useSearchParams } from "next/navigation";
 import { NextResponse } from "next/server";
 
-export const GET = async (req: Request, res: NextApiResponse) => {
+import parseQueryParameters from "@/utils/parseQueryParameters";
+
+import SupplierModel from "@/models/Supplier";
+
+import startDb from "@/lib/db";
+
+export const GET = async (req: Request) => {
   const {
     page: pageVal,
     items: itemsVal, // show n items

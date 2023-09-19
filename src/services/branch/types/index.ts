@@ -5,6 +5,6 @@ export type APIBranchResp = {
   name: string;
   description: string;
   address: string;
-  city:string;
+  city: string;
   created: Date;
 };

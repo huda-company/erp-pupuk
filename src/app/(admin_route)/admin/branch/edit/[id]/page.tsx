@@ -18,8 +18,8 @@ import { APIBranchResp } from "@/services/branch/types";
 import { StandardResp } from "@/app/api/types";
 
 import BranchForm from "../../components/BranchForm";
-import { FE_BRANCH_URL,  } from "../../config";
-import { BranchFormReqType,  } from "../../types";
+import { FE_BRANCH_URL } from "../../config";
+import { BranchFormReqType } from "../../types";
 import AddEditBranchSchema from "../../validation";
 
 export default function Page() {
@@ -27,20 +27,19 @@ export default function Page() {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const [branch, setBranch] = useState<APIBranchResp | undefined>(
+  const [branch, setBranch] = useState<APIBranchResp | undefined>(undefined);
+  const [formVal, setFormVal] = useState<BranchFormReqType | undefined>(
     undefined
   );
-  const [formVal, setFormVal] = useState<BranchFormReqType | undefined>(undefined);
 
   const handleLoadData = useCallback(async () => {
     if (branch) {
       const val: BranchFormReqType = {
-        id: branch._id || '',
-        address: branch.address || '',
-        name: branch.name || '',
-        city: branch.city || '',
-        description: branch.description || '',
-      
+        id: branch._id || "",
+        address: branch.address || "",
+        name: branch.name || "",
+        city: branch.city || "",
+        description: branch.description || "",
       };
       setFormVal(val);
     }

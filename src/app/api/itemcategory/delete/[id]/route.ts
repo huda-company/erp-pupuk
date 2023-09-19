@@ -1,10 +1,10 @@
-import startDb from "@/lib/db";
-import SupplierModel from "@/models/Supplier";
-import parseQueryParameters from "@/utils/parseQueryParameters";
-import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
-export const DELETE = async (req: Request, res: NextApiResponse) => {
+import SupplierModel from "@/models/Supplier";
+
+import startDb from "@/lib/db";
+
+export const DELETE = async (req: Request) => {
   const idVal = req.url.split("/supplier/delete/")[1];
 
   if (idVal) {

@@ -16,6 +16,7 @@ const utilsSlice = createSlice({
       noop;
     },
     PURGE: (state) => {
+      // eslint-disable-next-line unused-imports/no-unused-vars
       state = initialState;
     },
   },

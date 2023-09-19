@@ -1,6 +1,8 @@
-import startDb from "@/lib/db";
-import UserModel from "@/models/UserModel";
 import { NextResponse } from "next/server";
+
+import UserModel from "@/models/UserModel";
+
+import startDb from "@/lib/db";
 
 interface NewUserReq {
   name: string;

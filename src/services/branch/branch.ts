@@ -13,7 +13,6 @@ export const getBranches = async (): Promise<StandardResp> => {
   return data;
 };
 
-
 export const getBranchById = async (id: string): Promise<StandardResp> => {
   const { data } = await axios.get(`${BRANCH_API}/read/${id}`);
 
@@ -27,7 +26,6 @@ export const addBranch = async (
 
   return data;
 };
-
 
 export const editBranch = async (
   params: BranchFormReqType

@@ -1,10 +1,12 @@
-import startDb from "@/lib/db";
-import Item from "@/models/Item/Item";
 import { NextResponse } from "next/server";
-import { initStandardResp } from "../types";
-import { NextApiResponse } from "next";
 
-export const POST = async (req: Request, res: NextApiResponse) => {
+import Item from "@/models/Item/Item";
+
+import startDb from "@/lib/db";
+
+import { initStandardResp } from "../types";
+
+export const POST = async (req: Request) => {
   try {
     const bodyParam = await req.json();
 

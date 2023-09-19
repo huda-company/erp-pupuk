@@ -20,6 +20,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { ImFolderUpload } from "react-icons/im";
 
+import { noop } from "@/utils/helpers";
 import { useAppDispatch } from "@/hooks";
 import useMount from "@/hooks/useMount";
 
@@ -436,9 +437,7 @@ export default function Page() {
                   pagination={{
                     position: "bottom",
                     align: "center",
-                    onChange: (page) => {
-                      console.log(page);
-                    },
+                    onChange: noop,
                     pageSize: 3,
                   }}
                   dataSource={data}

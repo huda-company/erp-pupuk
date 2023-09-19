@@ -1,6 +1,7 @@
 "use client";
 import { Button as BtnAntd, Dropdown, Modal, Table as TableAntd } from "antd";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 
@@ -15,7 +16,6 @@ import { StandardResp } from "@/app/api/types";
 
 import { FE_ITEM_URL, itemAntdColumns } from "./config";
 import { ItemAntdDataType } from "./types";
-import { useRouter } from "next/navigation";
 
 export default function Page() {
   const { confirm } = Modal;
@@ -113,7 +113,7 @@ export default function Page() {
 
       setTblItm(itmTbl);
     }
-  }, [itemData, showDeleteConfirm]);
+  }, [itemData, router, showDeleteConfirm]);
 
   useEffect(() => {
     handleLoadItemData();
