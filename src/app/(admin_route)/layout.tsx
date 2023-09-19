@@ -1,6 +1,9 @@
+import { ConfigProvider } from "antd";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import React from "react";
+
+import theme from "@/theme/themeConfig";
 
 import BasePage from "./BasePage";
 import authOptions from "../api/auth/[...nextauth]/authOpts";
@@ -17,7 +20,9 @@ export default async function PrivateLayout({
 
   return (
     <>
-      <BasePage>{children}</BasePage>
+      <ConfigProvider theme={theme}>
+        <BasePage>{children}</BasePage>
+      </ConfigProvider>
     </>
   );
 }

@@ -19,6 +19,7 @@ import {
   BsFiles,
   BsFillPeopleFill,
   BsNewspaper,
+  BsShop,
 } from "react-icons/bs";
 import { MdAnalytics } from "react-icons/md";
 
@@ -96,7 +97,7 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
     },
     {
       key: "4",
-      icon: <BsFiles />,
+      icon: <BsShop />,
       label: "Branches",
       onClick: () => {
         router.push(`${base_url}/admin/branch`);
