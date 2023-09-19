@@ -1,7 +1,8 @@
 import { ReactNode, Ref } from "react";
 
-import { Variations } from "../config";
 import { TailwindTextSizes } from "@/components/Typography/types";
+
+import { Variations } from "../config";
 
 export type TableHeader = Item[];
 

@@ -53,7 +53,6 @@ export default function Page() {
   const handleCallAPIs = async () => {
     const res1: StandardResp = await getBranchById(String(urlParam?.id));
     if (res1.success && res1.result) {
-      console.log('****',res1.result)
       setBranch(res1.result);
     }
   };

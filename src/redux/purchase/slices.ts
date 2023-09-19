@@ -1,3 +1,4 @@
+/* eslint-disable unused-imports/no-unused-vars */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { initialState } from "./data";
@@ -14,7 +15,6 @@ const purchaseSlice = createSlice({
       state = payload;
     },
     PURGE: (state) => {
-      // eslint-disable-next-line no-unused-vars
       state = initialState;
     },
   },

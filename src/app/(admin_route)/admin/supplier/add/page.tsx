@@ -26,9 +26,7 @@ export default function Page() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   // eslint-disable-next-line no-unused-vars
-  const [supplier, setSupplier] = useState<APISuppliersResp | undefined>(
-    undefined
-  );
+  const [, setSupplier] = useState<APISuppliersResp | undefined>(undefined);
 
   const handleLoadData = useCallback(async () => {
     if (urlParam?.id) {

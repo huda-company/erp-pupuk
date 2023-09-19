@@ -9,7 +9,7 @@ import ValidationMessage from "@/components/Formik/ValidationMessage";
 import Label from "@/components/Label";
 import Typography from "@/components/Typography";
 
-import { BranchFormProps, BranchFormReqType, } from "../types";
+import { BranchFormProps, BranchFormReqType } from "../types";
 
 const BranchForm: FC<BranchFormProps> = ({ mode }) => {
   const router = useRouter();

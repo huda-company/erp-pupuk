@@ -4,7 +4,7 @@ import parseQueryParameters from "@/utils/parseQueryParameters";
 
 import SupplierModel from "@/models/Supplier";
 
-export const GET = async (req: Request, ) => {
+export const GET = async (req: Request) => {
   const {
     q: qVal,
     fields: fieldsVal, // show n items

@@ -1,7 +1,8 @@
-import React from "react";
-import { getServerSession } from "next-auth";
-import authOptions from "../api/auth/[...nextauth]/authOpts";
 import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import React from "react";
+
+import authOptions from "../api/auth/[...nextauth]/authOpts";
 
 export default async function GuestLayout({
   children,

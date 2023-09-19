@@ -10,7 +10,6 @@ export const POST = async (req: Request) => {
   try {
     const bodyParam = await req.json();
 
-   
     // const updatedReq: any = bodyParam;
 
     await startDb();

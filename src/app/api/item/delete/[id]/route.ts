@@ -1,6 +1,8 @@
-import startDb from "@/lib/db";
-import Item from "@/models/Item";
 import { NextResponse } from "next/server";
+
+import Item from "@/models/Item";
+
+import startDb from "@/lib/db";
 
 export const DELETE = async (req: Request) => {
   const idVal = req.url.split("/item/delete/")[1];
