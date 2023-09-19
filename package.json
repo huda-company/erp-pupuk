@@ -12,6 +12,7 @@
     "tsc": "tsc --noEmit --incremental false"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.17.0",
     "@heroicons/react": "^2.0.18",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.5.9",
