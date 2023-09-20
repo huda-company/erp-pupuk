@@ -8,6 +8,7 @@ import { BsThreeDots } from "react-icons/bs";
 
 import useMount from "@/hooks/useMount";
 
+import CustomBreadcrumb from "@/components/CustomBreadcrumb";
 import HeaderModule from "@/components/Header/HeaderModule";
 
 import { deletePurchase, getPurchases } from "@/services/purchase/purchase";
@@ -15,7 +16,7 @@ import { APIPurchaseResp } from "@/services/purchase/types";
 
 import { StandardResp } from "@/app/api/types";
 
-import { FE_PURCHASING_URL } from "./config";
+import { FE_PURCHASING_URL, PurchBcBaseItems } from "./config";
 import { AntdDataType } from "./types";
 
 export default function Page() {
@@ -188,13 +189,15 @@ export default function Page() {
 
   return (
     <>
-      <div className="p-2 h-screen bg-white">
+      <div className="p-2 min-h-screen bg-white">
         {/* title */}
-        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700">
+        <div className="flex justify-between p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700">
           <HeaderModule title="Purchase" />
+
+          <CustomBreadcrumb items={PurchBcBaseItems} />
         </div>
         {/* body */}
-        <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
+        <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 h-screen">
           <div className="pb-[0.5rem] flex justify-end pr-[2.5rem]">
             <Link href={`${FE_PURCHASING_URL.CREATE}`}>
               <BtnAntd style={{ backgroundColor: "#338DFF" }} type="primary">

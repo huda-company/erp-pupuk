@@ -100,7 +100,7 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
       icon: <BsShop />,
       label: "Branches",
       onClick: () => {
-        router.push(`${base_url}/admin/branch`);
+        // router.push(`${base_url}/admin/branch`);
       },
     },
   ];

@@ -9,6 +9,7 @@ import convToOpts from "@/utils/convToOpts";
 import { useAppDispatch } from "@/hooks";
 import useMount from "@/hooks/useMount";
 
+import CustomBreadcrumb from "@/components/CustomBreadcrumb";
 import { Option } from "@/components/Dropdown/types";
 import HeaderModule from "@/components/Header/HeaderModule";
 
@@ -21,7 +22,7 @@ import { getItemCategory } from "@/services/itemCategory/itemCategory";
 import { StandardResp } from "@/app/api/types";
 
 import ItemForm from "../../components/ItemForm";
-import { FE_ITEM_URL } from "../../config";
+import { EditItemBcItems, FE_ITEM_URL } from "../../config";
 import { ItemFormAPIReqType, ItemFormType } from "../../types";
 import AddEditItemSchema from "../../validation";
 
@@ -105,10 +106,11 @@ export default function Page() {
 
   return (
     <>
-      <div className="p-2 bg-white h-screen">
+      <div className="p-2 bg-white min-h-screen">
         {/* title */}
-        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700">
+        <div className="flex justify-between p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700">
           <HeaderModule title="Edit Item" />
+          <CustomBreadcrumb items={EditItemBcItems} />
         </div>
         {/* body */}
         <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">

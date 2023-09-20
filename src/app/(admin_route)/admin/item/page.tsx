@@ -7,6 +7,7 @@ import { BsThreeDots } from "react-icons/bs";
 
 import useMount from "@/hooks/useMount";
 
+import CustomBreadcrumb from "@/components/CustomBreadcrumb";
 import HeaderModule from "@/components/Header/HeaderModule";
 
 import { deleteItem, getItems } from "@/services/item/item";
@@ -14,7 +15,7 @@ import { APIItemResp } from "@/services/item/types";
 
 import { StandardResp } from "@/app/api/types";
 
-import { FE_ITEM_URL, itemAntdColumns } from "./config";
+import { FE_ITEM_URL, itemAntdColumns, ItemBcBaseItems } from "./config";
 import { ItemAntdDataType } from "./types";
 
 export default function Page() {
@@ -123,8 +124,9 @@ export default function Page() {
     <>
       <div className="p-2 h-screen bg-white">
         {/* title */}
-        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700">
+        <div className="flex justify-between p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700">
           <HeaderModule title="Item" />
+          <CustomBreadcrumb items={ItemBcBaseItems} />
         </div>
         {/* body */}
         <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">

@@ -10,6 +10,7 @@ import useMount from "@/hooks/useMount";
 
 import { base_url } from "@/constants/env";
 
+import CustomBreadcrumb from "@/components/CustomBreadcrumb";
 import HeaderModule from "@/components/Header/HeaderModule";
 
 import { actions as utilsActions } from "@/redux/utils";
@@ -20,6 +21,7 @@ import { APISuppliersResp } from "@/services/supplier/types";
 import { StandardResp } from "@/app/api/types";
 
 import SupplierForm from "../../components/SupplierForm";
+import { ReadSuppBcItems } from "../../config";
 import { SupplierFormType } from "../../types";
 import AddEditSupplierSchema from "../../validation";
 
@@ -95,10 +97,11 @@ export default function Page() {
 
   return (
     <>
-      <div className="p-2 bg-white h-screen">
+      <div className="p-2 bg-white min-h-screen">
         {/* title */}
-        <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 ">
+        <div className="flex justify-between p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 ">
           <HeaderModule title="Detail Supplier" />
+          <CustomBreadcrumb items={ReadSuppBcItems} />
         </div>
         {/* body */}
         <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">

@@ -8,6 +8,7 @@ import {
   ItemFormType,
   TableHeaders,
 } from "../types";
+import { AdminBcBaseItems } from "../../config";
 
 export const initAddEditItemForm: ItemFormType = {
   itemCategoryOpt: emptyOption,
@@ -62,5 +63,45 @@ export const itemAntdColumns: ColumnsType<ItemAntdDataType> = [
     key: "operation",
     fixed: "right",
     width: 95,
+  },
+];
+
+export const ItemBcBaseItems = [
+  ...AdminBcBaseItems,
+  {
+    title: "Item",
+    href: null,
+  },
+];
+
+const ItemBcLinkItem = {
+  title: "Item",
+  href: FE_ITEM_URL.LIST,
+};
+
+export const AddItemBcItems = [
+  ...AdminBcBaseItems,
+  ItemBcLinkItem,
+  {
+    title: "Add Item",
+    href: null,
+  },
+];
+
+export const EditItemBcItems = [
+  ...AdminBcBaseItems,
+  ItemBcLinkItem,
+  {
+    title: "Edit Item",
+    href: null,
+  },
+];
+
+export const ReadItemBcItems = [
+  ...AdminBcBaseItems,
+  ItemBcLinkItem,
+  {
+    title: "Detail Item",
+    href: null,
   },
 ];
