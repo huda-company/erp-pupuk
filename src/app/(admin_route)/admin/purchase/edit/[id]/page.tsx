@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 import convToOpts from "@/utils/convToOpts";
 import { useAppDispatch } from "@/hooks";
 
+import CustomBreadcrumb from "@/components/CustomBreadcrumb";
 import { Option } from "@/components/Dropdown/types";
 import HeaderModule from "@/components/Header/HeaderModule";
 
@@ -23,7 +24,11 @@ import { StandardResp } from "@/app/api/types";
 
 import convItemFEtoReq from "../../_utils/convItemFEtoReq";
 import PurchaseForm from "../../components/PurchaseForm";
-import { FE_PURCHASING_URL, PURCH_PAYM_METH_OPTS } from "../../config";
+import {
+  EditPurchBcItems,
+  FE_PURCHASING_URL,
+  PURCH_PAYM_METH_OPTS,
+} from "../../config";
 import { emptyOption } from "../../../item/types";
 
 export default function Page() {
@@ -191,8 +196,9 @@ export default function Page() {
     <>
       <div className="p-2 bg-white min-h-screen">
         {/* title */}
-        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700">
+        <div className="flex justify-between p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700">
           <HeaderModule title="Edit Purchase Order" />
+          <CustomBreadcrumb items={EditPurchBcItems} />
         </div>
         {/* body */}
         <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">

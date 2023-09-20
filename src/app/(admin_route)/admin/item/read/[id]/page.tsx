@@ -11,6 +11,7 @@ import useMount from "@/hooks/useMount";
 
 import { base_url } from "@/constants/env";
 
+import CustomBreadcrumb from "@/components/CustomBreadcrumb";
 import { Option } from "@/components/Dropdown/types";
 import HeaderModule from "@/components/Header/HeaderModule";
 
@@ -23,6 +24,7 @@ import { getItemCategory } from "@/services/itemCategory/itemCategory";
 import { StandardResp } from "@/app/api/types";
 
 import ItemForm from "../../components/ItemForm";
+import { ReadItemBcItems } from "../../config";
 import { ItemFormAPIReqType, ItemFormType } from "../../types";
 import AddEditSupplierSchema from "../../validation";
 
@@ -112,8 +114,9 @@ export default function Page() {
     <>
       <div className="p-2 bg-white min-h-screen">
         {/* title */}
-        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700">
+        <div className="flex justify-between p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700">
           <HeaderModule title="Detail Item" />
+          <CustomBreadcrumb items={ReadItemBcItems} />
         </div>
         {/* body */}
         <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">

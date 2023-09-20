@@ -8,6 +8,7 @@ import { BsThreeDots } from "react-icons/bs";
 
 import useMount from "@/hooks/useMount";
 
+import CustomBreadcrumb from "@/components/CustomBreadcrumb";
 import HeaderModule from "@/components/Header/HeaderModule";
 
 import { deleteSupplier, getSuppliers } from "@/services/supplier/supplier";
@@ -15,7 +16,7 @@ import { APISuppliersResp } from "@/services/supplier/types";
 
 import { StandardResp } from "@/app/api/types";
 
-import { FE_SUPPLIER_URL } from "./config";
+import { FE_SUPPLIER_URL, SuppBcBaseItems } from "./config";
 import { SuppAntdDataType } from "./types";
 
 export default function Page() {
@@ -152,8 +153,9 @@ export default function Page() {
     <>
       <div className="p-2 min-h-screen bg-white">
         {/* title */}
-        <div className="p-3 border-2 border-gray-200 rounded-lg dark:border-gray-700 ">
+        <div className="flex justify-between p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 ">
           <HeaderModule title="Supplier" />
+          <CustomBreadcrumb items={SuppBcBaseItems} />
         </div>
         {/* body */}
         <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">

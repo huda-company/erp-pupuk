@@ -1,6 +1,7 @@
 import { base_url } from "@/constants/env";
 
 import { SupplierFormType, TableHeaders } from "../types";
+import { AdminBcBaseItems } from "../../config";
 
 export const initAddEditSupplierForm: SupplierFormType = {
   company: "",
@@ -41,3 +42,43 @@ export const FE_SUPPLIER_URL = {
   EDIT: `${base_url}/admin/supplier/edit`,
   READ: `${base_url}/admin/supplier/read`,
 };
+
+export const SuppBcBaseItems = [
+  ...AdminBcBaseItems,
+  {
+    title: "Supplier",
+    href: null,
+  },
+];
+
+const SuppBcLinkItem = {
+  title: "Supplier",
+  href: FE_SUPPLIER_URL.LIST,
+};
+
+export const AddSuppBcItems = [
+  ...AdminBcBaseItems,
+  SuppBcLinkItem,
+  {
+    title: "Add Supplier",
+    href: null,
+  },
+];
+
+export const EditSuppBcItems = [
+  ...AdminBcBaseItems,
+  SuppBcLinkItem,
+  {
+    title: "Edit Supplier",
+    href: null,
+  },
+];
+
+export const ReadSuppBcItems = [
+  ...AdminBcBaseItems,
+  SuppBcLinkItem,
+  {
+    title: "Detail Supplier",
+    href: null,
+  },
+];

@@ -3,6 +3,7 @@ import { base_url } from "@/constants/env";
 import { Option } from "@/components/Dropdown/types";
 
 import { TableHeaders } from "../types";
+import { AdminBcBaseItems } from "../../config";
 
 export const MODULE_NAME = "purchase";
 
@@ -42,5 +43,45 @@ export const PURCH_PAYM_METH_OPTS: Option[] = [
   {
     id: "credit",
     label: "credit",
+  },
+];
+
+export const PurchBcBaseItems = [
+  ...AdminBcBaseItems,
+  {
+    title: "Purchase",
+    href: null,
+  },
+];
+
+const PurchBcLinkItem = {
+  title: "Purchase",
+  href: FE_PURCHASING_URL.LIST,
+};
+
+export const AddPurchBcItems = [
+  ...AdminBcBaseItems,
+  PurchBcLinkItem,
+  {
+    title: "Add Purchase Order",
+    href: null,
+  },
+];
+
+export const EditPurchBcItems = [
+  ...AdminBcBaseItems,
+  PurchBcLinkItem,
+  {
+    title: "Edit Purchase Order",
+    href: null,
+  },
+];
+
+export const ReadPurchBcItems = [
+  ...AdminBcBaseItems,
+  PurchBcLinkItem,
+  {
+    title: "Detail Purchase Order",
+    href: null,
   },
 ];
