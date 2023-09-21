@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import UserModel from "@/models/UserModel";
+import UserModel from "@/models/User/User";
 
 import startDb from "@/lib/db";
 
@@ -43,7 +43,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
       email: user.email,
       name: user.name,
       surname: user.name,
-      role: user.role,
+      role: String(user.role._id),
     },
   });
 };

@@ -10,8 +10,13 @@ export default async function GuestLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
-  if (session?.user.role == "user") redirect("/user");
-  if (session?.user.role == "admin") redirect("/admin");
+  if (session?.user && ["usr"].includes(String(session?.user.role.codeName)))
+    redirect("/user");
+  if (
+    session?.user &&
+    ["adm-pemb", "adm-penj"].includes(String(session?.user.role.codeName))
+  )
+    redirect("/admin");
 
   return <>{children}</>;
 }

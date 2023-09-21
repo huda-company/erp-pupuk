@@ -145,31 +145,33 @@ const PurchaseForm: FC<PurchaseFormProps> = ({
         {/* right side */}
         <div className="right-0 w-[35%] items-end">
           <div className="mt-[0rem] flex w-[23.313rem] float-right">
-            <div className="">
-              <Button
-                size="xs"
-                className="bg-red-400"
-                onClick={() => router.back()}
-              >
-                <Typography className="font-bold text-base">
-                  {mode != "READ" ? "Cancel" : "Back"}
-                </Typography>
-              </Button>
-            </div>
             {mode != "READ" && (
-              <div className="ml-[0.818rem] ">
-                <Button
-                  className="bg-green-400"
-                  variant="primary"
-                  size="xs"
-                  onClick={submitForm}
-                  isLoading={isSubmitting}
-                >
-                  <Typography color="white" className="font-bold text-base">
-                    Save
-                  </Typography>
-                </Button>
-              </div>
+              <>
+                <div className="">
+                  <Button
+                    size="xs"
+                    className="bg-red-400"
+                    onClick={() => router.back()}
+                  >
+                    <Typography className="font-bold text-base">
+                      Cancel
+                    </Typography>
+                  </Button>
+                </div>
+                <div className="ml-[0.818rem] ">
+                  <Button
+                    className="bg-green-400"
+                    variant="primary"
+                    size="xs"
+                    onClick={submitForm}
+                    isLoading={isSubmitting}
+                  >
+                    <Typography color="white" className="font-bold text-base">
+                      Save
+                    </Typography>
+                  </Button>
+                </div>
+              </>
             )}
           </div>
         </div>

@@ -38,7 +38,7 @@ const Login: NextPage = () => {
       return setError(res.error);
     }
 
-    router.replace("/user");
+    if (res?.ok) router.push("/");
     setShowLoading(false);
   };
 

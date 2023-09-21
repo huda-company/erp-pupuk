@@ -10,8 +10,8 @@ import StyledComponentsRegistry from "@/lib/AntdRegistry";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "erp pupuk",
-  description: "erp pupuk",
+  title: "PT Anugerah Tani Makmur",
+  description: "PT Anugerah Tani Makmur",
 };
 
 export default async function RootLayout({

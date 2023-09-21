@@ -12,37 +12,37 @@ import ValidationMessage from "@/components/Formik/ValidationMessage";
 import Label from "@/components/Label";
 import Typography from "@/components/Typography";
 
-import { ItemFormProps, ItemFormType } from "../types";
+import { UserFormProps, UserFormType } from "../types";
 
-const ItemForm: FC<ItemFormProps> = ({ mode, itemCatOpts }) => {
+const UserForm: FC<UserFormProps> = ({ mode, roleOpts }) => {
   const router = useRouter();
-  const { isSubmitting, submitForm } = useFormikContext<ItemFormType>();
-  const [itmCat, setItmCat] = useState<Option[]>(itemCatOpts);
+  const { isSubmitting, submitForm } = useFormikContext<UserFormType>();
+  const [roleOpt, setRoleOpt] = useState<Option[]>(roleOpts);
 
   useEffect(() => {
-    setItmCat(itemCatOpts);
-  }, [itemCatOpts]);
+    setRoleOpt(roleOpts);
+  }, [roleOpts]);
 
   return (
     <>
       <div className="w-[50%]">
         <Label
           containerStyle="bg-transparent"
-          text="Category"
+          text="Role"
           textColor="text-imporable"
           textStyle="text-sm font-bold text-improbable"
           isRequired
         />
         <FormDropdown
-          emptyLabel="Select Item Category"
-          name="itemCategoryOpt"
+          emptyLabel="Select Role"
+          name="roleOpt"
           variation={Variations.Primary}
           width="w-full"
           className="mt-[0.3rem]"
-          options={itmCat}
+          options={roleOpt}
           readOnly={mode == "READ"}
         />
-        <ValidationMessage name="itemCategoryOpt" />
+        <ValidationMessage name="roleOpt" />
       </div>
 
       <div className="w-[50%]">
@@ -65,35 +65,32 @@ const ItemForm: FC<ItemFormProps> = ({ mode, itemCatOpts }) => {
       <div className="w-[50%]">
         <Label
           containerStyle="bg-transparent"
-          text="Price"
+          text="Email"
           textColor="text-imporable"
           textStyle="text-sm font-bold text-improbable"
           isRequired
         />
         <FormInput
-          name="price"
-          type="number"
-          placeholder="Price"
+          name="email"
+          type="email"
+          placeholder="Email"
           readOnly={mode == "READ"}
         />
-        <ValidationMessage name="price" />
+        <ValidationMessage name="email" />
       </div>
 
-      <div className="w-[50%]">
-        <Label
-          containerStyle="bg-transparent"
-          text="Description"
-          textColor="text-imporable"
-          textStyle="text-sm font-bold text-improbable"
-        />
-        <FormInput
-          name="description"
-          type="text"
-          placeholder="Description"
-          readOnly={mode == "READ"}
-        />
-        <ValidationMessage name="description" />
-      </div>
+      {mode == "ADD" && (
+        <div className="w-[50%]">
+          <Label
+            containerStyle="bg-transparent"
+            text="Password"
+            textColor="text-imporable"
+            textStyle="text-sm font-bold text-improbable"
+          />
+          <FormInput name="password" type="text" placeholder="Password" />
+          <ValidationMessage name="password" />
+        </div>
+      )}
 
       <div className="mt-[0rem] flex w-[23.313rem]">
         {mode != "READ" && (
@@ -107,7 +104,6 @@ const ItemForm: FC<ItemFormProps> = ({ mode, itemCatOpts }) => {
                 <Typography className="font-bold text-base">Cancel</Typography>
               </Button>
             </div>
-
             <div className="ml-[0.818rem] w-[50%]">
               <Button
                 className="bg-green-400"
@@ -128,4 +124,4 @@ const ItemForm: FC<ItemFormProps> = ({ mode, itemCatOpts }) => {
   );
 };
 
-export default ItemForm;
+export default UserForm;

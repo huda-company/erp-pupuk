@@ -1,7 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import UserModel from "@/models/UserModel";
+import UserModel from "@/models/User/User";
 
 import startDb from "@/lib/db";
 
@@ -22,7 +22,7 @@ const authOptions: NextAuthOptions = {
 
         await startDb();
 
-        const user = await UserModel.findOne({ email });
+        const user = await UserModel.findOne({ email }).populate("role");
         if (!user) throw Error("Email not found");
 
         const pwdMatch = await user.comparePassword(password);
@@ -51,7 +51,7 @@ const authOptions: NextAuthOptions = {
     session({ session, token }) {
       if (session.user) {
         (session.user as { id: string }).id = token.id as string;
-        (session.user as { role: string }).role = token.role as string;
+        (session.user as { role: any }).role = token.role as any;
       }
       return session;
     },
