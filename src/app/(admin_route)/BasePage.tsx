@@ -55,7 +55,7 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
     />
   );
 
-  const sidebarItems = [
+  let sidebarItems = [
     {
       key: "1",
       icon: <MdAnalytics />,
@@ -112,6 +112,12 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
       },
     },
   ];
+
+  if (data?.user.role.codeName == "adm-pemb") {
+    sidebarItems = sidebarItems.filter((x) =>
+      ["Dashboard", "Purchasing"].includes(x.label)
+    );
+  }
 
   const items: MenuProps["items"] = [
     {
