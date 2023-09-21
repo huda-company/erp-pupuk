@@ -43,8 +43,6 @@ export default function Page() {
         name: itm.name,
         email: String(itm.email),
       };
-      console.log("itm", itm);
-      console.log("val", val);
       setFormVal(val);
     }
   }, [itm, itmCatOpts]);

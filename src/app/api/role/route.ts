@@ -40,7 +40,6 @@ export const POST = async (req: Request) => {
       { status: 200 }
     );
   } catch (err) {
-    console.log("ccc", err);
     return NextResponse.json(
       {
         ...initStandardResp,
