@@ -11,7 +11,9 @@ const pageRedirection = async () => {
     url = "/user";
   if (
     session?.user &&
-    ["adm-pemb", "adm-penj"].includes(String(session?.user.role.codeName))
+    ["adm", "adm-pemb", "adm-penj"].includes(
+      String(session?.user.role.codeName)
+    )
   )
     url = "admin";
 
