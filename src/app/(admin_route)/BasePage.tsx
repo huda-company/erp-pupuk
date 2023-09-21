@@ -21,7 +21,7 @@ import {
   BsNewspaper,
   BsShop,
 } from "react-icons/bs";
-import { MdAnalytics } from "react-icons/md";
+import { MdAnalytics, MdGroups2 } from "react-icons/md";
 
 import { useAppSelector } from "@/hooks";
 
@@ -101,6 +101,14 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
       label: "Branches",
       onClick: () => {
         // router.push(`${base_url}/admin/branch`);
+      },
+    },
+    {
+      key: "5",
+      icon: <MdGroups2 />,
+      label: "User",
+      onClick: () => {
+        router.push(`${base_url}/admin/user`);
       },
     },
   ];

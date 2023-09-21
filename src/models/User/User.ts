@@ -1,21 +1,9 @@
 import bcrypt from "bcrypt";
-import { Model, model, models } from "mongoose";
-import { Document, Schema } from "mongoose";
+import mongoose, { Model, model, models } from "mongoose";
+import { Schema } from "mongoose";
 
-interface UserDocument extends Document {
-  email: string;
-  name: string;
-  surname: string;
-  photo: string;
-  createdAt: Date;
-  hasCustomPermissions: boolean;
-  isLoggedIn: number;
-  loggedSessions: string[];
-  password: string;
-  role: "admin" | "user";
-  removed: boolean;
-  enabled: boolean;
-}
+import { UserDocument } from "./types";
+import Role from "../Role/Role";
 
 interface Methods {
   comparePassword(password: string): Promise<boolean>;
@@ -44,9 +32,10 @@ const userSchema = new Schema<UserDocument, object, Methods>({
   name: { type: String, required: true, lowercase: true },
   surname: { type: String, required: true, lowercase: true },
   role: {
-    type: String,
-    enum: ["admin", "user"],
-    default: "user",
+    type: mongoose.Schema.Types.ObjectId,
+    ref: Role,
+    require: true,
+    autopopulate: true,
   },
   photo: {
     type: String,
