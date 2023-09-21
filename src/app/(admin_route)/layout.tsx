@@ -16,7 +16,9 @@ export default async function PrivateLayout({
   const session = await getServerSession(authOptions);
   if (!session?.user) redirect("auth/login");
 
-  if (session?.user && String(session?.user.role) == "user") redirect("/user");
+  if (session?.user && ["usr"].includes(String(session?.user.role.codeName))) {
+    redirect("/user");
+  }
 
   return (
     <>
