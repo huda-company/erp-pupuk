@@ -93,31 +93,31 @@ const UserForm: FC<UserFormProps> = ({ mode, roleOpts }) => {
       )}
 
       <div className="mt-[0rem] flex w-[23.313rem]">
-        <div className="w-[50%]">
-          <Button
-            size="sm"
-            className="bg-red-400"
-            onClick={() => router.back()}
-          >
-            <Typography className="font-bold text-base">
-              {mode != "READ" ? "Cancel" : "Back"}
-            </Typography>
-          </Button>
-        </div>
         {mode != "READ" && (
-          <div className="ml-[0.818rem] w-[50%]">
-            <Button
-              className="bg-green-400"
-              variant="primary"
-              size="sm"
-              onClick={submitForm}
-              isLoading={isSubmitting}
-            >
-              <Typography color="white" className="font-bold text-base">
-                Save
-              </Typography>
-            </Button>
-          </div>
+          <>
+            <div className="w-[50%]">
+              <Button
+                size="sm"
+                className="bg-red-400"
+                onClick={() => router.back()}
+              >
+                <Typography className="font-bold text-base">Cancel</Typography>
+              </Button>
+            </div>
+            <div className="ml-[0.818rem] w-[50%]">
+              <Button
+                className="bg-green-400"
+                variant="primary"
+                size="sm"
+                onClick={submitForm}
+                isLoading={isSubmitting}
+              >
+                <Typography color="white" className="font-bold text-base">
+                  Save
+                </Typography>
+              </Button>
+            </div>
+          </>
         )}
       </div>
     </>
