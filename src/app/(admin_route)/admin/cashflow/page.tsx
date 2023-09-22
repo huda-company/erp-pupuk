@@ -134,8 +134,6 @@ export default function Page() {
     );
   };
 
-  console.log(JSON.stringify(tblItm.filter((x) => x.type == "income")));
-
   return (
     <>
       <div className="p-2 h-screen bg-white">
