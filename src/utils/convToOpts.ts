@@ -5,6 +5,7 @@ const convToOpts = (data: any, idProp: string, labelProp: string) => {
     return {
       id: x[idProp],
       label: x[labelProp],
+      metadata: x,
     } as Option;
   });
 };
