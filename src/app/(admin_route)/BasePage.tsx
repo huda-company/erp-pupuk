@@ -16,6 +16,7 @@ import React, { ReactNode, Suspense, useState } from "react";
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
 import {
   BsCart4,
+  BsCashCoin,
   BsFiles,
   BsFillPeopleFill,
   BsNewspaper,
@@ -109,6 +110,14 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
       label: "User",
       onClick: () => {
         router.push(`${base_url}/admin/user`);
+      },
+    },
+    {
+      key: "6",
+      icon: <BsCashCoin />,
+      label: "Cashflow",
+      onClick: () => {
+        router.push(`${base_url}/admin/cashflow`);
       },
     },
   ];
