@@ -3,12 +3,10 @@
 import { FormikContext, useFormik } from "formik";
 import moment from "moment";
 import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 import convToOpts from "@/utils/convToOpts";
 import { noop } from "@/utils/helpers";
-import { useAppDispatch } from "@/hooks";
 import useMount from "@/hooks/useMount";
 
 import CustomBreadcrumb from "@/components/CustomBreadcrumb";
@@ -28,8 +26,6 @@ import AddEditSupplierSchema from "../../validation";
 
 export default function Page() {
   const urlParam = useParams();
-  const router = useRouter();
-  const dispatch = useAppDispatch();
 
   const [itm, setItm] = useState<APICashflowResp | undefined>(undefined);
   const [itmCatOpts, setItmCatOpts] = useState<Option[]>([]);
