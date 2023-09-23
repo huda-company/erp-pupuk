@@ -10,7 +10,7 @@ const HeaderModule: FC<HeaderModuleProps> = ({ title }) => {
   return (
     <div className="flex flex-row gap-x-3">
       <div onClick={router.back} className="cursor-pointer">
-        <BsArrowLeftSquare size={20} />
+        <BsArrowLeftSquare color="black" size={20} />
       </div>
       <Typography className="text-xl text-black font-bold underline">
         {title}
