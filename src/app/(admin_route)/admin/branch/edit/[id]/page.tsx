@@ -8,7 +8,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "@/hooks";
 import useMount from "@/hooks/useMount";
 
-import Typography from "@/components/Typography";
+import CustomBreadcrumb from "@/components/CustomBreadcrumb";
+import HeaderModule from "@/components/Header/HeaderModule";
 
 import { actions as utilsActions } from "@/redux/utils";
 
@@ -18,7 +19,7 @@ import { APIBranchResp } from "@/services/branch/types";
 import { StandardResp } from "@/app/api/types";
 
 import BranchForm from "../../components/BranchForm";
-import { FE_BRANCH_URL } from "../../config";
+import { EditItemBcItems, FE_BRANCH_URL } from "../../config";
 import { BranchFormReqType } from "../../types";
 import AddEditBranchSchema from "../../validation";
 
@@ -89,13 +90,14 @@ export default function Page() {
 
   return (
     <>
-      <div className="p-4 sm:ml-64 bg-white h-screen">
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-11">
-          <Typography className="text-xl text-black font-bold underline">
-            Edit Branch
-          </Typography>
+      <div className="p-2 min-h-screen bg-white">
+        {/* title */}
+        <div className="flex justify-between p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700">
+          <HeaderModule title="Edit Branch" />
+          <CustomBreadcrumb items={EditItemBcItems} />
         </div>
-        <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2 bg-gray-100 flex flex-col gap-6">
+        {/* body */}
+        <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
           <FormikContext.Provider value={formikBag}>
             <BranchForm mode="EDIT" />
           </FormikContext.Provider>

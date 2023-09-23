@@ -101,7 +101,7 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
       icon: <BsShop />,
       label: "Branches",
       onClick: () => {
-        // router.push(`${base_url}/admin/branch`);
+        router.push(`${base_url}/admin/branch`);
       },
     },
     {
@@ -164,7 +164,7 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
                 height={60}
                 alt="FlowBite Logo"
               />
-              <span className="self-center text-lg font-semibold sm:text-xl whitespace-nowrap dark:text-white">
+              <span className="self-center text-lg font-semibold sm:text-xl whitespace-nowrap dark:text-white light:text-black">
                 ERP
               </span>
             </div>

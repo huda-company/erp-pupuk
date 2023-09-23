@@ -147,7 +147,7 @@ export default function Page() {
           {/* Income */}
           <div className="w-[50%] p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
             <div className="pb-[0.5rem] flex justify-between pr-[2.5rem]">
-              <span className="text-3xl underline">Income</span>
+              <span className="text-3xl text-black underline">Income</span>
               <Link href={`${FE_CASHFLOW_URL.CREATE}`}>
                 <BtnAntd style={{ backgroundColor: "#338DFF" }} type="primary">
                   +
@@ -177,7 +177,7 @@ export default function Page() {
           {/* expense */}
           <div className="w-[50%] p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
             <div className="pb-[0.5rem] flex justify-between pr-[2.5rem]">
-              <span className="text-3xl underline">Expense</span>
+              <span className="text-3xl text-black underline">Expense</span>
               <Link href={`${FE_CASHFLOW_URL.CREATE}`}>
                 <BtnAntd style={{ backgroundColor: "#338DFF" }} type="primary">
                   +
