@@ -1,6 +1,9 @@
+import { ColumnsType } from "antd/es/table";
+
 import { base_url } from "@/constants/env";
 
-import { BranchFormReqType, TableHeaders } from "../types";
+import { BranchAntdDataType, BranchFormReqType, TableHeaders } from "../types";
+import { AdminBcBaseItems } from "../../config";
 
 export const initAddEditBranchForm: BranchFormReqType = {
   name: "",
@@ -31,3 +34,66 @@ export const FE_BRANCH_URL = {
   EDIT: `${base_url}/admin/branch/edit`,
   READ: `${base_url}/admin/branch/read`,
 };
+
+export const branchAntdColumns: ColumnsType<BranchAntdDataType> = [
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "Address",
+    dataIndex: "address",
+    key: "address",
+    sorter: true,
+  },
+  { title: "City", dataIndex: "city", key: "city" },
+  { title: "Description", dataIndex: "description", key: "description" },
+  {
+    title: "Action",
+    dataIndex: "operation",
+    key: "operation",
+    fixed: "right",
+    width: 95,
+  },
+];
+
+export const BranchBcBaseItems = [
+  ...AdminBcBaseItems,
+  {
+    title: "Branch",
+    href: null,
+  },
+];
+
+const BranchBcLinkItem = {
+  title: "Branch",
+  href: FE_BRANCH_URL.LIST,
+};
+
+export const AddItemBcItems = [
+  ...AdminBcBaseItems,
+  BranchBcLinkItem,
+  {
+    title: "Add Branch",
+    href: null,
+  },
+];
+
+export const EditItemBcItems = [
+  ...AdminBcBaseItems,
+  BranchBcLinkItem,
+  {
+    title: "Edit Branch",
+    href: null,
+  },
+];
+
+export const ReadItemBcItems = [
+  ...AdminBcBaseItems,
+  BranchBcLinkItem,
+  {
+    title: "Detail Branch",
+    href: null,
+  },
+];

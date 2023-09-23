@@ -24,3 +24,12 @@ export enum MODE {
 export type BranchFormProps = {
   mode: keyof typeof MODE;
 };
+
+export interface BranchAntdDataType {
+  key: React.Key;
+  name: string;
+  address: string;
+  description: string;
+  city: string;
+  operation: React.ReactNode;
+}
