@@ -1,5 +1,12 @@
 "use client";
-import { Button as BtnAntd, Dropdown, Modal, Table as TableAntd } from "antd";
+import {
+  Button as BtnAntd,
+  Dropdown,
+  Form,
+  Input,
+  Modal,
+  Table as TableAntd,
+} from "antd";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,7 +19,7 @@ import useMount from "@/hooks/useMount";
 import CustomBreadcrumb from "@/components/CustomBreadcrumb";
 import HeaderModule from "@/components/Header/HeaderModule";
 
-import { getCashflowData } from "@/services/cashflow/cashflow";
+import { searchCashflowData } from "@/services/cashflow/cashflow";
 import { APICashflowResp } from "@/services/cashflow/types";
 import { deleteItem, getItems } from "@/services/item/item";
 
@@ -26,9 +33,23 @@ export default function Page() {
   const router = useRouter();
   const [tblItm, setTblItm] = useState<CashflowAntdDataType[]>([]);
   const [itemData, setItemData] = useState<APICashflowResp[]>([]);
+  const [filterSd, setFilterSd] = useState<string>(
+    moment().startOf("month").format("YYYY-MM-DD")
+  );
+  const [filterEd, setFilterEd] = useState<string>(
+    moment().endOf("month").format("YYYY-MM-DD")
+  );
 
   const handleCallAPI = async () => {
-    const res1: StandardResp = await getCashflowData();
+    const res1: StandardResp = await searchCashflowData({
+      id: "",
+      q: "",
+      fields: "",
+      sd: filterSd,
+      ed: filterEd,
+      limit: 100,
+      page: 1,
+    });
     if (res1.success) {
       const supp: APICashflowResp[] = res1.result;
       setItemData(supp);
@@ -134,6 +155,10 @@ export default function Page() {
     );
   };
 
+  const handleFilterSubmit = () => {
+    handleCallAPI();
+  };
+
   return (
     <>
       <div className="p-2 h-screen bg-white">
@@ -143,11 +168,43 @@ export default function Page() {
           <CustomBreadcrumb items={ItemBcBaseItems} />
         </div>
         {/* body */}
+        <div className="w-full flex justify-between gap-5 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
+          <div className="w-full p-2">
+            <Form layout="inline">
+              <Form.Item>
+                <span className="text-xs">Start Date</span>
+                <Input
+                  value={filterSd}
+                  onChange={(e) => setFilterSd(e.target.value)}
+                  type="date"
+                  placeholder="input placeholder"
+                />
+              </Form.Item>
+              <Form.Item>
+                <span className="text-xs">End Date</span>
+                <Input
+                  value={filterEd}
+                  onChange={(e) => setFilterEd(e.target.value)}
+                  type="date"
+                  placeholder="input placeholder"
+                />
+              </Form.Item>
+              <div className="flex items-end align-middle">
+                <Form.Item>
+                  <BtnAntd onClick={handleFilterSubmit} type="primary">
+                    Filter
+                  </BtnAntd>
+                </Form.Item>
+              </div>
+            </Form>
+          </div>
+        </div>
+
         <div className="flex justify-between gap-5">
           {/* Income */}
           <div className="w-[50%] p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
             <div className="pb-[0.5rem] flex justify-between pr-[2.5rem]">
-              <span className="text-3xl text-black underline">Income</span>
+              <span className="text-2xl text-black underline">Income</span>
               <Link href={`${FE_CASHFLOW_URL.CREATE}`}>
                 <BtnAntd style={{ backgroundColor: "#338DFF" }} type="primary">
                   +
@@ -177,7 +234,7 @@ export default function Page() {
           {/* expense */}
           <div className="w-[50%] p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
             <div className="pb-[0.5rem] flex justify-between pr-[2.5rem]">
-              <span className="text-3xl text-black underline">Expense</span>
+              <span className="text-2xl text-black underline">Expense</span>
               <Link href={`${FE_CASHFLOW_URL.CREATE}`}>
                 <BtnAntd style={{ backgroundColor: "#338DFF" }} type="primary">
                   +

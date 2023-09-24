@@ -2,40 +2,50 @@ import { NextResponse } from "next/server";
 
 import parseQueryParameters from "@/utils/parseQueryParameters";
 
-import SupplierModel from "@/models/Supplier";
+import Cashflow from "@/models/Cashflow";
+
+import startDb from "@/lib/db";
 
 export const GET = async (req: Request) => {
   const {
     q: qVal,
-    fields: fieldsVal, // show n items
+    fields: fieldsVal,
+    sd: startDate,
+    ed: endDate,
   } = parseQueryParameters(req.url);
 
-  if (qVal === undefined || qVal.trim() === "") {
-    return NextResponse.json(
-      {
-        success: false,
-        result: [],
-        message: "No document found by this request",
-      },
-      { status: 202 }
-    );
-  }
-
-  const fieldsArray = fieldsVal
-    ? fieldsVal.split(",")
-    : ["name", "surname", "birthday"];
+  const fieldsArray = fieldsVal.split(",");
 
   // Explicitly define the type of the `fields` object
-  const fields: { $or: Array<{ [key: string]: { $regex: RegExp } }> } = {
+  const fields: {
+    $or: Array<{ [key: string]: { $regex: RegExp } }>;
+    date: { $gte: Date; $lte: Date }; // Filter for date range
+  } = {
     $or: [],
+    date: {
+      $gte: new Date(startDate || Date.now().toString()), // Replace with your start date
+      $lte: new Date(endDate || Date.now().toString()), // Replace with your end date
+    },
   };
 
   for (const field of fieldsArray) {
     fields.$or.push({ [field]: { $regex: new RegExp(qVal, "i") } });
   }
 
+  const filterDateRangeOnly = {
+    date: {
+      $gte: new Date(startDate || Date.now().toString()), // Replace with your start date
+      $lte: new Date(endDate || Date.now().toString()), // Replace with your end date
+    },
+  };
+
+  const theFilter =
+    qVal === undefined || qVal.trim() === "" ? filterDateRangeOnly : fields;
+
+  await startDb();
+
   try {
-    const results = await SupplierModel.find(fields)
+    const results = await Cashflow.find(theFilter)
       .where("removed", false)
       .limit(10);
 
