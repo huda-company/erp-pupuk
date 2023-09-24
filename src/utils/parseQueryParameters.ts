@@ -6,6 +6,8 @@ export default function parseQueryParameters(urlString: string): {
   page: number;
   limit: number;
   items: number;
+  sd?: string;
+  ed?: string;
 } {
   // Create a URL object from the URL string
   const url = new URL(urlString);
@@ -19,7 +21,9 @@ export default function parseQueryParameters(urlString: string): {
   const page = parseInt(queryParams.get("page") || "1", 10);
   const limit = parseInt(queryParams.get("limit") || "10", 10);
   const items = parseInt(queryParams.get("items") || "10", 10);
+  const sd = queryParams.get("sd") || "";
+  const ed = queryParams.get("ed") || "";
 
   // Return an object containing the extracted values
-  return { id, q, fields, page, limit, items };
+  return { id, q, fields, page, limit, items, sd, ed };
 }
