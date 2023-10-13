@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 
-import SupplierModel from "@/models/Supplier";
+import ItemCategory from "@/models/ItemCategory";
 
 import startDb from "@/lib/db";
 
 export const PATCH = async (req: Request) => {
-  const idVal = req.url.split("/supplier/update/")[1];
+  const idVal = req.url.split("/itemcategory/update/")[1];
 
   const bodyParam = await req.json();
 
@@ -14,7 +14,7 @@ export const PATCH = async (req: Request) => {
       await startDb();
 
       // Find document by id and updates with the required fields
-      const result = await SupplierModel.findOneAndUpdate(
+      const result = await ItemCategory.findOneAndUpdate(
         { _id: idVal, removed: false },
         bodyParam,
         {

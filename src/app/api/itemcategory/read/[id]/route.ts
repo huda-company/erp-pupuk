@@ -1,18 +1,18 @@
 import { NextResponse } from "next/server";
 
-import SupplierModel from "@/models/Supplier";
+import ItemCategory from "@/models/ItemCategory";
 
 import startDb from "@/lib/db";
 
 export const GET = async (req: Request) => {
-  const idVal = req.url.split("/supplier/read/")[1];
+  const idVal = req.url.split("/itemcategory/read/")[1];
 
   if (idVal) {
     try {
       await startDb();
 
       // Find document by id and updates with the required fields
-      const result = await SupplierModel.findOne({
+      const result = await ItemCategory.findOne({
         _id: idVal,
         removed: false,
       });
@@ -30,7 +30,7 @@ export const GET = async (req: Request) => {
         {
           success: false,
           result: [],
-          message: "Error read supplier",
+          message: "Error read ItemCategory",
           error: err,
         },
         { status: 500 }
