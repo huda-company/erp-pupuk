@@ -15,11 +15,15 @@ export const initAddEditItemForm: ItemFormType = {
   name: "",
   price: "0",
   description: "",
+  brand: "",
+  packaging: "",
 };
 
 export const ITEMFORM_ERRORS = {
   ITEMCATEGORY_REQUIRED: "Category cannot empty",
   NAME_REQUIRED: "Name cannot empty",
+  BRAND_REQUIRED: "Brand cannot empty",
+  PACKAGING_REQUIRED: "Packaging cannot empty",
   PRICE_NAME_REQUIRED: "Price Name cannot empty",
 };
 

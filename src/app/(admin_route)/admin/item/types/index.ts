@@ -10,6 +10,8 @@ export type BaseItemForm = {
   name: string;
   price: string;
   description: string;
+  brand: string;
+  packaging: string;
 };
 
 export type ItemFormType = {

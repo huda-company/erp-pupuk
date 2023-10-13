@@ -25,6 +25,16 @@ const itemSchema = new Schema<ItemDocument>({
     trim: true,
     require: true,
   },
+  brand: {
+    type: String,
+    trim: true,
+    require: true,
+  },
+  packaging: {
+    type: String,
+    trim: true,
+    require: true,
+  },
   description: {
     type: String,
     trim: true,

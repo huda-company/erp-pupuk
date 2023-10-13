@@ -45,6 +45,8 @@ export default function Page() {
         name: itm.name,
         price: String(itm.price),
         description: itm.description,
+        brand: itm.brand,
+        packaging: itm.packaging,
       };
       setFormVal(val);
     }
@@ -79,6 +81,8 @@ export default function Page() {
       name: String(formikVal?.name),
       price: String(formikVal?.price),
       description: String(formikVal?.description),
+      brand: String(formikVal?.brand),
+      packaging: String(formikVal?.packaging),
     };
 
     const newSupp = await editItem(params);

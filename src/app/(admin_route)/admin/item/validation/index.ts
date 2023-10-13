@@ -7,10 +7,14 @@ const AddEditItemSchema = Yup.object().shape({
 
   name: Yup.string().required(ITEMFORM_ERRORS.NAME_REQUIRED),
 
-  price: Yup.number()
-    .integer()
-    .positive()
-    .required(ITEMFORM_ERRORS.PRICE_NAME_REQUIRED),
+  brand: Yup.string().required(ITEMFORM_ERRORS.BRAND_REQUIRED),
+
+  packaging: Yup.string().required(ITEMFORM_ERRORS.PACKAGING_REQUIRED),
+
+  // price: Yup.number()
+  //   .integer()
+  //   .positive()
+  //   .required(ITEMFORM_ERRORS.PRICE_NAME_REQUIRED),
 });
 
 export default AddEditItemSchema;

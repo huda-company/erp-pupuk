@@ -7,5 +7,7 @@ export type APIItemResp = {
   enabled: boolean;
   name: string;
   description: string;
+  brand: string;
+  packaging: string;
   price: number;
 };
