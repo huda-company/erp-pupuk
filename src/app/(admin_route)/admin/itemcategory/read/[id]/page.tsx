@@ -5,14 +5,12 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
-import convToOpts from "@/utils/convToOpts";
 import { useAppDispatch } from "@/hooks";
 import useMount from "@/hooks/useMount";
 
 import { base_url } from "@/constants/env";
 
 import CustomBreadcrumb from "@/components/CustomBreadcrumb";
-import { Option } from "@/components/Dropdown/types";
 import HeaderModule from "@/components/Header/HeaderModule";
 
 import { actions as utilsActions } from "@/redux/utils";
@@ -20,7 +18,6 @@ import { actions as utilsActions } from "@/redux/utils";
 import { APIItemResp } from "@/services/item/types";
 import {
   editItemCategory,
-  getItemCategory,
   getItemCategoryById,
 } from "@/services/itemCategory/itemCategory";
 
@@ -37,7 +34,6 @@ export default function Page() {
   const dispatch = useAppDispatch();
 
   const [itm, setItm] = useState<APIItemResp | undefined>(undefined);
-  const [itmCatOpts, setItmCatOpts] = useState<Option[]>([]);
 
   const [formVal, setFormVal] = useState<ItemCatFormType | undefined>(
     undefined
@@ -59,13 +55,6 @@ export default function Page() {
   }, [setInitFormVal]);
 
   const handleCallAPIs = async () => {
-    const { success: itmCatSuccess, result: itmCatRes }: StandardResp =
-      await getItemCategory();
-    if (itmCatSuccess) {
-      const itmCatOpts: Option[] = await convToOpts(itmCatRes, "_id", "name");
-      setItmCatOpts(itmCatOpts);
-    }
-
     const res1: StandardResp = await getItemCategoryById(String(urlParam?.id));
     if (res1.success && res1.result) {
       setItm(res1.result);
