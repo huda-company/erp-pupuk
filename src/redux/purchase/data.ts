@@ -15,6 +15,7 @@ export const initialState: PurchaseState = {
   purchPaymentMethodOpt: emptyOption,
   discount: 0,
   billingCode: "",
+  soNumber: "",
   expDate: Date.now().toString(),
   grandTotal: 0,
   note: "",

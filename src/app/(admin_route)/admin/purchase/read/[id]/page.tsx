@@ -13,7 +13,7 @@ import {
   Space,
 } from "antd";
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import React from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -42,6 +42,7 @@ import { FE_PURCHASING_URL, ReadPurchBcItems } from "../../config";
 export default function Page() {
   const dispatch = useAppDispatch();
   const urlParam = useParams();
+  const router = useRouter();
 
   const inputRef = useRef<InputRef>(null);
 
@@ -88,7 +89,7 @@ export default function Page() {
 
   const items = [
     {
-      key: "1",
+      key: "generatePDF",
       label: (
         <a
           target="_blank"
@@ -98,6 +99,13 @@ export default function Page() {
           generate pdf
         </a>
       ),
+    },
+    {
+      key: "edit",
+      label: "edit",
+      onClick: () => {
+        router.push(`${FE_PURCHASING_URL.EDIT}/${urlParam?.id}`);
+      },
     },
   ];
 
@@ -282,6 +290,10 @@ export default function Page() {
                 <div className="flex flex-row gap-1.5 w-full">
                   <div className="w-[40%]">Billing Code</div>
                   <div>: {itm?.billingCode}</div>
+                </div>
+                <div className="flex flex-row gap-1.5 w-full">
+                  <div className="w-[40%]">SO Number</div>
+                  <div>: {itm?.soNumber}</div>
                 </div>
                 <div className="flex flex-row gap-1.5 w-full">
                   <div className="w-[40%]">Date</div>

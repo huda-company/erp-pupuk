@@ -22,6 +22,7 @@ export type APIPurchaseReq = {
   _id?: string;
   recurring?: boolean;
   billingCode: string;
+  soNumber?: string;
   year: number;
   expDate: string;
   supplier?: string;
@@ -47,6 +48,7 @@ export type APIPurchaseResp = {
   items: PurcItemsRes[];
   poNo: string;
   billingCode: string;
+  soNumber: string;
   status: string;
   paymentStatus: string;
   purchPaymentMethod: string;
