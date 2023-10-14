@@ -9,7 +9,6 @@ import { useAppDispatch } from "@/hooks";
 import useMount from "@/hooks/useMount";
 
 import CustomBreadcrumb from "@/components/CustomBreadcrumb";
-import { Option } from "@/components/Dropdown/types";
 import HeaderModule from "@/components/Header/HeaderModule";
 
 import { actions as utilsActions } from "@/redux/utils";
@@ -36,7 +35,6 @@ export default function Page() {
   const [formVal, setFormVal] = useState<ItemCatFormType | undefined>(
     undefined
   );
-  const [itmCatOpts, setItmCatOpts] = useState<Option[]>([]);
 
   const setInitFormVal = useCallback(() => {
     if (itm) {
@@ -65,7 +63,6 @@ export default function Page() {
   });
 
   const handleSubmit = async (formikVal: ItemCatFormType) => {
-    console.log("aaa");
     const params: ItemCatFormType = {
       _id: formikVal?._id,
       name: String(formikVal?.name),
