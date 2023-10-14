@@ -59,8 +59,9 @@ export const itemAntdColumns: ColumnsType<ItemAntdDataType> = [
     key: "category",
     sorter: true,
   },
-  { title: "Price", dataIndex: "price", key: "price" },
   { title: "Description", dataIndex: "description", key: "description" },
+  { title: "Brand", dataIndex: "brand", key: "brand" },
+  { title: "Packaging", dataIndex: "packaging", key: "packaging" },
   {
     title: "Action",
     dataIndex: "operation",

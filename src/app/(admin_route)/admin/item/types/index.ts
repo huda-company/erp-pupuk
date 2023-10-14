@@ -36,6 +36,6 @@ export interface ItemAntdDataType {
   name: string;
   category: string;
   description: string;
-  price: number;
+  price?: number;
   operation: React.ReactNode;
 }

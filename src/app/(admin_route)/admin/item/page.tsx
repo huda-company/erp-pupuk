@@ -59,58 +59,61 @@ export default function Page() {
 
   const handleLoadItemData = useCallback(async () => {
     if (Array.isArray(itemData)) {
-      const itmTbl: ItemAntdDataType[] = itemData.map((x) => {
-        const items = [
-          {
-            key: "1",
-            onClick: () => {
-              router.push(`${FE_ITEM_URL.READ}/${x._id}`);
-            },
-            label: "Details",
-          },
-          {
-            key: "2",
-            onClick: () => {
-              router.push(`${FE_ITEM_URL.EDIT}/${x._id}`);
-            },
-            label: "Edit",
-          },
-          {
-            key: "3",
-            onClick: () => {
-              showDeleteConfirm(x._id);
-            },
-            label: "Delete",
-          },
-        ];
+      const itmTbl: ItemAntdDataType[] =
+        itemData.length > 0
+          ? itemData.map((x) => {
+              const items = [
+                {
+                  key: "1",
+                  onClick: () => {
+                    router.push(`${FE_ITEM_URL.READ}/${x._id}`);
+                  },
+                  label: "Details",
+                },
+                {
+                  key: "2",
+                  onClick: () => {
+                    router.push(`${FE_ITEM_URL.EDIT}/${x._id}`);
+                  },
+                  label: "Edit",
+                },
+                {
+                  key: "3",
+                  onClick: () => {
+                    showDeleteConfirm(x._id);
+                  },
+                  label: "Delete",
+                },
+              ];
 
-        const oprtns = (
-          <Dropdown
-            className="w-[100px] rounded-lg ml-[1rem]"
-            menu={{ items }}
-            placement="bottomRight"
-            arrow
-          >
-            <BtnAntd
-              shape="circle"
-              icon={<BsThreeDots />}
-              type="primary"
-              size="small"
-              style={{ backgroundColor: "#47AB1E" }}
-            ></BtnAntd>
-          </Dropdown>
-        );
+              const oprtns = (
+                <Dropdown
+                  className="w-[100px] rounded-lg ml-[1rem]"
+                  menu={{ items }}
+                  placement="bottomRight"
+                  arrow
+                >
+                  <BtnAntd
+                    shape="circle"
+                    icon={<BsThreeDots />}
+                    type="primary"
+                    size="small"
+                    style={{ backgroundColor: "#47AB1E" }}
+                  ></BtnAntd>
+                </Dropdown>
+              );
 
-        return {
-          key: x._id,
-          name: x.name,
-          category: x.description,
-          price: x.price,
-          description: x.description,
-          // itemCategory: x.itemCategory,
-          operation: oprtns,
-        };
-      });
+              return {
+                key: x._id,
+                name: x.name,
+                category: x.itemCategory.name,
+                description: x.description,
+                brand: x.brand,
+                packaging: x.packaging,
+                operation: oprtns,
+              };
+            })
+          : [];
 
       setTblItm(itmTbl);
     }
