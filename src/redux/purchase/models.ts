@@ -12,6 +12,7 @@ export type PurchaseState = {
   _id?: string;
   recurring?: boolean;
   billingCode: string;
+  soNumber: string;
   year: number;
   expDate: string;
   supplier?: string;

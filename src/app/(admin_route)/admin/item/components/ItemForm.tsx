@@ -62,7 +62,7 @@ const ItemForm: FC<ItemFormProps> = ({ mode, itemCatOpts }) => {
         <ValidationMessage name="name" />
       </div>
 
-      <div className="w-[50%]">
+      {/* <div className="w-[50%]">
         <Label
           containerStyle="bg-transparent"
           text="Price"
@@ -77,6 +77,40 @@ const ItemForm: FC<ItemFormProps> = ({ mode, itemCatOpts }) => {
           readOnly={mode == "READ"}
         />
         <ValidationMessage name="price" />
+      </div> */}
+
+      <div className="w-[50%]">
+        <Label
+          containerStyle="bg-transparent"
+          text="Brand / Merk"
+          textColor="text-imporable"
+          textStyle="text-sm font-bold text-improbable"
+          isRequired
+        />
+        <FormInput
+          name="brand"
+          type="text"
+          placeholder="Brand / Merk"
+          readOnly={mode == "READ"}
+        />
+        <ValidationMessage name="brand" />
+      </div>
+
+      <div className="w-[50%]">
+        <Label
+          containerStyle="bg-transparent"
+          text="Packaging"
+          textColor="text-imporable"
+          textStyle="text-sm font-bold text-improbable"
+          isRequired
+        />
+        <FormInput
+          name="packaging"
+          type="text"
+          placeholder="Packaging"
+          readOnly={mode == "READ"}
+        />
+        <ValidationMessage name="packaging" />
       </div>
 
       <div className="w-[50%]">

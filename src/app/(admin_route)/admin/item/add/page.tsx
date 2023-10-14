@@ -22,7 +22,7 @@ import { StandardResp } from "@/app/api/types";
 import ItemForm from "../components/ItemForm";
 import { AddItemBcItems, FE_ITEM_URL, initAddEditItemForm } from "../config";
 import { ItemFormAPIReqType, ItemFormType } from "../types";
-import AddEditSupplierSchema from "../validation";
+import AddEditItemSchema from "../validation";
 
 export default function Page() {
   const router = useRouter();
@@ -49,6 +49,8 @@ export default function Page() {
       name: formikVal.name,
       price: formikVal.price,
       description: formikVal.description,
+      brand: formikVal.brand,
+      packaging: formikVal.packaging,
     };
     const newSupp = await addItem(params);
     if (newSupp.success) {
@@ -70,7 +72,7 @@ export default function Page() {
     enableReinitialize: true,
     validateOnChange: false,
     validateOnBlur: false,
-    validationSchema: AddEditSupplierSchema,
+    validationSchema: AddEditItemSchema,
     onSubmit: handleSubmit,
   });
 

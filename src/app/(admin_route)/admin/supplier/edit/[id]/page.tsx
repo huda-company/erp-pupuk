@@ -71,7 +71,7 @@ export default function Page() {
     if (newSupp.success) {
       await dispatch(
         utilsActions.callShowToast({
-          variation: "Secondary",
+          type: "success",
           msg: "success",
           icon: {
             src: "/svg/SuccessCheck.svg",

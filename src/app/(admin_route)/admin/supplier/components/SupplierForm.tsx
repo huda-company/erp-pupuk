@@ -5,6 +5,7 @@ import { FC } from "react";
 
 import Button from "@/components/Button";
 import FormInput from "@/components/Formik/FormInput";
+import FormInputArea from "@/components/Formik/FormInputArea";
 import ValidationMessage from "@/components/Formik/ValidationMessage";
 import Label from "@/components/Label";
 import Typography from "@/components/Typography";
@@ -119,9 +120,34 @@ const SupplierForm: FC<SupplierFormProps> = ({ mode }) => {
         <ValidationMessage name="tel" />
       </div>
 
+      <div className="w-[50%]">
+        <Label
+          containerStyle="bg-transparent"
+          text="Address"
+          textColor="text-imporable"
+          textStyle="text-sm font-bold text-improbable"
+          isRequired
+        />
+        <FormInputArea
+          name="address"
+          placeholder="Address"
+          readOnly={mode == "READ"}
+        />
+        <ValidationMessage name="address" />
+      </div>
+
       <div className="mt-[0rem] flex w-[23.313rem]">
         {mode != "READ" && (
           <>
+            <div className="w-[50%]">
+              <Button
+                size="sm"
+                className="bg-red-400"
+                onClick={() => router.back()}
+              >
+                <Typography className="font-bold text-base">Cancel</Typography>
+              </Button>
+            </div>
             <div className="ml-[0.818rem] w-[50%]">
               <Button
                 className="bg-green-400"
@@ -133,15 +159,6 @@ const SupplierForm: FC<SupplierFormProps> = ({ mode }) => {
                 <Typography color="white" className="font-bold text-base">
                   Save
                 </Typography>
-              </Button>
-            </div>
-            <div className="w-[50%]">
-              <Button
-                size="sm"
-                className="bg-red-400"
-                onClick={() => router.back()}
-              >
-                <Typography className="font-bold text-base">Cancel</Typography>
               </Button>
             </div>
           </>

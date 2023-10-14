@@ -12,6 +12,7 @@ export interface PurchaseDocument extends Document {
   items: PurchItem[];
   poNo: string;
   billingCode: string;
+  soNumber: string;
   number: number;
   recurring: string;
   year: number;

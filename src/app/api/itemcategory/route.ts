@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import Item from "@/models/Item/Item";
+import ItemCategory from "@/models/ItemCategory";
 
 import startDb from "@/lib/db";
 
@@ -12,14 +12,14 @@ export const POST = async (req: Request) => {
 
     await startDb();
 
-    const doCreateItem = await Item.create(bodyParam);
+    const doCreateItem = await ItemCategory.create(bodyParam);
 
     return NextResponse.json(
       {
         ...initStandardResp,
         success: true,
         result: doCreateItem,
-        message: "Successfully Created item",
+        message: "Successfully Created Item Category",
       },
       { status: 200 }
     );

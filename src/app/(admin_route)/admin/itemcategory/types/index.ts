@@ -5,30 +5,18 @@ import { MODE } from "../../supplier/types";
 
 export const emptyOption: Option = { id: "", label: "" };
 
-export type BaseItemForm = {
+export type ItemCatFormType = {
   _id?: string;
   name: string;
-  price: string;
   description: string;
-  brand: string;
-  packaging: string;
 };
-
-export type ItemFormType = {
-  itemCategoryOpt: Option;
-} & BaseItemForm;
-
-export type ItemFormAPIReqType = {
-  itemCategory: string;
-} & BaseItemForm;
 
 export type TableHeaders = {
   itmListHeader: TableHeader;
 };
 
-export type ItemFormProps = {
+export type ItemCatFormProps = {
   mode: keyof typeof MODE;
-  itemCatOpts: Option[];
 };
 
 export interface ItemAntdDataType {
@@ -36,6 +24,6 @@ export interface ItemAntdDataType {
   name: string;
   category: string;
   description: string;
-  price?: number;
+  price: number;
   operation: React.ReactNode;
 }

@@ -124,6 +124,21 @@ const PurchaseForm: FC<PurchaseFormProps> = ({
               />
               <ValidationMessage name="supplierOpt" />
             </div>
+            <div className="w-[50%] pt-[0.7rem]">
+              <Label
+                containerStyle="bg-transparent"
+                text="SO Number"
+                textColor="text-imporable"
+                textStyle="text-sm font-bold text-improbable"
+              />
+              <FormInput
+                name="soNumber"
+                type="text"
+                placeholder="Sales Order / Delivery Order"
+                readOnly={mode == "READ"}
+              />
+              <ValidationMessage name="soNumber" />
+            </div>
           </div>
 
           {/* note field */}

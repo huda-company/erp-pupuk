@@ -15,6 +15,10 @@ const purchaseSchema = new Schema<PurchaseDocument>({
     type: String,
     default: "",
   },
+  soNumber: {
+    type: String,
+    default: "",
+  },
   paymentStatus: {
     type: String,
     default: "unpaid",

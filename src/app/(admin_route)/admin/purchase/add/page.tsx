@@ -72,11 +72,12 @@ export default function Page() {
   }, [handleLoadData]);
 
   const handleSubmit = async (formikVal: PurchaseState) => {
-    const isFormValid = true;
+    let isFormValid = true;
 
     const { items } = formikVal;
     if (items.length == 1 && items[0].itemOpt.id == "") {
       setAlertMsg("item cannot empty");
+      isFormValid = false;
       setShowAlert(true);
     }
 
@@ -104,6 +105,7 @@ export default function Page() {
       if (createPurch.success) {
         await dispatch(
           utilsActions.callShowToast({
+            type: "success",
             title: "Sucessfully created",
             msg: "new po successfully created",
             timeout: 3000,
@@ -112,16 +114,16 @@ export default function Page() {
         await router.push(
           `${FE_PURCHASING_URL.READ}/${createPurch.result._id}`
         );
+      } else {
+        await dispatch(
+          utilsActions.callShowToast({
+            type: "warning",
+            title: "Error",
+            msg: "failed to create new po",
+            timeout: 3000,
+          })
+        );
       }
-    } else {
-      await dispatch(
-        utilsActions.callShowToast({
-          type: "warning",
-          title: "Error",
-          msg: "failed to create new po",
-          timeout: 3000,
-        })
-      );
     }
   };
 

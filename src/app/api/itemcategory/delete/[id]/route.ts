@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 
-import SupplierModel from "@/models/Supplier";
+import ItemCategory from "@/models/ItemCategory";
 
 import startDb from "@/lib/db";
 
 export const DELETE = async (req: Request) => {
-  const idVal = req.url.split("/supplier/delete/")[1];
+  const idVal = req.url.split("/itemcategory/delete/")[1];
 
   if (idVal) {
     try {
@@ -15,7 +15,7 @@ export const DELETE = async (req: Request) => {
         removed: true,
       };
 
-      const result = await SupplierModel.findOneAndUpdate(
+      const result = await ItemCategory.findOneAndUpdate(
         { _id: idVal, removed: false },
         { $set: updates },
         {
@@ -36,7 +36,7 @@ export const DELETE = async (req: Request) => {
         {
           success: false,
           result: [],
-          message: "Error delete supplier",
+          message: "Error delete ItemCategory",
           error: err,
         },
         { status: 500 }

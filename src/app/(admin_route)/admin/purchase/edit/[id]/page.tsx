@@ -86,6 +86,7 @@ export default function Page() {
         items: mappedItm,
 
         billingCode: poRes.billingCode,
+        soNumber: poRes.soNumber,
         subTotal: poRes.subTotal,
         taxTotal: poRes.taxTotal,
         grandTotal: poRes.grandTotal,
@@ -133,6 +134,7 @@ export default function Page() {
         items: convItms.items,
         year: formikVal.year,
         billingCode: formikVal.billingCode,
+        soNumber: formikVal.soNumber,
         expDate: String(formikVal.expDate),
         supplier: formikVal.supplierOpt.id,
         ppnIncluded: false,

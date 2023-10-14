@@ -2,28 +2,17 @@ import { ColumnsType } from "antd/es/table";
 
 import { base_url } from "@/constants/env";
 
-import {
-  emptyOption,
-  ItemAntdDataType,
-  ItemFormType,
-  TableHeaders,
-} from "../types";
+import { ItemAntdDataType, ItemCatFormType, TableHeaders } from "../types";
 import { AdminBcBaseItems } from "../../config";
 
-export const initAddEditItemForm: ItemFormType = {
-  itemCategoryOpt: emptyOption,
+export const initAddEditItemCatForm: ItemCatFormType = {
   name: "",
-  price: "0",
   description: "",
-  brand: "",
-  packaging: "",
 };
 
 export const ITEMFORM_ERRORS = {
   ITEMCATEGORY_REQUIRED: "Category cannot empty",
   NAME_REQUIRED: "Name cannot empty",
-  BRAND_REQUIRED: "Brand cannot empty",
-  PACKAGING_REQUIRED: "Packaging cannot empty",
   PRICE_NAME_REQUIRED: "Price Name cannot empty",
 };
 
@@ -40,28 +29,20 @@ export const tableHeaders: TableHeaders = {
   ],
 };
 
-export const FE_ITEM_URL = {
-  LIST: `${base_url}/admin/item`,
-  CREATE: `${base_url}/admin/item/add`,
-  EDIT: `${base_url}/admin/item/edit`,
-  READ: `${base_url}/admin/item/read`,
+export const FE_ITEM_CAT_URL = {
+  LIST: `${base_url}/admin/itemcategory`,
+  CREATE: `${base_url}/admin/itemcategory/add`,
+  EDIT: `${base_url}/admin/itemcategory/edit`,
+  READ: `${base_url}/admin/itemcategory/read`,
 };
 
-export const itemAntdColumns: ColumnsType<ItemAntdDataType> = [
+export const itemCatAntdColumns: ColumnsType<ItemAntdDataType> = [
   {
     title: "Name",
     dataIndex: "name",
     key: "name",
   },
-  {
-    title: "Category",
-    dataIndex: "category",
-    key: "category",
-    sorter: true,
-  },
   { title: "Description", dataIndex: "description", key: "description" },
-  { title: "Brand", dataIndex: "brand", key: "brand" },
-  { title: "Packaging", dataIndex: "packaging", key: "packaging" },
   {
     title: "Action",
     dataIndex: "operation",
@@ -81,7 +62,7 @@ export const ItemBcBaseItems = [
 
 const ItemBcLinkItem = {
   title: "Item",
-  href: FE_ITEM_URL.LIST,
+  href: FE_ITEM_CAT_URL.LIST,
 };
 
 export const AddItemBcItems = [

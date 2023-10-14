@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import React, { ReactNode, Suspense, useState } from "react";
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
+import { BiCategory } from "react-icons/bi";
 import {
   BsCart4,
   BsCashCoin,
@@ -91,10 +92,25 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
     {
       key: "3",
       icon: <BsFiles />,
-      label: "Item",
-      onClick: () => {
-        router.push(`${base_url}/admin/item`);
-      },
+      label: "Master Item",
+      children: [
+        {
+          key: "Item Category",
+          icon: <BiCategory />,
+          label: "Item Category",
+          onClick: () => {
+            router.push(`${base_url}/admin/itemcategory`);
+          },
+        },
+        {
+          key: "Item",
+          icon: <BsFiles />,
+          label: "Item",
+          onClick: () => {
+            router.push(`${base_url}/admin/item`);
+          },
+        },
+      ],
     },
     {
       key: "4",
@@ -196,7 +212,7 @@ const BasePage: React.FC<BasePageProps> = ({ children }) => {
                     height: 64,
                   }}
                 />
-                <span className="text-2xl">PT ANUGERAH TANI MAKMUR</span>
+                <span className="text-2xl">ANUGERAH TANI MAKMUR</span>
               </div>
               <div className="flex flex-row">
                 <span className="">Hi, {data?.user.email}</span>

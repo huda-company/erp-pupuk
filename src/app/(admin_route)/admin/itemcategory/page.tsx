@@ -10,12 +10,15 @@ import useMount from "@/hooks/useMount";
 import CustomBreadcrumb from "@/components/CustomBreadcrumb";
 import HeaderModule from "@/components/Header/HeaderModule";
 
-import { deleteItem, getItems } from "@/services/item/item";
 import { APIItemResp } from "@/services/item/types";
+import {
+  deleteItemCategory,
+  getItemCategory,
+} from "@/services/itemCategory/itemCategory";
 
 import { StandardResp } from "@/app/api/types";
 
-import { FE_ITEM_URL, itemAntdColumns, ItemBcBaseItems } from "./config";
+import { FE_ITEM_CAT_URL, ItemBcBaseItems, itemCatAntdColumns } from "./config";
 import { ItemAntdDataType } from "./types";
 
 export default function Page() {
@@ -25,7 +28,7 @@ export default function Page() {
   const [itemData, setItemData] = useState<APIItemResp[]>([]);
 
   const handleCallAPI = async () => {
-    const res1: StandardResp = await getItems();
+    const res1: StandardResp = await getItemCategory();
     if (res1.success) {
       const supp: APIItemResp[] = res1.result;
       setItemData(supp);
@@ -46,9 +49,9 @@ export default function Page() {
         cancelText: "No",
         centered: true,
         async onOk() {
-          const resDel: StandardResp = await deleteItem(id);
+          const resDel: StandardResp = await deleteItemCategory(id);
           if (resDel.success) {
-            const newItems: StandardResp = await getItems();
+            const newItems: StandardResp = await getItemCategory();
             await setItemData(newItems.result);
           }
         },
@@ -59,61 +62,58 @@ export default function Page() {
 
   const handleLoadItemData = useCallback(async () => {
     if (Array.isArray(itemData)) {
-      const itmTbl: ItemAntdDataType[] =
-        itemData.length > 0
-          ? itemData.map((x) => {
-              const items = [
-                {
-                  key: "1",
-                  onClick: () => {
-                    router.push(`${FE_ITEM_URL.READ}/${x._id}`);
-                  },
-                  label: "Details",
-                },
-                {
-                  key: "2",
-                  onClick: () => {
-                    router.push(`${FE_ITEM_URL.EDIT}/${x._id}`);
-                  },
-                  label: "Edit",
-                },
-                {
-                  key: "3",
-                  onClick: () => {
-                    showDeleteConfirm(x._id);
-                  },
-                  label: "Delete",
-                },
-              ];
+      const itmTbl: ItemAntdDataType[] = itemData.map((x) => {
+        const items = [
+          {
+            key: "1",
+            onClick: () => {
+              router.push(`${FE_ITEM_CAT_URL.READ}/${x._id}`);
+            },
+            label: "Details",
+          },
+          {
+            key: "2",
+            onClick: () => {
+              router.push(`${FE_ITEM_CAT_URL.EDIT}/${x._id}`);
+            },
+            label: "Edit",
+          },
+          {
+            key: "3",
+            onClick: () => {
+              showDeleteConfirm(x._id);
+            },
+            label: "Delete",
+          },
+        ];
 
-              const oprtns = (
-                <Dropdown
-                  className="w-[100px] rounded-lg ml-[1rem]"
-                  menu={{ items }}
-                  placement="bottomRight"
-                  arrow
-                >
-                  <BtnAntd
-                    shape="circle"
-                    icon={<BsThreeDots />}
-                    type="primary"
-                    size="small"
-                    style={{ backgroundColor: "#47AB1E" }}
-                  ></BtnAntd>
-                </Dropdown>
-              );
+        const oprtns = (
+          <Dropdown
+            className="w-[100px] rounded-lg ml-[1rem]"
+            menu={{ items }}
+            placement="bottomRight"
+            arrow
+          >
+            <BtnAntd
+              shape="circle"
+              icon={<BsThreeDots />}
+              type="primary"
+              size="small"
+              style={{ backgroundColor: "#47AB1E" }}
+            ></BtnAntd>
+          </Dropdown>
+        );
 
-              return {
-                key: x._id,
-                name: x.name,
-                category: x.itemCategory.name,
-                description: x.description,
-                brand: x.brand,
-                packaging: x.packaging,
-                operation: oprtns,
-              };
-            })
-          : [];
+        return {
+          key: x._id,
+          name: x.name,
+          category: x.description,
+          price: x.price,
+          description: x.description,
+          // itemCategory: x.itemCategory,
+          operation: oprtns,
+        };
+      });
 
       setTblItm(itmTbl);
     }
@@ -128,20 +128,20 @@ export default function Page() {
       <div className="p-2 h-screen bg-white">
         {/* title */}
         <div className="flex justify-between p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700">
-          <HeaderModule title="Item" />
+          <HeaderModule title="Item Category" />
           <CustomBreadcrumb items={ItemBcBaseItems} />
         </div>
         {/* body */}
         <div className="p-2 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-2">
           <div className="pb-[0.5rem] flex justify-end pr-[2.5rem]">
-            <Link href={`${FE_ITEM_URL.CREATE}`}>
+            <Link href={`${FE_ITEM_CAT_URL.CREATE}`}>
               <BtnAntd style={{ backgroundColor: "#338DFF" }} type="primary">
                 +
               </BtnAntd>
             </Link>
           </div>
           <TableAntd
-            columns={itemAntdColumns}
+            columns={itemCatAntdColumns}
             dataSource={tblItm}
             pagination={{ pageSize: 50 }}
             scroll={{ x: 1300 }}
